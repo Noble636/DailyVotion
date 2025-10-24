@@ -15,7 +15,7 @@ function UserFPW() {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email.trim()) {
       setError("Please enter your email address.");
@@ -23,25 +23,53 @@ function UserFPW() {
     }
     setError("");
     setSubmitted(true);
-    setShowOTP(true); // Show OTP UI after email is submitted
-    // Here you would trigger your OTP send logic (API call)
+    try {
+      const resp = await fetch('/api/user/forgot-password/verify-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const data = await resp.json();
+      if (!resp.ok) {
+        setError(data && data.error ? data.error : 'Failed to send OTP');
+        return;
+      }
+      setShowOTP(true);
+    } catch (err) {
+      console.error('send-otp error', err);
+      setError('Failed to send OTP');
+    }
   };
 
   // Update OTP submit to show reset section
-  const handleOTPSubmit = (e) => {
+  const handleOTPSubmit = async (e) => {
     e.preventDefault();
     if (!otp.trim()) {
       setError("Please enter the OTP sent to your email.");
       return;
     }
     setError("");
-    setShowReset(true); // Show password reset section
-    setShowOTP(false);
-    // Bypass backend for now
+    try {
+      const resp = await fetch('/api/user/forgot-password/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, otp })
+      });
+      const data = await resp.json();
+      if (!resp.ok) {
+        setError(data && data.error ? data.error : 'Invalid OTP');
+        return;
+      }
+      setShowReset(true);
+      setShowOTP(false);
+    } catch (err) {
+      console.error('verify-otp error', err);
+      setError('Failed to verify OTP');
+    }
   };
 
   // Handle password reset submit (bypass for now)
-  const handleResetSubmit = (e) => {
+  const handleResetSubmit = async (e) => {
     e.preventDefault();
     if (!newPassword.trim() || !confirmPassword.trim()) {
       setError("Please fill in both password fields.");
@@ -52,8 +80,22 @@ function UserFPW() {
       return;
     }
     setError("");
-    alert("Password changed! (bypassed, implement backend later)");
-    // Optionally redirect or reset state
+    try {
+      const resp = await fetch('/api/user/forgot-password/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, newPassword })
+      });
+      const data = await resp.json();
+      if (!resp.ok) {
+        setError(data && data.error ? data.error : 'Failed to reset password');
+        return;
+      }
+      alert('Password changed successfully. You may now log in.');
+    } catch (err) {
+      console.error('reset-password error', err);
+      setError('Failed to reset password');
+    }
   };
 
   return (

@@ -29,30 +29,59 @@ function AdminFPW() {
     // On success, show email input step
   };
 
-  const handleEmailSubmit = (e) => {
+  const handleEmailSubmit = async (e) => {
     e.preventDefault();
     if (!email.trim()) {
       setError("Please enter your admin email address.");
       return;
     }
     setError("");
-    setShowOTP(true);
-    // Trigger OTP send logic here
+    try {
+      const resp = await fetch('/api/admin/forgot-password/verify-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const data = await resp.json();
+      if (!resp.ok) {
+        setError(data && data.error ? data.error : 'Failed to send OTP');
+        return;
+      }
+      // optionally show returned admin details
+      setShowOTP(true);
+    } catch (err) {
+      console.error('send-otp error', err);
+      setError('Failed to send OTP');
+    }
   };
 
-  const handleOTPSubmit = (e) => {
+  const handleOTPSubmit = async (e) => {
     e.preventDefault();
     if (!otp.trim()) {
       setError("Please enter the OTP sent to your email.");
       return;
     }
     setError("");
-    setShowReset(true); // Show password reset section
-    setShowOTP(false);
-    // Bypass backend for now
+    try {
+      const resp = await fetch('/api/admin/forgot-password/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, otp })
+      });
+      const data = await resp.json();
+      if (!resp.ok) {
+        setError(data && data.error ? data.error : 'Invalid OTP');
+        return;
+      }
+      setShowReset(true);
+      setShowOTP(false);
+    } catch (err) {
+      console.error('verify-otp error', err);
+      setError('Failed to verify OTP');
+    }
   };
 
-  const handleResetSubmit = (e) => {
+  const handleResetSubmit = async (e) => {
     e.preventDefault();
     if (!newPassword.trim() || !confirmPassword.trim()) {
       setError("Please fill in both password fields.");
@@ -63,8 +92,23 @@ function AdminFPW() {
       return;
     }
     setError("");
-    alert("Password changed! (bypassed, implement backend later)");
-    // Optionally redirect or reset state
+    try {
+      const resp = await fetch('/api/admin/forgot-password/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, newPassword })
+      });
+      const data = await resp.json();
+      if (!resp.ok) {
+        setError(data && data.error ? data.error : 'Failed to reset password');
+        return;
+      }
+      alert('Password changed successfully. You may now log in.');
+      navigate('/adminlogin');
+    } catch (err) {
+      console.error('reset-password error', err);
+      setError('Failed to reset password');
+    }
   };
 
   return (
