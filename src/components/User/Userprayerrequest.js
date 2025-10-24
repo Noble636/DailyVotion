@@ -15,7 +15,7 @@ function Userprayerrequest() {
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      fetch(`http://localhost:5000/api/user/${userId}/prayer`)
+      fetch(`https://dailyvotionbackend.onrender.com/api/user/${userId}/prayer`)
         .then(res => res.json())
         .then(data => setRequests(data));
     }
@@ -29,7 +29,7 @@ function Userprayerrequest() {
       return;
     }
     try {
-      const res = await fetch(`http://localhost:5000/api/user/${userId}/prayer`, {
+      const res = await fetch(`https://dailyvotionbackend.onrender.com/api/user/${userId}/prayer`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: prayer })

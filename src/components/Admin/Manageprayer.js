@@ -70,7 +70,7 @@ function ManagePrayer() {
 
     // Fetch all prayer requests on mount
     useEffect(() => {
-        fetch('http://localhost:5000/api/admin/prayer')
+        fetch('https://dailyvotionbackend.onrender.com/api/admin/prayer')
             .then(res => res.json())
             .then(data => setPrayerRequests(data));
     }, []);
@@ -85,7 +85,7 @@ function ManagePrayer() {
         e.preventDefault();
         if (selectedRequest && responseText.trim()) {
             try {
-                const res = await fetch(`http://localhost:5000/api/admin/prayer/${selectedRequest}/respond`, {
+                const res = await fetch(`https://dailyvotionbackend.onrender.com/api/admin/prayer/${selectedRequest}/respond`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ response: responseText })

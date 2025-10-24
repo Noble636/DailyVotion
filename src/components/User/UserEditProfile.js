@@ -27,7 +27,7 @@ function UserEditProfile() {
     // Replace with actual user ID (from login, context, etc.)
     const userId = localStorage.getItem('userId');
     if (userId) {
-      fetch(`http://localhost:5000/api/user/${userId}`)
+      fetch(`https://dailyvotionbackend.onrender.com/api/user/${userId}`)
         .then(res => res.json())
         .then(data => {
           setName(data.fullName || '');
@@ -79,7 +79,7 @@ function UserEditProfile() {
     if (password) formData.append('password', password);
     if (profilePic) formData.append('profilePic', profilePic);
     try {
-      const res = await fetch(`http://localhost:5000/api/user/${userId}`, {
+      const res = await fetch(`https://dailyvotionbackend.onrender.com/api/user/${userId}`, {
         method: 'PUT',
         body: formData
       });
