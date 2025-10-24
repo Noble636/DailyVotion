@@ -18,7 +18,7 @@ function UserProfile() {
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      fetch(`https://dailyvotionbackend.onrender.com/api/user/${userId}`)
+      fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}`)
         .then(res => res.json())
         .then(data => {
           setUser({
@@ -35,7 +35,7 @@ function UserProfile() {
     const handleStorage = () => {
       const userId = localStorage.getItem('userId');
       if (userId) {
-        fetch(`https://dailyvotionbackend.onrender.com/api/user/${userId}`)
+        fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}`)
           .then(res => res.json())
           .then(data => {
             setUser({
@@ -57,7 +57,7 @@ function UserProfile() {
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      fetch(`https://dailyvotionbackend.onrender.com/api/user/${userId}/prayer`)
+      fetch(`hhttps://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/prayer`)
         .then(res => res.json())
         .then(data => {
           if (Array.isArray(data) && data.length > 0) {
@@ -75,7 +75,7 @@ function UserProfile() {
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      fetch(`https://dailyvotionbackend.onrender.com/api/user/${userId}/journal/latest`)
+      fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/journal/latest`)
         .then(res => res.json())
         .then(data => {
           if (data && data.scripture) {
@@ -93,7 +93,7 @@ function UserProfile() {
         });
 
       // Fetch latest reflection message from admin
-      fetch(`https://dailyvotionbackend.onrender.com/api/user/${userId}/reflections`)
+      fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/reflections`)
         .then(res => res.json())
         .then(data => {
           if (Array.isArray(data) && data.length > 0) {
@@ -192,7 +192,7 @@ function UserProfile() {
           <div className="userprofile-avatar-section">
             <img
               src={user.profilePic
-                ? `https://dailyvotionbackend.onrender.com${user.profilePic}`
+                ? `https://dailyvotionbackend-91wt.onrender.com${user.profilePic}`
                 : `https://ui-avatars.com/api/?name=${encodeURIComponent(user.fullName || user.username || 'Me')}&background=008b8b&color=fff&size=128`}
               alt="User"
               className="userprofile-avatar"

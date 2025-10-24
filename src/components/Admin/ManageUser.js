@@ -65,7 +65,7 @@ function ManageUser() {
   useEffect(() => {
     setLoading(true);
     Promise.all([
-      fetch('https://dailyvotionbackend.onrender.com/api/admin/users').then(res => res.json()),
+      fetch('https://dailyvotionbackend-91wt.onrender.com/api/admin/users').then(res => res.json()),
       fetch('https://dailyvotionbackend.onrender.com/api/admin/admins').then(res => res.json())
     ]).then(([usersData, adminsData]) => {
       setUsers(usersData.map(u => ({
@@ -88,9 +88,9 @@ function ManageUser() {
     if (!deleteId || !deleteType) return;
     let url = "";
     if (deleteType === "admin") {
-      url = `https://dailyvotionbackend.onrender.com/api/admin/admin/${deleteId}`;
+      url = `https://dailyvotionbackend-91wt.onrender.com/api/admin/admin/${deleteId}`;
     } else if (deleteType === "user") {
-      url = `https://dailyvotionbackend.onrender.com/api/admin/user/${deleteId}`;
+      url = `https://dailyvotionbackend-91wt.onrender.com/api/admin/user/${deleteId}`;
     }
     try {
       const res = await fetch(url, { method: "DELETE" });

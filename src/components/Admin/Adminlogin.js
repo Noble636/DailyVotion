@@ -15,7 +15,7 @@ function AdminLogin() {
     e.preventDefault();
     setWarning("");
     try {
-      const res = await fetch("https://dailyvotionbackend.onrender.com/api/admin/login", {
+      const res = await fetch("https://dailyvotionbackend-91wt.onrender.com/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emailOrUsername: email, password })

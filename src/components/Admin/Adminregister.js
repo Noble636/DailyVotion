@@ -40,7 +40,7 @@ function AdminRegister() {
       return;
     }
     try {
-      const response = await fetch("https://dailyvotionbackend.onrender.com/api/admin/register", {
+      const response = await fetch("https://dailyvotionbackend-91wt.onrender.com/api/admin/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

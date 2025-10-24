@@ -11,7 +11,7 @@ function Managefeedback() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		fetch('https://dailyvotionbackend.onrender.com/api/admin/feedback')
+		fetch('https://dailyvotionbackend-91wt.onrender.com/api/admin/feedback')
 			.then(res => res.json())
 			.then(data => {
 				setFeedbackList(data);

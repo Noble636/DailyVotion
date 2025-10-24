@@ -45,7 +45,7 @@ function ManageContent() {
   // Load users from backend
   useEffect(() => {
     setLoadingUsers(true);
-    fetch("https://dailyvotionbackend.onrender.com/api/admin/users")
+    fetch("https://dailyvotionbackend-91wt.onrender.com/api/admin/users")
       .then(res => res.json())
       .then(data => {
         setUsers(data);
@@ -57,7 +57,7 @@ function ManageContent() {
   // Load reflection history from new backend endpoint (all user responses)
   const fetchReflectionHistory = () => {
     setLoadingHistory(true);
-    fetch("https://dailyvotionbackend.onrender.com/api/admin/reflections/responses")
+    fetch("https://dailyvotionbackend-91wt.onrender.com/api/admin/reflections/responses")
       .then(res => res.json())
       .then(data => {
         setReflectionHistory(data);
@@ -92,7 +92,7 @@ function ManageContent() {
         setDeliveryStatus("Admin ID missing. Please log in again.");
         return;
       }
-      fetch("https://dailyvotionbackend.onrender.com/api/admin/reflection", {
+      fetch("https://dailyvotionbackend-91wt.onrender.com/api/admin/reflection", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ adminId, message: contentText, userIds: selectedUsers })

@@ -23,7 +23,7 @@ function UserJournal() {
     if (!userId) return;
     setLoadingHistory(true);
     try {
-      const res = await fetch(`https://dailyvotionbackend.onrender.com/api/user/${userId}/journal`);
+      const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/journal`);
       const data = await res.json();
       if (Array.isArray(data)) {
         setHistoryEntries(data);
@@ -121,7 +121,7 @@ function UserJournal() {
       return;
     }
     try {
-      const res = await fetch(`https://dailyvotionbackend.onrender.com/api/user/${userId}/journal`, {
+      const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/journal`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(journal)

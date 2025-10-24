@@ -11,7 +11,7 @@ function AdminAuth() {
   const handleAuthSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("https://dailyvotionbackend.onrender.com/api/admin/auth", {
+      const res = await fetch("https://dailyvotionbackend-91wt.onrender.com/api/admin/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ adminCode: authCode })

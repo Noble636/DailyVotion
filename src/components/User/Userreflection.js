@@ -16,7 +16,7 @@ function UserReflection() {
       return;
     }
     setLoading(true);
-    fetch(`https://dailyvotionbackend.onrender.com/api/user/${userId}/reflections`)
+    fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/reflections`)
       .then((res) => res.json())
       .then((data) => {
         setReflections(data || []);
@@ -45,7 +45,7 @@ function UserReflection() {
     if (!reflectionText.trim() || !latestReflection) return;
     const userId = localStorage.getItem("userId");
     fetch(
-      `https://dailyvotionbackend.onrender.com/api/user/${userId}/reflection/${latestReflection.id}/response`,
+      `https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/reflection/${latestReflection.id}/response`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -58,7 +58,7 @@ function UserReflection() {
         setSentNotice(true);
         setTimeout(() => setSentNotice(false), 2500);
         // Refresh reflections
-        fetch(`https://dailyvotionbackend.onrender.com/api/user/${userId}/reflections`)
+        fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/reflections`)
           .then((res) => res.json())
           .then((data) => setReflections(data || []));
       })

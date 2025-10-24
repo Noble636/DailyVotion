@@ -37,7 +37,7 @@ function UserRegister() {
     }
       // Check if username or email is taken before submitting
       try {
-        const checkRes = await fetch(`https://dailyvotionbackend.onrender.com/api/admin/users`);
+        const checkRes = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/admin/users`);
         const users = await checkRes.json();
         const usernameTaken = users.some(u => u.username === form.username);
         const emailTaken = users.some(u => u.email === form.email);
@@ -53,7 +53,7 @@ function UserRegister() {
         // If check fails, allow backend to handle duplicate error
       }
     try {
-      const res = await fetch("https://dailyvotionbackend.onrender.com/api/register", {
+      const res = await fetch("https://dailyvotionbackend-91wt.onrender.com/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

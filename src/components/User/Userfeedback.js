@@ -15,7 +15,7 @@ function Userfeedback() {
       return;
     }
     try {
-      const res = await fetch(`https://dailyvotionbackend.onrender.com/api/user/${userId}/feedback`, {
+      const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/feedback`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: feedback })
