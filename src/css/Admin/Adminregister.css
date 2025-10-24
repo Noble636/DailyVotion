@@ -1,0 +1,376 @@
+.adminregister-container {
+  min-height: 100vh;
+  background: #08a3ad; /* match admin login teal */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* restore the main white paper/card so "Create Admin Account" is visible */
+.adminregister-paper {
+  background: transparent; /* not a single white sheet anymore */
+  display: flex;
+  gap: 2.8rem;
+  padding: 2rem;
+  align-items: flex-start;
+  max-width: 980px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* LEFT: make the form column a distinct white card */
+.adminregister-form-col {
+  flex: 1 1 auto;
+  min-width: 420px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 2rem 2.2rem;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.06);
+  box-sizing: border-box;
+}
+
+/* keep inputs layout inside the form card */
+.adminregister-form-col .adminregister-input { margin-bottom: 1rem; }
+
+/* RIGHT: terms container sits outside the form card and looks like its own card */
+.adminregister-terms-col {
+  flex: 0 0 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: stretch;
+  padding: 0;               /* inner card has padding */
+  box-sizing: border-box;
+}
+
+/* inner terms card (separate from the form card) */
+.adminregister-terms-box {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  padding: 1.1rem;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* ensure the title looks correct inside the terms card */
+.adminregister-terms-box .adminregister-terms-title {
+  margin: 0 0 0.8rem 0;
+  padding: 0;
+  font-size: 1.1rem;
+  color: #0b6b66; /* dark teal to match headings */
+  font-weight: 700;
+}
+
+/* make sure the checkbox is INSIDE the terms card */
+.adminregister-terms-box .adminregister-terms-checkbox {
+  margin: 0;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* remove any previous top-level title spacing (safety) */
+.adminregister-terms-col > .adminregister-terms-title { display: none; }
+
+/* small visual separation between the two cards */
+.adminregister-form-col { margin-right: 4px; }
+.adminregister-terms-col { margin-left: 4px; }
+
+/* title style */
+.adminregister-title {
+  color: #008b8b;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* input field style */
+.adminregister-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cbe7e7;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+/* primary button style */
+.adminregister-btn {
+  background: #008b8b;        /* same teal as AdminLogin */
+  color: #fff;
+  border: none;
+  padding: 0.8rem 0;
+  border-radius: 7px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  cursor: pointer;
+  min-width: 160px;
+  transition: background 0.15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* primary button hover effect */
+.adminregister-btn:hover:enabled {
+  background: #006d6d;
+}
+
+/* disabled button style */
+.adminregister-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: #b2dfdb;
+  color: #fff;
+}
+
+/* cancel button style */
+.adminregister-cancel-btn {
+  background: #fff;
+  color: #008b8b;
+  border: 1px solid #008b8b;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  min-width: 120px;
+}
+
+/* cancel button hover effect */
+.adminregister-cancel-btn:hover {
+  background: #008b8b;
+  color: #fff;
+}
+
+/* modal overlay style */
+.adminregister-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.18);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* modal box style */
+.adminregister-modal-box {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,139,139,0.18);
+  padding: 2rem 2.2rem;
+  max-width: 400px;
+  width: 100%;
+}
+
+/* modal content margin */
+.adminregister-modal-content {
+  margin-bottom: 1.2rem;
+}
+
+/* modal checkbox style */
+.adminregister-modal-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+/* modal actions style */
+.adminregister-modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+/* modal register button style */
+.adminregister-modal-registerbtn {
+  background: #008b8b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/* disabled modal register button style */
+.adminregister-modal-registerbtn:disabled {
+  background: #b2dfdb;
+  cursor: not-allowed;
+}
+
+/* modal register button hover effect */
+.adminregister-modal-registerbtn:hover:enabled {
+  background: #006d6d;
+}
+
+/* modal cancel button style */
+.adminregister-modal-cancelbtn {
+  background: #fff;
+  color: #008b8b;
+  border: 2px solid #008b8b;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* modal cancel button hover effect */
+.adminregister-modal-cancelbtn:hover {
+  background: #008b8b;
+  color: #fff;
+}
+
+/* password field container */
+.adminregister-password-field {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem; /* Add more space between fields */
+}
+
+/* password and text input styles */
+.adminregister-password-field input[type="password"],
+.adminregister-password-field input[type="text"] {
+  flex: 1;
+  max-width: 100%;
+  padding-right: 2.5rem; /* room for the eye */
+  box-sizing: border-box;
+  border: 1px solid #cbe7e7; /* match other inputs */
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 0.7rem;
+  margin-bottom: 0;
+}
+
+/* match AdminLogin eye placement and look */
+.adminregister-eye {
+  position: absolute;
+  right: 12px;
+  top: 12px;              /* match AdminLogin */
+  cursor: pointer;
+  font-size: 1.2rem;
+  user-select: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* ensure inline SVGs use their inline colors (do not override) */
+.adminregister-eye svg { display: block; width: 20px; height: 20px; }
+.adminregister-eye svg path,
+.adminregister-eye svg circle { /* keep as authored in SVG */
+  fill: currentColor;
+  stroke: none;
+}
+
+/* forgot password link styles */
+.adminregister-forgot {
+  background: none;
+  color: #008b8b;
+  border: none;
+  padding: 0;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s;
+  margin-bottom: 0.2rem;
+}
+
+/* forgot password link hover effect */
+.adminregister-forgot:hover {
+  color: #006d6d;
+  text-decoration: underline;
+}
+
+/* responsive adjustments */
+/* explicitly disable any previous responsive stacking that forced columns to stack */
+@media (max-width: 860px) {
+  .adminregister-paper {
+    overflow-x: auto;
+    padding: 1.2rem;
+  }
+  .adminregister-terms-col { flex: 0 0 320px; width: 320px; }
+  .adminregister-form-col { min-width: 420px; }
+}
+
+/* small visual tweak so the Register/Cancel stay aligned with form column */
+.adminregister-form-col .adminregister-btn,
+.adminregister-form-col .adminregister-cancel-btn {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+/* Fix Register/Cancel alignment and button display */
+
+/* ensure the actions wrapper centers the buttons */
+.adminregister-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+/* make buttons inline so they sit next to each other and are centered by the wrapper */
+.adminregister-btn,
+.adminregister-cancel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;               /* remove any auto margins that push them aside */
+  min-width: 120px;
+  padding: 0.7rem 1.5rem;
+  box-sizing: border-box;
+}
+
+/* keep disabled look but still centered */
+.adminregister-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: #b2dfdb;
+  color: #fff;
+}
+
+/* if any earlier rule forces block/auto margins, make this selector more specific */
+.adminregister-form-col .adminregister-btn,
+.adminregister-form-col .adminregister-cancel-btn {
+  display: inline-flex !important;
+  margin: 0 !important;
+}
+
+/* override: force center and remove interfering margins */
+.adminregister-form-col .adminregister-actions {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  gap: 12px !important;
+  margin-top: 1rem !important;
+}
+
+.adminregister-form-col .adminregister-actions .adminregister-btn,
+.adminregister-form-col .adminregister-actions .adminregister-cancel-btn {
+  margin: 0 !important;
+  display: inline-flex !important;
+}
+
+/* ensure eye stays the correct color */
+.adminregister-form-col .adminregister-eye {
+  color: #888 !important;
+}

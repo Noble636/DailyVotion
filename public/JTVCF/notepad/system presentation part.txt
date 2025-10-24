@@ -1,0 +1,34 @@
+ALCANTARA
+USER
+- homepage
+- login
+- register
+
+BONGCAC 
+USER
+- profile
+
+ADMIN
+- admin & (login & register)
+
+CASES 
+USER
+- reflection 
+- about
+
+ADMIN
+- admin dashboard (devotional content delivery)
+
+TAER
+USER
+- prayer
+
+ADMIN
+- admin dashboard (User account management) 
+
+TANOJA
+USER
+- journal
+
+ADMIN
+- admin dashboard (interactive prayer)

@@ -1,0 +1,279 @@
+/* --- GLOBAL CONTAINER --- */
+.userprayerrequest-container {
+  min-height: 100vh;
+  background: #e0d0f0; /* changed to requested pink background */
+  font-family: 'Segoe UI', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;         /* center the main area */
+  padding: 0 20px;
+  padding-top: 56px;           /* adjust if your TopBar height is different */
+  padding-bottom: 30px; /* lower if needed */
+  box-sizing: border-box;
+}
+
+/* ensure the shared TopBar is full-width and visible */
+.userprayerrequest-container > .topbar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+/* --- MAIN PINK BACKGROUND --- */
+.userprayerrequest-pink-bg {
+  background: #e0d0f0;
+  border-radius: 18px;
+  padding: 2rem 1rem;
+  margin-top: 56px;
+  width: 95vw;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- MAIN WRAPPER --- */
+.userprayerrequest-main {
+  margin: 2.5rem auto 0;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch; /* ensure both columns stretch to same height */
+  gap: 2.5rem;
+  box-sizing: border-box;
+}
+
+/* ensure main row stretches so both columns share the same height */
+.userprayerrequest-main {
+  align-items: stretch; /* already present, keep */
+}
+
+/* make left stack stretch and distribute space so bottom box sits at the bottom */
+.userprayerrequest-left-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* push bottom box to the bottom of the stack */
+  align-self: stretch;             /* allow stack to match right panel height */
+  gap: 1rem;
+  flex: 0 0 420px;
+  box-sizing: border-box;
+  margin-bottom: 0;                /* remove extra bottom spacing that pushes box down */
+}
+
+/* --- LEFT STACK (left card + bottom box) --- */
+.userprayerrequest-left-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 0 0 420px;
+  align-items: stretch;
+  margin-bottom: 0.6rem;
+  align-self: flex-start; /* ensure left stack defines its own height */
+}
+
+/* left card */
+.userprayerrequest-left {
+  background: rgba(255,255,255,0.95);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(60,60,60,0.08);
+  padding: 1.75rem 1.5rem;
+  border: 1px solid rgba(224,247,250,0.6);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+/* ensure left card does not add extra bottom space */
+.userprayerrequest-left {
+  padding-bottom: 0;
+  min-height: 0;
+}
+
+/* Left content */
+.userprayerrequest-title {
+  color: #008b8b;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 0 0.6rem 0;
+  align-self: center;
+}
+.userprayerrequest-explanation {
+  color: #333;
+  font-size: 0.98rem;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* textarea */
+.userprayerrequest-textarea {
+  width: 100%;
+  min-height: 120px; /* restore larger input area */
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #cce4e4;
+  font-size: 1rem;
+  resize: vertical;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+}
+
+/* buttons */
+.userprayerrequest-btns {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  width: 100%;
+}
+.userprayerrequest-btn {
+  background: #008b8b;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.98rem;
+}
+.userprayerrequest-cancel-btn {
+  background: #eee;
+  color: #008b8b;
+  border: none;
+  padding: 0.45rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* --- RIGHT: history panel --- */
+.userprayerrequest-right {
+  background: rgba(255,255,255,0.95);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(60,60,60,0.08);
+  padding: 1.75rem 1.5rem;
+  border: 1px solid rgba(224,247,250,0.6);
+  flex: 0 0 520px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-self: stretch;
+  /* reasonable height so panel is large but not overflowing viewport */
+  max-height: calc(100vh - 140px);
+  min-height: 420px;
+}
+
+/* ensure the right panel provides the height to match against */
+.userprayerrequest-right {
+  /* keep whatever height rules you already have (min/max) — ensure it can stretch */
+  align-self: stretch;
+}
+
+/* history title and list */
+.userprayerrequest-history-title {
+  color: #008b8b;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.6rem;
+}
+
+/* Make the list fill available panel space and scroll when content overflows */
+.userprayerrequest-list {
+  margin-top: 0.6rem;
+  width: 100%;
+  flex: 1 1 auto;                 /* fill remaining vertical space */
+  overflow-y: auto;               /* enable vertical scrolling */
+  padding-right: 8px;
+  box-sizing: border-box;
+  /* ensure list can scroll within the right panel */
+  max-height: calc(100% - 20px);  /* leave room for padding/title; adjust if needed */
+}
+
+/* items */
+.userprayerrequest-item {
+  background: #e6f9f9;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,139,139,0.06);
+}
+.userprayerrequest-date {
+  color: #6f6f6f;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+.userprayerrequest-history-text {
+  color: #222;
+  font-size: 0.98rem;
+  margin-bottom: 0.6rem;
+}
+.userprayerrequest-response-btn {
+  background: #006d6d;
+  color: #fff;
+  border: none;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+.userprayerrequest-response {
+  background: #fffbe6;
+  border-radius: 6px;
+  padding: 0.7rem;
+  margin-top: 0.6rem;
+  color: #333;
+}
+
+/* remove temporary debug outline (ensure clean look) */
+.userprayerrequest-right { outline: none !important; }
+
+/* scrollbar styling (optional but nicer) */
+.userprayerrequest-list::-webkit-scrollbar { width: 10px; }
+.userprayerrequest-list::-webkit-scrollbar-thumb { background: rgba(0,139,139,0.18); border-radius: 8px; }
+.userprayerrequest-list::-webkit-scrollbar-track { background: transparent; }
+
+/* --- BOTTOM BOX (left-aligned under add card) --- */
+.userprayerrequest-bottom-box-left {
+  background: rgba(255,255,255,0.95);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 6px 16px rgba(60,60,60,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 0.8rem;
+  margin-bottom: 0;
+}
+.userprayerrequest-bottom-title {
+  color: #006d6d;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.userprayerrequest-bottom-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #cce4e4;
+  resize: vertical;
+  box-sizing: border-box;
+}
+.userprayerrequest-bottom-actions { display:flex; gap:0.6rem; justify-content:flex-end; }
+
+/* hide any old centered bottom box if present */
+.userprayerrequest-bottom-box { display: none; }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1000px) {
+  .userprayerrequest-main { flex-direction: column; align-items: center; gap: 1.25rem; }
+  .userprayerrequest-left-stack, .userprayerrequest-right { flex: 0 0 98%; max-width: 98%; }
+  .userprayerrequest-right { max-height: none; }
+}

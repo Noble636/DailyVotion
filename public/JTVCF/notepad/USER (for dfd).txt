@@ -1,0 +1,51 @@
+HOME PAGE - get started button and navigation bar (home, login, register, admin, about)
+LOGIN - enter credentials (email/username and password) 
+SIGNUP - enter credentials (fullname, username, email, mobile number (optional), password and confirm password)
+
+PROFILE
+- edit profile button
+- journal button
+- add prayer request button
+- reflection
+- app feedback
+
+VERSE OF THE DAY - Bible Verse
+RECENT JOURNAL - summary of the journal
+RECENT PRAYER REQUEST - prayer request 
+REFLECTIONS - summary of reflections
+
+EDIT PROFILE
+- change name
+- change username
+- change password
+- confirm new password
+- upload profile picture
+- save changes button
+- cancel button
+
+JOURNAL
+- SOAP Method (with CLEAR button for each box)
+- journal entry button 
+- date (mm/dd/yyyy)
+- submit journal button
+
+ADD PRAYER REQUEST
+- blank table/box for prayer request
+- submit button
+
+REFLECTION
+- blank table/box for reflection paper
+- Bible Verse from admin
+- previous reflection (history)
+- button for submit reflection
+
+FEEDBACK
+- blank table/box for feedback
+- save button 
+- cancel button
+
+ABOUT US
+- pictures of JTVCF
+- gallery button ( pictures of JTVCF) 
+
+

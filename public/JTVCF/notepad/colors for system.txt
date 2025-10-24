@@ -1,0 +1,3 @@
+#0097b2 - dark turqquiose
+#054e63 - dark azure
+#e6d4ff - light lavender

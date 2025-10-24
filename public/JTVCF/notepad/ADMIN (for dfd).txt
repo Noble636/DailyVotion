@@ -1,0 +1,45 @@
+ADMIN CODE AUTHENTICATION
+- enter admin token/code 
+- DV-Admin (token/code)
+- verify button
+- if invalid (invalid authentication code notification/pop up)
+- if not invalid, admin will directy to Admin Login 
+
+ADMIN LOGIN
+- email
+- password
+
+CREATE ACCOUNT FOR ADMIN
+- full name
+- username
+- email
+- mobile number (optional)
+- password
+- confirm password
+- register button
+- cancel button
+
+ADMIN DASHBOARD
+- user account management (manage user button)
+- devotional delivery content (manage content button)
+- interactive prayer (manage prayer)
+- application feedbak (manage feedback button)
+
+USER ACCOUNT MANAGEMENT
+- ADMIN ACCOUNTS - can change into user and delete admin account 
+- USER ACCOUNT - can make user into admin and admin can also delete their user account.
+
+DEVOTIONAL DELIVERY CONTENT
+- create content (Bible Verse)
+- select recipients (admin can choose which user can receive the content)
+- user reflection (admin can see the users reflection)
+
+INTERACTIVE PRAYER REQUEST
+- search bar (admin can search user/username)
+- view history
+- admin can reply to prayer request of the user.
+- admin can check the request, pending and completed prayer request.
+
+APPLICATIIION FEEDBACK
+- admin can see the users feedback
+
