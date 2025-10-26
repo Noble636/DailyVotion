@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminTopBar from "./AdminTopBar";
 import "../../css/Admin/AdminDashboard.css";
-// import bg from '../../assets/AdminDashboard.png'; // removed (image is served from public)
-
 function AdminDashboard() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,9 +9,8 @@ function AdminDashboard() {
   return (
     <div
       className="admindash-container"
-      style={{ backgroundImage: "url('/JTVCF/for%20background%20picture/AdminDashboard.png')" }} // use public path
+      style={{ backgroundImage: "url('/JTVCF/for%20background%20picture/AdminDashboard.png')" }}
     >
-      {/* replaced local topbar with shared AdminTopBar */}
       <AdminTopBar
         menuItems={[
           { label: "Home", link: "/" },
@@ -21,13 +18,10 @@ function AdminDashboard() {
           { label: "About", link: "/about" }
         ]}
       />
-
-      {/* Main Content */}
       <div className="admindash-main">
         <h1 className="admindash-title">Admin Dashboard</h1>
 
         <div className="admindash-grid">
-          {/* User Account Management */}
           <div className="admindash-card">
             <h2>User Account Management</h2>
             <p>
@@ -41,7 +35,6 @@ function AdminDashboard() {
             </button>
           </div>
 
-          {/* Devotional Content Delivery */}
           <div className="admindash-card">
             <h2>Devotional Content Delivery</h2>
             <p>
@@ -55,7 +48,6 @@ function AdminDashboard() {
             </button>
           </div>
 
-          {/* Interactive Prayer */}
           <div className="admindash-card">
             <h2>Interactive Prayer</h2>
             <p>
@@ -64,7 +56,6 @@ function AdminDashboard() {
             <button className="admindash-btn" onClick={() => navigate("/manageprayer")}>Manage Prayers</button>
           </div>
 
-          {/* Application Feedback */}
           <div className="admindash-card">
             <h2>Application Feedback</h2>
             <p>

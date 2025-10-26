@@ -1,18 +1,16 @@
-/* --- GLOBAL CONTAINER --- */
 .userprayerrequest-container {
   min-height: 100vh;
-  background: #e0d0f0; /* changed to requested pink background */
+  background: #e0d0f0;
   font-family: 'Segoe UI', Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: center;         /* center the main area */
+  align-items: center;        
   padding: 0 20px;
-  padding-top: 56px;           /* adjust if your TopBar height is different */
-  padding-bottom: 30px; /* lower if needed */
+  padding-top: 56px;          
+  padding-bottom: 30px;
   box-sizing: border-box;
 }
 
-/* ensure the shared TopBar is full-width and visible */
 .userprayerrequest-container > .topbar-container {
   position: fixed;
   top: 0;
@@ -23,7 +21,7 @@
   box-sizing: border-box;
 }
 
-/* --- MAIN PINK BACKGROUND --- */
+
 .userprayerrequest-pink-bg {
   background: #e0d0f0;
   border-radius: 18px;
@@ -35,7 +33,7 @@
   margin-right: auto;
 }
 
-/* --- MAIN WRAPPER --- */
+
 .userprayerrequest-main {
   margin: 2.5rem auto 0;
   width: 100%;
@@ -43,29 +41,29 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: stretch; /* ensure both columns stretch to same height */
+  align-items: stretch;
   gap: 2.5rem;
   box-sizing: border-box;
 }
 
-/* ensure main row stretches so both columns share the same height */
+
 .userprayerrequest-main {
-  align-items: stretch; /* already present, keep */
+  align-items: stretch;
 }
 
-/* make left stack stretch and distribute space so bottom box sits at the bottom */
+
 .userprayerrequest-left-stack {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* push bottom box to the bottom of the stack */
-  align-self: stretch;             /* allow stack to match right panel height */
+  justify-content: space-between;
+  align-self: stretch;            
   gap: 1rem;
   flex: 0 0 420px;
   box-sizing: border-box;
-  margin-bottom: 0;                /* remove extra bottom spacing that pushes box down */
+  margin-bottom: 0;               
 }
 
-/* --- LEFT STACK (left card + bottom box) --- */
+
 .userprayerrequest-left-stack {
   display: flex;
   flex-direction: column;
@@ -73,10 +71,10 @@
   flex: 0 0 420px;
   align-items: stretch;
   margin-bottom: 0.6rem;
-  align-self: flex-start; /* ensure left stack defines its own height */
+  align-self: flex-start;
 }
 
-/* left card */
+
 .userprayerrequest-left {
   background: rgba(255,255,255,0.95);
   border-radius: 12px;
@@ -90,13 +88,13 @@
   box-sizing: border-box;
 }
 
-/* ensure left card does not add extra bottom space */
+
 .userprayerrequest-left {
   padding-bottom: 0;
   min-height: 0;
 }
 
-/* Left content */
+
 .userprayerrequest-title {
   color: #008b8b;
   font-size: 1.35rem;
@@ -112,10 +110,10 @@
   margin-bottom: 1rem;
 }
 
-/* textarea */
+
 .userprayerrequest-textarea {
   width: 100%;
-  min-height: 120px; /* restore larger input area */
+  min-height: 120px;
   padding: 0.7rem;
   border-radius: 6px;
   border: 1px solid #cce4e4;
@@ -125,7 +123,7 @@
   margin-bottom: 1rem;
 }
 
-/* buttons */
+
 .userprayerrequest-btns {
   display: flex;
   gap: 1rem;
@@ -150,7 +148,7 @@
   cursor: pointer;
 }
 
-/* --- RIGHT: history panel --- */
+
 .userprayerrequest-right {
   background: rgba(255,255,255,0.95);
   border-radius: 12px;
@@ -163,18 +161,18 @@
   flex-direction: column;
   box-sizing: border-box;
   align-self: stretch;
-  /* reasonable height so panel is large but not overflowing viewport */
+ 
   max-height: calc(100vh - 140px);
   min-height: 420px;
 }
 
-/* ensure the right panel provides the height to match against */
+
 .userprayerrequest-right {
-  /* keep whatever height rules you already have (min/max) — ensure it can stretch */
+ 
   align-self: stretch;
 }
 
-/* history title and list */
+
 .userprayerrequest-history-title {
   color: #008b8b;
   font-size: 1.15rem;
@@ -183,19 +181,19 @@
   margin-bottom: 0.6rem;
 }
 
-/* Make the list fill available panel space and scroll when content overflows */
+
 .userprayerrequest-list {
   margin-top: 0.6rem;
   width: 100%;
-  flex: 1 1 auto;                 /* fill remaining vertical space */
-  overflow-y: auto;               /* enable vertical scrolling */
+  flex: 1 1 auto;                
+  overflow-y: auto;              
   padding-right: 8px;
   box-sizing: border-box;
-  /* ensure list can scroll within the right panel */
-  max-height: calc(100% - 20px);  /* leave room for padding/title; adjust if needed */
+ 
+  max-height: calc(100% - 20px); 
 }
 
-/* items */
+
 .userprayerrequest-item {
   background: #e6f9f9;
   border-radius: 8px;
@@ -230,15 +228,15 @@
   color: #333;
 }
 
-/* remove temporary debug outline (ensure clean look) */
+
 .userprayerrequest-right { outline: none !important; }
 
-/* scrollbar styling (optional but nicer) */
+
 .userprayerrequest-list::-webkit-scrollbar { width: 10px; }
 .userprayerrequest-list::-webkit-scrollbar-thumb { background: rgba(0,139,139,0.18); border-radius: 8px; }
 .userprayerrequest-list::-webkit-scrollbar-track { background: transparent; }
 
-/* --- BOTTOM BOX (left-aligned under add card) --- */
+
 .userprayerrequest-bottom-box-left {
   background: rgba(255,255,255,0.95);
   border-radius: 10px;
@@ -268,10 +266,10 @@
 }
 .userprayerrequest-bottom-actions { display:flex; gap:0.6rem; justify-content:flex-end; }
 
-/* hide any old centered bottom box if present */
+
 .userprayerrequest-bottom-box { display: none; }
 
-/* --- RESPONSIVE --- */
+
 @media (max-width: 1000px) {
   .userprayerrequest-main { flex-direction: column; align-items: center; gap: 1.25rem; }
   .userprayerrequest-left-stack, .userprayerrequest-right { flex: 0 0 98%; max-width: 98%; }

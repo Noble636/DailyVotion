@@ -1,27 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminTopBar from "./AdminTopBar"; // added
+import AdminTopBar from "./AdminTopBar";
 import "../../css/Admin/ManageUser.css";
-
-const initialAdmins = [
-  // Backend data will be used
-  { id: 4, name: "Ramon Lopez", email: "ramon.lopez@site.com", role: "Admin", adminCode: "" },
-  { id: 5, name: "Carmen Reyes", email: "carmen.reyes@site.com", role: "Admin", adminCode: "" },
-  { id: 6, name: "Diego Navarro", email: "diego.navarro@site.com", role: "Admin", adminCode: "" },
-];
-
-const initialUsers = [
-  // Backend data will be used
-  { id: 104, name: "Miguel Santos", email: "miguel.santos@site.com", role: "User" },
-  { id: 105, name: "Bea Romero", email: "bea.romero@site.com", role: "User" },
-  { id: 106, name: "Carlos Mendoza", email: "carlos.mendoza@site.com", role: "User" },
-  { id: 107, name: "Elena Vega", email: "elena.vega@site.com", role: "User" },
-  { id: 108, name: "Frank Gomez", email: "frank.gomez@site.com", role: "User" },
-  { id: 109, name: "Grace Lim", email: "grace.lim@site.com", role: "User" },
-  { id: 110, name: "Hector Silva", email: "hector.silva@site.com", role: "User" },
-  { id: 111, name: "Ivy Torres", email: "ivy.torres@site.com", role: "User" },
-  { id: 112, name: "Jonah Cruz", email: "jonah.cruz@site.com", role: "User" },
-];
 
 function Popup({ message, onOk, onCancel, okText = "OK", cancelText = "Cancel" }) {
   return (
@@ -38,11 +18,7 @@ function Popup({ message, onOk, onCancel, okText = "OK", cancelText = "Cancel" }
 }
 
 function ManageUser() {
-  // Save admin code handler (stub, implement as needed)
   const handleSaveAdminCode = (adminId) => {
-    // Example: send adminCodeInput to backend for adminId
-    // fetch(`/api/admin/${adminId}/code`, { method: 'POST', body: JSON.stringify({ code: adminCodeInput }) })
-    //   .then(() => alert('Admin code saved!'));
     alert('Admin code saved!');
     setCodeId(null);
     setAdminCodeInput("");
@@ -61,7 +37,6 @@ function ManageUser() {
   const navigate = useNavigate();
   const loggedInAdminId = Number(localStorage.getItem("adminId"));
 
-  // Fetch users and admins from backend
   useEffect(() => {
     setLoading(true);
     Promise.all([
@@ -83,7 +58,6 @@ function ManageUser() {
     }).catch(() => setLoading(false));
   }, []);
 
-  // Delete user or admin
   const handleDeleteConfirmed = async () => {
     if (!deleteId || !deleteType) return;
     let url = "";
@@ -95,7 +69,6 @@ function ManageUser() {
     try {
       const res = await fetch(url, { method: "DELETE" });
       if (res.ok) {
-        // Remove from local state
         if (deleteType === "admin") {
           setAdmins(prev => prev.filter(a => a.id !== deleteId));
         } else {
@@ -125,7 +98,6 @@ function ManageUser() {
       <div className="manageuser-main-fresh">
         <h1 className="manageuser-title">Manage Users</h1>
         <div className="manageuser-sections">
-          {/* Admin Accounts */}
           <div className="manageuser-admins-fresh">
             <h2>Admin Accounts</h2>
             <ul>
@@ -163,7 +135,6 @@ function ManageUser() {
                         <button onClick={() => handleSaveAdminCode(admin.id)}>Save</button>
                       </div>
                     )}
-                    {/* Hide delete button for logged-in admin */}
                     {admin.id !== loggedInAdminId && (
                       <button
                         className="manageuser-delete-btn"
@@ -178,7 +149,7 @@ function ManageUser() {
               ))}
             </ul>
           </div>
-          {/* User Accounts */}
+
           <div className="manageuser-users-fresh">
             <h2>User Accounts</h2>
             <ul>
@@ -198,7 +169,7 @@ function ManageUser() {
           </div>
         </div>
       </div>
-      {/* POPUPS */}
+
       {showFirstWarning && (
         <Popup
           message={

@@ -61,14 +61,11 @@ function AdminRegister() {
         }, 1500);
         setSuccessTimeout(timeout);
       } else {
-        // alert(data.error || "Registration failed");
       }
     } catch (err) {
-      // alert("Server error. Please try again later.");
     }
   };
 
-  // Cleanup timeout on unmount
   React.useEffect(() => {
     return () => {
       if (successTimeout) clearTimeout(successTimeout);
@@ -77,7 +74,6 @@ function AdminRegister() {
 
   return (
     <div className="adminregister-container">
-      {/* Success Popup Modal */}
       {showSuccessPopup && (
         <div className="adminregister-modal-overlay">
           <div className="adminregister-modal-box">
@@ -89,7 +85,6 @@ function AdminRegister() {
         </div>
       )}
       <div className="adminregister-paper">
-        {/* LEFT: form column */}
         <div className="adminregister-form-col">
           <h2 className="adminregister-title">Create Admin Account</h2>
           <form onSubmit={handleRegisterClick}>
@@ -116,14 +111,12 @@ function AdminRegister() {
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? (
-                  // Eye-slash SVG (same as AdminLogin)
                   <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
                     <path d="M2 2l16 16" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6 2.1 0 4.06-.61 5.62-1.62" stroke="#888" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
                     <circle cx="10" cy="10" r="4" stroke="#888" strokeWidth="2" fill="none"/>
                   </svg>
                 ) : (
-                  // Eye SVG (same as AdminLogin)
                   <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
                     <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6s8.27-4.11 9-6c-.73-1.89-4-6-9-6zm0 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" fill="#888"/>
                   </svg>
@@ -193,7 +186,6 @@ function AdminRegister() {
               </span>
             </div>
 
-            {/* action buttons — make sure this wrapper exists */}
             <div className="adminregister-actions">
               <button type="submit" className="adminregister-btn" disabled={!agreed}>Register</button>
               <button
@@ -207,10 +199,8 @@ function AdminRegister() {
           </form>
         </div>
 
-        {/* RIGHT: inline terms & agreement */}
         <aside className="adminregister-terms-col">
           <div className="adminregister-terms-box">
-            {/* moved the title INSIDE the white terms box */}
             <h3 className="adminregister-terms-title">Terms & Agreements</h3>
 
             <p style={{ color: "#b12704", fontWeight: "700" }}>
@@ -225,8 +215,7 @@ function AdminRegister() {
               <li>By registering, you agree to follow all organizational guidelines and policies.</li>
             </ul>
             <p>Please keep contact details and sensitive data secure.</p>
-
-            {/* checkbox placed inside the terms box */}
+            
             <label className="adminregister-terms-checkbox">
               <input
                 type="checkbox"

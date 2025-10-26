@@ -8,13 +8,11 @@ function UserFPW() {
   const [error, setError] = useState("");
   const [showOTP, setShowOTP] = useState(false);
   const [otp, setOTP] = useState("");
-  // Add state for password reset section
   const [showReset, setShowReset] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  // API base - prefer environment override, fall back to deployed Render URL
   const API_BASE = process.env.REACT_APP_API_BASE || 'https://dailyvotionbackend-91wt.onrender.com';
 
   const handleSubmit = async (e) => {
@@ -43,7 +41,6 @@ function UserFPW() {
     }
   };
 
-  // Update OTP submit to show reset section
   const handleOTPSubmit = async (e) => {
     e.preventDefault();
     if (!otp.trim()) {
@@ -70,7 +67,6 @@ function UserFPW() {
     }
   };
 
-  // Handle password reset submit (bypass for now)
   const handleResetSubmit = async (e) => {
     e.preventDefault();
     if (!newPassword.trim() || !confirmPassword.trim()) {
@@ -139,7 +135,6 @@ function UserFPW() {
               <button type="submit" className="userfpw-submitbtn">Verify OTP</button>
             </form>
           )}
-          {/* Password reset section after OTP verification */}
           {showReset && (
             <form className="userfpw-form" onSubmit={handleResetSubmit}>
               <div className="userfpw-success">
@@ -164,14 +159,12 @@ function UserFPW() {
                   style={{ position: "absolute", right: 12, top: 12, cursor: "pointer" }}
                 >
                   {showNewPassword ? (
-                    // Eye-slash SVG (matches UserLogin.js)
                     <svg width="20" height="20" viewBox="0 0 20 20">
                       <path d="M2 2l16 16" stroke="#888" strokeWidth="2"/>
                       <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6 2.1 0 4.06-.61 5.62-1.62" stroke="#888" strokeWidth="2" fill="none"/>
                       <circle cx="10" cy="10" r="4" stroke="#888" strokeWidth="2" fill="none"/>
                     </svg>
                   ) : (
-                    // Eye SVG (matches UserLogin.js)
                     <svg width="20" height="20" viewBox="0 0 20 20">
                       <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6s8.27-4.11 9-6c-.73-1.89-4-6-9-6zm0 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" fill="#888"/>
                     </svg>
@@ -197,14 +190,12 @@ function UserFPW() {
                   style={{ position: "absolute", right: 12, top: 12, cursor: "pointer" }}
                 >
                   {showConfirmPassword ? (
-                    // Eye-slash SVG (matches UserLogin.js)
                     <svg width="20" height="20" viewBox="0 0 20 20">
                       <path d="M2 2l16 16" stroke="#888" strokeWidth="2"/>
                       <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6 2.1 0 4.06-.61 5.62-1.62" stroke="#888" strokeWidth="2" fill="none"/>
                       <circle cx="10" cy="10" r="4" stroke="#888" strokeWidth="2" fill="none"/>
                     </svg>
                   ) : (
-                    // Eye SVG (matches UserLogin.js)
                     <svg width="20" height="20" viewBox="0 0 20 20">
                       <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6s8.27-4.11 9-6c-.73-1.89-4-6-9-6zm0 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" fill="#888"/>
                     </svg>

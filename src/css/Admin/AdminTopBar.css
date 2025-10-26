@@ -1,4 +1,3 @@
-/* --- TopBar Styles --- */
 .topbar-container {
   position: fixed !important;
   top: 0;
@@ -111,11 +110,11 @@
 }
 
 .topbar-admin-label {
-  color: #ffffff;           /* make text white */
-  margin-left: 70px;        /* nudge the label to the right (adjust px if needed) */
+  color: #ffffff;
+  margin-left: 70px;
   position: relative;       
-  top: 6px;                 /* small vertical alignment with logo */
-  pointer-events: none;     /* non-clickable */
+  top: 6px;
+  pointer-events: none;
   font-weight: 700;
   font-size: 1rem;
   display: inline-block;

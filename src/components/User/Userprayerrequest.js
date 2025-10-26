@@ -11,7 +11,6 @@ function Userprayerrequest() {
   const [sentNotice, setSentNotice] = useState(false);
   const navigate = useNavigate();
 
-  // Fetch user's prayer requests on mount
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {

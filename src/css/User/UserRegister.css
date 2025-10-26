@@ -1,14 +1,14 @@
-/* Hide scrollbar for the whole viewport when User Register is active */
+
 body::-webkit-scrollbar, html::-webkit-scrollbar {
     width: 0px;
     background: transparent;
 }
 body {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
-/* Animated color wave effect for User Register background */
+
 .userregister-outer {
     background: linear-gradient(120deg, #08a3ad 0%, #43e9f6 25%, #00c6b2 50%, #008b8b 75%, #005e5e 100%);
     background-size: 200% 200%;
@@ -22,7 +22,7 @@ body {
     100% { background-position: 0% 0%; }
 }
 
-/* Optional: add a sparkles effect overlay (for future use, currently background only) */
+
 .userregister-outer::before {
     content: "";
     position: absolute;
@@ -31,7 +31,7 @@ body {
     z-index: 0;
     background: none;
 }
-/* --- USERREGISTER SPLIT LAYOUT --- */
+
 .userregister-outer {
     min-height: 100vh;
     overflow: hidden !important;
@@ -41,11 +41,11 @@ body {
     display: flex;
     flex-direction: column;
     padding-top: 0px;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     position: relative;
 }
-/* Hide scrollbar for User Register only, but keep scrollable */
+
 .userregister-outer::-webkit-scrollbar {
     width: 0px;
     background: transparent;
@@ -55,10 +55,10 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    /* min-height: 80vh is fine, allows it to grow */
+   
     min-height: 80vh; 
     max-width: 1100px;
-    /* Increased bottom margin from 2rem to 4rem */
+   
     margin: 5.5rem auto 4rem auto; 
     position: relative;
     gap: 3.5rem;
@@ -200,7 +200,7 @@ body {
 }
 .userregister-img-text {
     position: absolute;
-    right: -250px; /* Move further right */
+    right: -250px;
     top: 50px;
     color: #111;
     font-size: 1.7rem;
@@ -215,7 +215,7 @@ body {
 .userregister-img-text-bottom {
     top: unset;
     bottom: 60px;
-    right: -280px; /* Move further right */
+    right: -280px;
     left: unset;
     font-size: 1.7rem;
     text-align: right;
@@ -240,7 +240,7 @@ body {
     padding: 0;
 }
 
-/* AGREEMENT MODAL */
+
 .agreement-overlay {
     position: fixed;
     inset: 0;
@@ -294,7 +294,7 @@ body {
     margin-top: 0.8rem;
 }
 
-/* secondary cancel button */
+
 .userregister-btn-secondary {
     background: #f1f1f1;
     color: #444;
@@ -304,24 +304,24 @@ body {
     cursor: pointer;
 }
 
-/* disabled state for complete button */
+
 .agreement-modal .userregister-signup-btn[disabled] {
     opacity: 0.55;
     cursor: not-allowed;
 }
 
-/* emphasize warning in success modal */
+
 .warning-strong {
     color: #b12704;
     font-weight: 700;
     margin-top: 0.6rem;
 }
 
-/* Hide scrollbar for UserEditProfile page */
+
 .editprofile-bg {
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none;
 }
 
 .editprofile-bg::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
+    display: none;
 }

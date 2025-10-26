@@ -12,8 +12,6 @@ const soapSections = [
 function UserJournal() {
   const [inputErrors, setInputErrors] = useState({});
   const [showValidation, setShowValidation] = useState(false);
-
-  // History popup state and fetch logic
   const [showHistory, setShowHistory] = useState(false);
   const [historyEntries, setHistoryEntries] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
@@ -40,30 +38,22 @@ function UserJournal() {
     if (showHistory) {
       fetchHistory();
     }
-    // eslint-disable-next-line
   }, [showHistory]);
 
   const [journal, setJournal] = useState({ date: "", scripture: "", observation: "", application: "", prayer: "" });
   const [visibleSections, setVisibleSections] = useState({ scripture: false, observation: false, application: false, prayer: false });
-
-  // Bible popup state (PDF only)
   const [showBible, setShowBible] = useState(false);
-  const [showBibleInfo, setShowBibleInfo] = useState(false); // added
-  const bibleIframeRef = useRef(null); // added
-
-  // popup position (use fixed default to avoid referencing window at module init)
+  const [showBibleInfo, setShowBibleInfo] = useState(false);
+  const bibleIframeRef = useRef(null);
   const [popupPos, setPopupPos] = useState({ x: 160, y: 120 });
   const dragRef = useRef({ dragging: false, offsetX: 0, offsetY: 0 });
-  const popupRef = useRef(null); // added: ref to measure popup size
+  const popupRef = useRef(null);
 
-  // Effect for drag functionality
   useEffect(() => {
     const handleMove = (e) => {
       if (!dragRef.current.dragging) return;
       const nx = e.clientX - dragRef.current.offsetX;
       const ny = e.clientY - dragRef.current.offsetY;
-
-      // compute popup size (fallback to width 720 / height 80vh if not available)
       const rect = popupRef.current ? popupRef.current.getBoundingClientRect() : { width: 720, height: window.innerHeight * 0.8 };
       const maxX = Math.max(8, window.innerWidth - rect.width - 8);
       const maxY = Math.max(8, window.innerHeight - rect.height - 8);
@@ -81,7 +71,6 @@ function UserJournal() {
     };
   }, []);
 
-  // Effect to focus the iframe when the Bible popup is shown (for Ctrl+F inside the box)
   useEffect(() => {
     if (showBible) {
       const timeoutId = setTimeout(() => {
@@ -95,7 +84,6 @@ function UserJournal() {
 
   const startDrag = (e) => {
     dragRef.current.dragging = true;
-    // offset uses current popup position
     dragRef.current.offsetX = e.clientX - popupPos.x;
     dragRef.current.offsetY = e.clientY - popupPos.y;
   };
@@ -117,7 +105,6 @@ function UserJournal() {
 
     const userId = localStorage.getItem('userId');
     if (!userId) {
-      // Do not show save popup for missing userId
       return;
     }
     try {
@@ -131,13 +118,10 @@ function UserJournal() {
         setShowSavePopup(true);
         setTimeout(() => setShowSavePopup(false), 1200);
       }
-      // Do not show popup for backend error
     } catch (err) {
-      // Do not show popup for network error
     }
   };
 
-  // MODIFIED: Explicitly set navpanes=0 and toolbar=0, and allow scrollbar=1
   const pdfUrl = "/" + encodeURIComponent("NIVBible.pdf") + "#navpanes=0&toolbar=0&scrollbar=1";
 
   return (
@@ -193,7 +177,6 @@ function UserJournal() {
             Journal History
           </button>
         </div>
-      {/* Journal History Popup */}
       {showHistory && (
         <div className="journal-history-overlay">
           <div className="journal-history-popup">
@@ -291,26 +274,22 @@ function UserJournal() {
         </div>
       </div>
 
-      {/* Movable Bible popup - PDF only */}
       {showBible && (
         <div
           className="journalpage-bible-popup"
           style={{ left: popupPos.x, top: popupPos.y }}
           role="dialog"
           aria-modal="false"
-          ref={popupRef} // attach ref here
+          ref={popupRef}
         >
           <div className="bible-header" onMouseDown={startDrag}>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <div className="bible-title">New International Version Bible</div>
 
               <div style={{ display: "flex", gap: 8 }}>
-                {/* version buttons (if you have them) */}
-                {/* keep or remove as needed */}
               </div>
             </div>
 
-            {/* only the Bible Info toggle button here (no 'x' close button) */}
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
               <button
                 type="button"
@@ -324,7 +303,6 @@ function UserJournal() {
             </div>
           </div>
 
-          {/* Info card (inside popup) */}
           {showBibleInfo && (
             <div id="bible-info-card" className="bible-info-card" role="dialog" aria-modal="false">
               <div className="bible-info-text">
@@ -346,7 +324,6 @@ function UserJournal() {
                />
              </div>
            </div>
-          {/* closed via the main "Bible" toggle button in the page header */}
         </div>
       )}
     </div>

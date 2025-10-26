@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import "../../css/Admin/Managefeedback.css";
 import AdminTopBar from "./AdminTopBar";
 
-// Feedback will be loaded from backend
-
 function Managefeedback() {
 	const [feedbackList, setFeedbackList] = useState([]);
 	const [loading, setLoading] = useState(true);

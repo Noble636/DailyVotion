@@ -30,7 +30,7 @@
 .journal-history-field span {
   color: #222;
 }
-/* Journal History Popup Styles */
+
 .journal-history-overlay {
   position: fixed;
   top: 0;
@@ -139,12 +139,12 @@
 }
 
 .journalpage-title {
-  color: #008b8b; /* Dark cyan */
+  color: #008b8b;
   font-size: 1.7rem;
   font-weight: bold;
   margin-bottom: 0.7rem;
   text-align: center;
-  margin-top: 0.5rem;          /* Move title closer to top */
+  margin-top: 0.5rem;         
 }
 
 .journalpage-guide-main {
@@ -152,7 +152,7 @@
   font-size: 1.05rem;
   text-align: center;
   margin-bottom: 1.2rem;
-  margin-bottom: 0.7rem;       /* Reduce space below guide */
+  margin-bottom: 0.7rem;      
 }
 
 .journalpage-date {
@@ -164,7 +164,7 @@
   margin-bottom: 1.5rem;
   font-size: 1rem;
   justify-content: center;
-  margin-bottom: 0.7rem;       /* Move date closer to guide */
+  margin-bottom: 0.7rem;      
 }
 
 .journalpage-date label {
@@ -183,30 +183,30 @@
 
 .journalpage-soap-row {
   display: flex;
-  gap: 2.5rem;           /* Increased gap for more spacing */
+  gap: 2.5rem;          
   margin-bottom: 2rem;
   align-items: flex-start;
   justify-content: center;
   width: 100%;
-  max-width: 900px;      /* Optionally increase max-width for more room */
+  max-width: 900px;     
 }
 
 .journalpage-soap-col {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 220px;      /* Make each column wider */
-  min-height: 340px;     /* Increase to fit larger textarea */
+  min-width: 220px;     
+  min-height: 340px;    
   justify-content: flex-start;
 }
 
 .journalpage-soap-btn {
-  background: #008b8b;    /* Dark cyan */
-  color: #fff;             /* White text */
+  background: #008b8b;   
+  color: #fff;            
   border: 2px solid #008b8b;
   border-radius: 8px;
   padding: 0.7rem 1.2rem;
-  font-size: 0.98rem;      /* a touch smaller */
+  font-size: 0.98rem;     
   font-weight: 500;
   cursor: pointer;
   margin-bottom: 0.5rem;
@@ -216,7 +216,7 @@
 
 .journalpage-soap-btn.active,
 .journalpage-soap-btn:hover {
-  background: #006d6d;    /* Slightly darker cyan on hover/active */
+  background: #006d6d;   
   color: #fff;
   border-color: #006d6d;
 }
@@ -238,7 +238,7 @@
 
 .journalpage-section-box {
   width: 100%;
-  min-height: 200px;       /* Increase to fit larger textarea */
+  min-height: 200px;      
   margin-bottom: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -247,7 +247,7 @@
 
 .journalpage-section-label {
   font-weight: 500;
-  color: #222; /* Black label */
+  color: #222;
   margin-bottom: 0.3rem;
   display: block;
 }
@@ -258,9 +258,9 @@
   border: 2.5px solid #222;
   padding: 0.8rem;
   font-size: 1.05rem;
-  margin-bottom: 1.2rem;      /* Reduce if 3rem is too much */
+  margin-bottom: 1.2rem;     
   background: #f7f8fa;
-  height: 220px;              /* Increase for a larger box */
+  height: 220px;             
   resize: none;
   color: #222;
 }
@@ -292,28 +292,28 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  margin-top: 0.5rem; /* Move buttons closer to the content above */
+  margin-top: 0.5rem;
 }
 
 .journalpage-save-btn,
 .journalpage-play-btn {
-  margin-top: 0;              /* Remove any extra top margin */
+  margin-top: 0;             
 }
 
 .journalpage-save-btn {
-  background: #008b8b;    /* Dark cyan */
+  background: #008b8b;   
   color: #fff;
   border: none;
   font-weight: 500;
   cursor: pointer;
   border-radius: 6px;
   padding: 0.6rem 1.3rem;
-  font-size: 0.95rem;      /* a touch smaller */
+  font-size: 0.95rem;     
   transition: background 0.2s;
 }
 
 .journalpage-save-btn:hover {
-  background: #006d6d;    /* Slightly darker cyan on hover */
+  background: #006d6d;   
   color: #fff;
   border: none;
 }
@@ -322,25 +322,24 @@
   background: #008b8b;
   color: #fff;
   border: none;
-  padding: 0.7rem 1.5rem; /* same as .journalpage-save-btn */
+  padding: 0.7rem 1.5rem;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
-  font-size: 0.95rem;      /* a touch smaller */
-  min-width: 120px;        /* optional: ensure consistent width */
+  font-size: 0.95rem;     
+  min-width: 120px;       
   transition: background 0.2s;
 }
 .journalpage-bible-btn:hover {
   background: #006d6d;
 }
 
-/* * FIXES START HERE 
-*/
 
-/* Movable Bible popup */
+
+
 .journalpage-bible-popup {
   position: fixed;
-  width: 610px;                 /* <-- change this value to edit box width */
+  width: 610px;                
   max-width: calc(100% - 48px);
   height: 80vh;
   overflow: hidden;
@@ -351,7 +350,7 @@
   flex-direction: column;
 }
 
-/* header is the drag handle */
+
 .journalpage-bible-popup .bible-header {
   background: linear-gradient(90deg,#0b6b66,#078f8b);
   color: #fff;
@@ -361,51 +360,43 @@
   justify-content: space-between;
   cursor: grab;
   user-select: none;
-  flex-shrink: 0; /* Header should not shrink */
+  flex-shrink: 0;
 }
 .journalpage-bible-popup .bible-header:active { cursor: grabbing; }
 
-/* --- FIX FOR HEADER TEXT --- */
+
 
 .bible-title {
   font-weight: 700;
   font-size: 1rem;
-  /* Ensure the title doesn't wrap and cause issues with the close button */
+ 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  /* MODIFIED: Takes full width as 'x' button is removed */
+ 
   max-width: 100%; 
 }
 
-/* Allow bolding of text inside the title for better instructions */
+
 .bible-title strong {
   font-weight: 900;
-  text-decoration: underline; /* Optional: adds emphasis to the action */
+  text-decoration: underline;
 }
 
-/* REMOVED: .bible-close-btn CSS is no longer needed */
-/* .bible-close-btn {
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-size: 1.25rem;
-  line-height: 1;
-  cursor: pointer;
-  padding: 0 6px;
-} */
 
-/* content area */
+
+
+
 .bible-content {
-  padding: 0; /* Key: Remove padding to allow inner elements to expand fully */
+  padding: 0;
   overflow: auto;
-  flex: 1; /* Key: Allow content to take up all remaining vertical space */
+  flex: 1;
   background: #fff;
-  display: flex; /* Key: Make it a flex container for the wrapper */
+  display: flex;
   flex-direction: column;
 }
 
-/* PDF view wrapper */
+
 .bible-pdf-wrap {
   flex: 1 1 auto;
   min-height: 0; 
@@ -415,7 +406,7 @@
   background: #fff;
   justify-content: center;
   align-items: flex-start;
-  overflow: hidden; /* hide cropped edges */
+  overflow: hidden;
 }
 
 .bible-pdf-iframe {
@@ -425,18 +416,18 @@
   background: #fff;
 }
 
-/* Optional: small negative margin to hide any remaining thin side bars (tweak value) */
+
 .bible-pdf-wrap.crop-sidebars .bible-pdf-iframe {
-  width: calc(100% + 260px) !important; /* widen to cover side panels */
+  width: calc(100% + 260px) !important;
   max-width: none !important;
-  margin-left: -130px;                   /* shift left to center the page */
+  margin-left: -130px;                  
   height: 100% !important;
   border: none;
   background: #fff !important;
   display: block;
 }
 
-/* fallback: normal full-size if crop not desired */
+
 .bible-pdf-iframe {
   width: 100%;
   height: 100%;
@@ -444,7 +435,7 @@
   display: block;
 }
 
-/* responsive: disable heavy crop on small screens */
+
 @media (max-width: 900px) {
   .bible-pdf-wrap.crop-sidebars .bible-pdf-iframe {
     width: 100% !important;
@@ -452,14 +443,12 @@
   }
 }
 
-/*
- * FIXES END HERE 
-*/
 
-/* prevent the popup from being affected by existing global svg/icon rules */
+
+
 .journalpage-bible-popup svg { max-width: 100%; }
 
-/* responsive - keep popup usable on small screens */
+
 @media (max-width: 980px) {
   .journalpage-bible-popup {
     width: 92%;
@@ -469,22 +458,22 @@
   }
 }
 
-/* Tweak: make Save / Bible buttons slightly smaller and non-bold */
+
 .journalpage-save-btn,
 .journalpage-bible-btn {
-  font-size: 0.9rem;       /* slightly smaller text */
-  font-weight: 400;        /* normal weight */
-  padding: 0.45rem 1rem;   /* reduced vertical padding */
-  min-width: 100px;        /* slightly narrower */
+  font-size: 0.9rem;      
+  font-weight: 400;       
+  padding: 0.45rem 1rem;  
+  min-width: 100px;       
   border-radius: 6px;
-  line-height: 1;          /* tighter line height */
+  line-height: 1;         
 }
 
-/* keep hover contrast */
+
 .journalpage-save-btn:hover { background: #006d6d; }
 .journalpage-bible-btn:hover { background: #006d6d; }
 
-/* Bible info button in popup header */
+
 .bible-info-btn {
   background: transparent;
   color: #fff;
@@ -496,7 +485,7 @@
 }
 .bible-info-btn:hover { opacity: 0.95; }
 
-/* Small info card inside the bible popup */
+
 .bible-info-card {
   margin: 8px 12px;
   background: #fff;
@@ -505,11 +494,11 @@
   padding: 12px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.12);
   max-width: 520px;
-  position: relative; /* sits in flow under header */
+  position: relative;
   z-index: 4;
 }
 
-/* text lines */
+
 .bible-info-card .bible-info-text p {
   margin: 6px 0;
   line-height: 1.25;
@@ -517,7 +506,7 @@
   font-size: 0.95rem;
 }
 
-/* small close inside card */
+
 .bible-info-close {
   margin-top: 8px;
   background: #078f8b;
@@ -529,23 +518,23 @@
 }
 .bible-info-close:hover { background: #006d6d; }
 
-/* restore pink header/background and make guide/date text white */
+
 .journalpage-img-bg {
   background: linear-gradient(180deg,#fde9f2 0%,#fbe2ef 100%);
   padding: 1rem 0;
   width: 100%;
-  color: #fff; /* default white for children */
-  margin-top: 40px; /* Moves the whole section down below the top bar */
+  color: #fff;
+  margin-top: 40px;
 }
 
-/* ensure the guide/instruction text is white when inside the pink area */
+
 .journalpage-img-bg .journalpage-guide-main,
 .journalpage-img-bg .journalpage-guide-text {
   color: #fff !important;
   background: transparent !important;
 }
 
-/* make the Date: label white */
+
 .journalpage-img-bg .journalpage-date label,
 .journalpage-img-bg .journalpage-title {
   color: #fff !important;

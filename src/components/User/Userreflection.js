@@ -7,8 +7,6 @@ function UserReflection() {
   const [reflections, setReflections] = useState([]);
   const [sentNotice, setSentNotice] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  // Fetch reflections and user responses from backend
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     if (!userId) {
@@ -25,10 +23,8 @@ function UserReflection() {
       .catch(() => setLoading(false));
   }, []);
 
-  // Find the latest reflection sent by admin
   const latestReflection = reflections.length > 0 ? reflections[0] : null;
 
-  // Show all reflections with responses for the current user
   const myResponses = reflections
     .filter((r) => r.response)
     .map((r) => ({
@@ -57,13 +53,11 @@ function UserReflection() {
         setReflectionText("");
         setSentNotice(true);
         setTimeout(() => setSentNotice(false), 2500);
-        // Refresh reflections
         fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/reflections`)
           .then((res) => res.json())
           .then((data) => setReflections(data || []));
       })
       .catch(() => {
-        // handle errors silently for now
       });
   };
 
@@ -78,7 +72,6 @@ function UserReflection() {
       />
 
       <div className="userreflection-main">
-        {/* LEFT: previous reflections (only current user's entries) */}
         <aside className="userreflection-left">
           <h3 className="userreflection-left-title">Previous Reflections</h3>
           <div className="userreflection-left-list">

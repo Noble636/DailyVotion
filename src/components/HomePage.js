@@ -2,12 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import "../css/HomePage.css";
 
-// Path relative to the 'public' folder
 const logoPath = '/JTVCF/home page/logo v3.png'; 
-
 const DailyVotion = () => {
   const navigate = useNavigate();
-  // Seek bar logic
   const seekBarRef = useRef();
   useEffect(() => {
     const handleScroll = () => {
@@ -23,7 +20,6 @@ const DailyVotion = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Popup animation logic
   useEffect(() => {
     const animatedEls = document.querySelectorAll('.popupAnimate');
     const onScroll = () => {
@@ -43,13 +39,11 @@ const DailyVotion = () => {
 
   return (
     <>
-      {/* Seek Bar */}
       <div className="seekBarContainer">
         <div className="seekBar" ref={seekBarRef}></div>
       </div>
       <div className="pageContainer">
         <div className="backgroundSplit"></div>
-        {/* Animated glow effect */}
         <div className="animatedGlow"></div>
         <div className="dailyVotionContainer">
           <div className="leftPanel">
@@ -80,7 +74,6 @@ const DailyVotion = () => {
           </div>
         </div>
       </div>
-      {/* New scrollable section at the bottom for your image */}
       <div
         className="scrollBackgroundSection"
         style={{
@@ -110,7 +103,6 @@ const DailyVotion = () => {
           </div>
         </div>
       </div>
-        {/* SECOND SCROLLABLE SECTION (bottom) */}
         <div
           className="scrollBackgroundSection"
           style={{
@@ -137,7 +129,6 @@ const DailyVotion = () => {
             <div className="altBottomLeft popupAnimate">
               <img src={'/JTVCF/gallery/about us/2.jpg'} alt="Bottom left" className="homepageGridImgAlt" />
             </div>
-            {/* Bottom-right devotional text (third scroll) styled like the greeting box */}
             <div className="altGreetingBox popupAnimate">
               <p>
                 As you use this platform, may your heart be filled with the joy of God’s Word, your spirit be renewed through prayer, and your faith be strengthened each day. Remember that devotion is not just an act — it is a daily walk with God, a conversation with our Creator, and a reflection of His goodness in our lives.

@@ -9,11 +9,11 @@
   text-align: center;
   box-shadow: 0 2px 8px rgba(8,163,173,0.10);
 }
-/* Add padding to the main profile container */
+
 .userprofile-outer {
-  padding: 120px 0 32px 0; /* Increased top padding to clear the top bar */
+  padding: 120px 0 32px 0;
 }
-/* --- UserProfile Unique Styles --- */
+
 .userprofile-bg {
   font-family: Arial, sans-serif;
   height: 100vh;
@@ -31,7 +31,7 @@
   align-items: center;
   gap: 2.5rem;
   padding: 2rem 0 3rem 0;
-  margin-top: 50px; /* Move content further down below the top bar */
+  margin-top: 50px;
   width: 100%;
   min-height: 88vh;
   box-sizing: border-box;
@@ -44,7 +44,7 @@
   background: rgba(255,255,255,0.7);
   border-radius: 18px;
   box-shadow: 0 8px 32px rgba(0,139,139,0.12);
-  padding: 2rem 3rem 3rem 3rem; /* Add more bottom padding */
+  padding: 2rem 3rem 3rem 3rem;
   min-width: 340px;
   max-width: 400px;
   box-sizing: border-box;
@@ -88,9 +88,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto auto;
-  gap: 1.2rem 1.5rem; /* Less gap for columns, more for rows */
+  gap: 1.2rem 1.5rem;
   width: 100%;
-  margin-bottom: 3.5rem; /* Increase space below buttons */
+  margin-bottom: 3.5rem;
 }
 
 .userprofile-btn {
@@ -100,34 +100,34 @@
   border-radius: 6px;
   font-size: 0.93rem;
   font-weight: 500;
-  padding: 0.5rem 0.2rem; /* Smaller padding */
+  padding: 0.5rem 0.2rem;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,139,139,0.10);
   transition: background 0.2s, box-shadow 0.2s;
   min-width: 0;
   width: 100%;
-  max-width: 100px; /* Smaller buttons */
+  max-width: 100px;
   justify-self: center;
 }
 
-/* First row buttons: Edit Profile, Journal, Add Prayer Request */
-.userprofile-btn:nth-child(1) { /* Edit Profile */
+
+.userprofile-btn:nth-child(1) {
   grid-row: 1;
   grid-column: 1;
 }
-.userprofile-btn:nth-child(2) { /* Journal */
+.userprofile-btn:nth-child(2) {
   grid-row: 1;
   grid-column: 2;
 }
-.userprofile-btn:nth-child(3) { /* Add Prayer Request */
+.userprofile-btn:nth-child(3) {
   grid-row: 1;
   grid-column: 3;
 }
 
-/* Second row: Center Reflection and App Feedback */
+
 .userprofile-btn:nth-child(4),
 .userprofile-btn:nth-child(5) {
-  margin-top: 0.7rem; /* More space above bottom buttons */
+  margin-top: 0.7rem;
   grid-row: 2;
   grid-column: 1 / span 2;
   justify-self: center;
@@ -141,7 +141,6 @@
   width: 70%;
   margin-left: 1rem;
 }
-
 
 .userprofile-verse {
   margin-top: -2.5rem;
@@ -165,7 +164,7 @@
   align-items: center;
 }
 
-/* --- Right Side --- */
+
 .userprofile-right {
   display: flex;
   flex-direction: column;
@@ -188,9 +187,9 @@
   border: 1px solid #e0e0e0;
   box-shadow: 0 8px 32px rgba(0,139,139,0.12);
   border-radius: 18px;
-  padding: 1.2rem 0.8rem;   /* Reduce left/right padding */
+  padding: 1.2rem 0.8rem;  
   margin-bottom: 0.5rem;
-  width: 92%;               /* Make box less wide */
+  width: 92%;              
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
@@ -216,7 +215,7 @@
   color: #333;
 }
 
-/* clickable box helper */
+
 .userprofile-box.clickable { cursor: pointer; }
 .userprofile-box.clickable:hover {
   transform: translateY(-7px) scale(1.025);
@@ -226,7 +225,7 @@
   transition: box-shadow 0.2s, transform 0.18s, border 0.18s;
 }
 
-/* Modal styles for profile popups */
+
 .profile-modal-overlay {
   position: fixed;
   inset: 0;
@@ -270,15 +269,15 @@
 
 .profile-modal-content { color: #222; line-height: 1.5; }
 
-/* small preformatted block style for church schedule */
+
 .profile-modal-content.preformatted p { margin: 6px 0; white-space: pre-line; }
 
-/* keep responsive */
+
 @media (max-width: 800px) {
   .profile-modal { max-width: 96%; padding: 1rem; }
 }
 
-/* Responsive */
+
 @media (max-width: 1200px) {
   .userprofile-main {
     flex-direction: column;

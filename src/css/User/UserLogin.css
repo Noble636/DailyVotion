@@ -1,9 +1,8 @@
-/* Prevent scrolling globally ONLY when User Login is active */
 html.userlogin-no-scroll, body.userlogin-no-scroll {
   height: 100vh !important;
   overflow: hidden !important;
 }
-/* Warning message for login form */
+
 .userlogin-warning {
   color: #d32f2f;
   margin-bottom: 1rem;
@@ -19,17 +18,17 @@ html.userlogin-no-scroll, body.userlogin-no-scroll {
   bottom: 0;
   height: 100vh !important;
   overflow: hidden !important;
-  /* Animated color wave effect from top left to bottom right */
+ 
   background: linear-gradient(120deg, #08a3ad 0%, #43e9f6 25%, #00c6b2 50%, #008b8b 75%, #005e5e 100%);
   background-size: 200% 200%;
   animation: userlogin-colorwave 12s ease-in-out infinite;
   display: flex;
   flex-direction: column;
-  padding-top: 56px; /* Adjust to match your topbar height */
+  padding-top: 56px;
   position: relative;
 }
 
-/* Sparkles effect */
+
 .userlogin-outer::before {
   content: "";
   position: absolute;
@@ -41,7 +40,7 @@ html.userlogin-no-scroll, body.userlogin-no-scroll {
   z-index: 0;
 }
 
-/* Falling snowflakes using multiple pseudo-elements */
+
 
 
 @keyframes userlogin-sparkle-move {
@@ -84,11 +83,11 @@ html.userlogin-no-scroll, body.userlogin-no-scroll {
   100% { background-position: 0% 0%; }
 }
 
-/* Hide scrollbar for User Login only */
+
 .userlogin-outer::-webkit-scrollbar {
   display: none;
 }
-/* Removed duplicate .userlogin-outer selector to avoid specificity issues */
+
 
 .userlogin-main {
   display: flex;
@@ -98,7 +97,7 @@ html.userlogin-no-scroll, body.userlogin-no-scroll {
   margin: 2rem auto;
   position: relative;
   gap: 3.5rem;
-  /* Restored margin for correct horizontal placement */
+ 
 }
 
 .userlogin-form-glass {
@@ -278,7 +277,7 @@ html.userlogin-no-scroll, body.userlogin-no-scroll {
   right: 75px;
   z-index: 5;
 }
-/* --- SPLIT MAIN LAYOUT --- */
+
 .loginpage-main-split {
   display: flex;
   justify-content: center;
@@ -328,8 +327,8 @@ html.userlogin-no-scroll, body.userlogin-no-scroll {
 }
 .loginpage-container {
   min-height: 100vh;
-  height: 100vh; /* Locks height to viewport */
-  overflow: hidden; /* CRUCIAL: Prevents scrolling within this container */
+  height: 100vh;
+  overflow: hidden;
   background: #f7f8fa;
   display: flex;
   flex-direction: column;
@@ -378,8 +377,8 @@ html.userlogin-no-scroll, body.userlogin-no-scroll {
 
 .loginpage-paper {
   background: #fff;
-  border: 1px solid #e0e0e0; /* Add a subtle border */
-  box-shadow: 0 8px 32px rgba(0,139,139,0.12); /* Soft shadow for paper effect */
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 8px 32px rgba(0,139,139,0.12);
   border-radius: 12px;
   padding: 2.5rem 2rem;
   min-width: 320px;
@@ -412,13 +411,13 @@ html.userlogin-no-scroll, body.userlogin-no-scroll {
   border-radius: 6px;
   font-size: 1rem;
   padding: 0.7rem;
-  margin-bottom: 0.1rem; /* Closer gap below email box */
+  margin-bottom: 0.1rem;
 }
 
 .loginpage-password-field {
   position: relative;
   width: 100%;
-  margin-bottom: 1rem; /* Restore normal gap */
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
 }
@@ -505,7 +504,7 @@ html.userlogin-no-scroll, body.userlogin-no-scroll {
   color: #fff;
 }
 
-/* Link fixes */
+
 a {
   text-decoration: none;
   color: inherit;
@@ -519,7 +518,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* === Sign Up Modal (isolated) === */
+
 .signup-modal-overlay {
   position: fixed;
   top: 0;
@@ -662,7 +661,7 @@ a:hover {
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: column; /* Ensure vertical layout */
+  flex-direction: column;
 }
 
 .loginpage-dropdown-menu li {
@@ -692,7 +691,7 @@ a:hover {
 .loginpage-password-field {
   position: relative;
   width: 100%;
-  margin-bottom: 1rem; /* Restore normal gap */
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
 }

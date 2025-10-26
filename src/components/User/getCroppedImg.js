@@ -1,5 +1,3 @@
-// getCroppedImg.js
-// Helper to crop image using canvas for react-easy-crop
 export default function getCroppedImg(imageSrc, crop, outputSize = 250) {
   return new Promise((resolve, reject) => {
     const image = new window.Image();

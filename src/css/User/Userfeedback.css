@@ -1,17 +1,16 @@
-/* User Feedback Styles */
 .userfeedback-container {
   min-height: 100vh;
-  background: #e0d0f0; /* changed to pink background */
+  background: #e0d0f0;
   font-family: 'Segoe UI', Arial, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0;
   box-sizing: border-box;
-  padding-top: 70px; /* keep space for shared TopBar */
+  padding-top: 70px;
 }
 
-/* ensure the shared TopBar is full-width and visible on this page */
+
 .userfeedback-container > .topbar-container {
   position: fixed;
   top: 0;
@@ -22,7 +21,7 @@
   box-sizing: border-box;
 }
 
-/* keep existing main card styles */
+
 .userfeedback-main {
   margin-top: 2.5rem;
   width: 100%;
@@ -161,5 +160,5 @@
   background: #006d6d;
 }
 
-/* optional: hide old local topbar styles if present */
+
 .userfeedback-topbar { display: none; }

@@ -12,7 +12,6 @@ function TopBar({ menuItems }) {
 
   return (
     <header className="topbar-container">
-      {/* logo link only wraps the image so the label is not clickable */}
       <a href="/" className="topbar-logo-float" aria-label="Home">
         <img
           src={process.env.PUBLIC_URL + "/JTVCF/home page/logo v3.png"}
@@ -21,7 +20,6 @@ function TopBar({ menuItems }) {
         />
       </a>
 
-      {/* non-clickable label placed outside the anchor */}
       <span className="topbar-admin-label" aria-hidden="true">
         Administration
       </span>

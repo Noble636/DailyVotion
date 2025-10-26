@@ -10,9 +10,9 @@
   border: 1px solid #e0e0e0;
   box-shadow: 0 8px 32px rgba(0,139,139,0.12);
   border-radius: 18px;
-  padding: 0.7rem 2rem;   /* Reduce top/bottom padding */
+  padding: 0.7rem 2rem;  
   width: 100%;
-  max-width: 340px;       /* Make the box less wide */
+  max-width: 340px;      
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,7 +82,7 @@
 .editprofile-eye {
   position: absolute;
   right: 12px;
-  top: 12px; /* Move up */
+  top: 12px;
   cursor: pointer;
   font-size: 1.2rem;
   user-select: none;
@@ -97,7 +97,7 @@
   box-shadow: 0 8px 32px rgba(0,139,139,0.12);
   padding: 1.5rem 2rem;
   max-width: 300px;
-  margin-left: 2rem; /* Guide on the right */
+  margin-left: 2rem;
   margin-right: 0;
   display: flex;
   flex-direction: column;
@@ -231,7 +231,7 @@
 .editprofile-eye {
   position: absolute;
   right: 12px;
-  top: 12px; /* Move up */
+  top: 12px;
   cursor: pointer;
   font-size: 1.2rem;
   user-select: none;
@@ -257,7 +257,7 @@
 }
 
 .editprofile-currentinfo {
-  background: rgba(255,255,255,0.85); /* Match Profile Editing Tips color */
+  background: rgba(255,255,255,0.85);
   border-radius: 18px;
   box-shadow: 0 4px 16px rgba(0,139,139,0.10);
   padding: 1.2rem 2rem;
@@ -314,7 +314,7 @@
   border: 1px solid #ffeeba;
 }
 
-/* Responsive */
+
 @media (max-width: 900px) {
   .editprofile-flex {
     flex-direction: column;

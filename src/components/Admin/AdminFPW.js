@@ -4,8 +4,8 @@ import "../../css/Admin/AdminFPW.css";
 import { useNavigate } from "react-router-dom";
 
 function AdminFPW() {
-  const [showAuth, setShowAuth] = useState(true); // Start with AdminAuth step
-  const [showAdminCode, setShowAdminCode] = useState(false); // For eye toggle
+  const [showAuth, setShowAuth] = useState(true);
+  const [showAdminCode, setShowAdminCode] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -17,7 +17,6 @@ function AdminFPW() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
-  // API base - prefer environment override, fall back to deployed Render URL
   const API_BASE = process.env.REACT_APP_API_BASE || 'https://dailyvotionbackend-91wt.onrender.com';
 
   const handleAuthSubmit = (e) => {
@@ -28,7 +27,6 @@ function AdminFPW() {
     }
     setError("");
     setShowAuth(false);
-    // On success, show email input step
   };
 
   const handleEmailSubmit = async (e) => {
@@ -49,7 +47,6 @@ function AdminFPW() {
         setError(data && data.error ? data.error : 'Failed to send OTP');
         return;
       }
-      // optionally show returned admin details
       setShowOTP(true);
     } catch (err) {
       console.error('send-otp error', err);
@@ -173,7 +170,6 @@ function AdminFPW() {
               <button type="submit" className="adminfpw-submitbtn">Send OTP</button>
             </form>
           )}
-          {/* Only show one password reset form after OTP is sent */}
           {!showAuth && showOTP && (
             <form className="adminfpw-form" onSubmit={handleOTPSubmit}>
               <div className="adminfpw-success">
@@ -192,7 +188,6 @@ function AdminFPW() {
               <button type="submit" className="adminfpw-submitbtn">Verify OTP</button>
             </form>
           )}
-          {/* Password reset section after OTP verification */}
           {!showAuth && !showOTP && showReset && (
             <form className="adminfpw-form" onSubmit={handleResetSubmit}>
               <div className="adminfpw-success">
@@ -217,14 +212,12 @@ function AdminFPW() {
                   style={{ position: "absolute", right: 12, top: 12, cursor: "pointer" }}
                 >
                   {showNewPassword ? (
-                    // Eye-slash SVG (matches UserLogin.js)
                     <svg width="20" height="20" viewBox="0 0 20 20">
                       <path d="M2 2l16 16" stroke="#888" strokeWidth="2"/>
                       <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6 2.1 0 4.06-.61 5.62-1.62" stroke="#888" strokeWidth="2" fill="none"/>
                       <circle cx="10" cy="10" r="4" stroke="#888" strokeWidth="2" fill="none"/>
                     </svg>
                   ) : (
-                    // Eye SVG (matches UserLogin.js)
                     <svg width="20" height="20" viewBox="0 0 20 20">
                       <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6s8.27-4.11 9-6c-.73-1.89-4-6-9-6zm0 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" fill="#888"/>
                     </svg>
@@ -250,14 +243,12 @@ function AdminFPW() {
                   style={{ position: "absolute", right: 12, top: 12, cursor: "pointer" }}
                 >
                   {showConfirmPassword ? (
-                    // Eye-slash SVG (matches login and new password)
                     <svg width="20" height="20" viewBox="0 0 20 20">
                       <path d="M2 2l16 16" stroke="#888" strokeWidth="2"/>
                       <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6 2.1 0 4.06-.61 5.62-1.62" stroke="#888" strokeWidth="2" fill="none"/>
                       <circle cx="10" cy="10" r="4" stroke="#888" strokeWidth="2" fill="none"/>
                     </svg>
                   ) : (
-                    // Eye SVG (matches login and new password)
                     <svg width="20" height="20" viewBox="0 0 20 20">
                       <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6s8.27-4.11 9-6c-.73-1.89-4-6-9-6zm0 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" fill="#888"/>
                     </svg>

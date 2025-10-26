@@ -22,7 +22,6 @@ function AdminLogin() {
       });
       const data = await res.json();
       if (res.ok && data.type === "admin") {
-        // Save admin info to sessionStorage and save adminId to localStorage for reflection delivery
         sessionStorage.setItem("adminUser", JSON.stringify(data));
         if (data.id) {
           localStorage.setItem("adminId", data.id);

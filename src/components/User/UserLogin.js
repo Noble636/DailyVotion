@@ -26,7 +26,6 @@ function Login() {
       });
       const data = await res.json();
       if (res.ok) {
-        // Save user ID to localStorage for profile fetch
         if (data.id) {
           localStorage.setItem('userId', data.id);
         }

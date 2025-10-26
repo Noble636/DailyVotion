@@ -23,7 +23,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center children horizontally */
+  align-items: center;
 }
 
 .adminauth-title {
@@ -61,7 +61,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s;
-  width: 60%; /* Or use auto, or 180px for fixed width */
+  width: 60%;
   margin: 0 auto;
   display: block;
 }
@@ -71,7 +71,7 @@
 }
 
 .adminauth-warning {
-  color: #d9534f; /* Bootstrap red */
+  color: #d9534f;
   font-weight: 500;
   margin-bottom: 1rem;
   text-align: center;

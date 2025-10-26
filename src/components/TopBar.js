@@ -3,8 +3,6 @@ import "../css/TopBar.css";
 
 function TopBar({ menuItems }) {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // default menu (includes "Journal")
   const items = menuItems ?? [
     { label: "Home", link: "/" },
     { label: "About", link: "/about" },

@@ -42,7 +42,6 @@ function ManageContent() {
   const [loadingHistory, setLoadingHistory] = useState(false);
   const navigate = useNavigate();
 
-  // Load users from backend
   useEffect(() => {
     setLoadingUsers(true);
     fetch("https://dailyvotionbackend-91wt.onrender.com/api/admin/users")
@@ -54,7 +53,6 @@ function ManageContent() {
       .catch(() => setLoadingUsers(false));
   }, []);
 
-  // Load reflection history from new backend endpoint (all user responses)
   const fetchReflectionHistory = () => {
     setLoadingHistory(true);
     fetch("https://dailyvotionbackend-91wt.onrender.com/api/admin/reflections/responses")
@@ -86,7 +84,6 @@ function ManageContent() {
   const handleDeliver = (e) => {
     e.preventDefault();
     if (selectedUsers.length && contentText) {
-      // Always use the correct logged-in adminId from localStorage
       const adminId = Number(localStorage.getItem("adminId"));
       if (!adminId) {
         setDeliveryStatus("Admin ID missing. Please log in again.");
@@ -130,7 +127,6 @@ function ManageContent() {
       <div className="managecontent-fresh-main" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <h1 className="managecontent-fresh-title">Manage Content</h1>
         <div className="managecontent-fresh-sections" style={{ justifyContent: "center" }}>
-          {/* LEFT: Deliver Reflection Activity Content */}
           <div className="managecontent-fresh-delivery box" style={{ position: "relative" }}>
             <h2>Reflection Activity Content</h2>
             <div style={{ color: "#006d6d", marginBottom: "1rem", fontSize: "1.01rem" }}>
@@ -186,7 +182,6 @@ function ManageContent() {
             )}
           </div>
 
-          {/* RIGHT: User Accounts */}
           <div className="managecontent-fresh-users box">
             <h2>User Accounts</h2>
             <div className="managecontent-fresh-selectall">
@@ -219,7 +214,6 @@ function ManageContent() {
         </div>
       </div>
 
-      {/* POPUP: User Reflection History */}
       {showReflections && (
         <Popup onClose={() => setShowReflections(false)}>
           <h2 style={{ color: "#008b8b", marginBottom: "1rem" }}>User Reflection History</h2>
@@ -234,7 +228,7 @@ function ManageContent() {
                 <li style={{ color: '#888', padding: '1rem' }}>No reflection responses yet.</li>
               ) : (
                 reflectionHistory
-                  .filter(ref => ref.response) // Only show answered reflections
+                  .filter(ref => ref.response)
                   .map((ref, idx) => (
                     <li
                       key={ref.reflectionId + '-' + (ref.userId || idx)}

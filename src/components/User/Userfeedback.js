@@ -46,7 +46,6 @@ function Userfeedback() {
   };
   return (
     <div className="userfeedback-container">
-      {/* shared TopBar */}
       <TopBar
         menuItems={[
           { label: "Profile", link: "/profile" },

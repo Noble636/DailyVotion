@@ -30,8 +30,6 @@ function UserProfile() {
         });
     }
   }, []);
-
-  // Refresh profile info after editing
   useEffect(() => {
     const handleStorage = () => {
       const userId = localStorage.getItem('userId');
@@ -92,8 +90,6 @@ function UserProfile() {
             setLatestSOAP(null);
           }
         });
-
-      // Fetch latest reflection message from admin
       fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/reflections`)
         .then(res => res.json())
         .then(data => {
@@ -189,7 +185,6 @@ function UserProfile() {
         </div>
       )}
       <div className="userprofile-main">
-        {/* Left Side */}
         <div className="userprofile-left">
           <div className="userprofile-avatar-section">
             <img
@@ -226,7 +221,6 @@ function UserProfile() {
           </div>
         </div>
 
-        {/* Right Side */}
         <div className="userprofile-right">
           <div
             className="userprofile-box clickable"
@@ -303,7 +297,6 @@ function UserProfile() {
         </div>
       </div>
 
-      {/* Modal */}
       {modalOpen && (
         <div className="profile-modal-overlay" onClick={closeModal}>
           <div className="profile-modal" onClick={(e) => e.stopPropagation()}>

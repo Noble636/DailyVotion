@@ -13,8 +13,6 @@ function UserRegister() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-
-  // agreement / modal state
   const [showAgreementModal, setShowAgreementModal] = useState(false);
   const [agreed, setAgreed] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -25,17 +23,14 @@ function UserRegister() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // show agreement modal before completing signup
     setShowAgreementModal(true);
   };
 
   const handleCompleteSignup = async () => {
-    // simple client-side check: passwords match
     if (form.password !== form.confirmPassword) {
       alert("Passwords do not match.");
       return;
     }
-      // Check if username or email is taken before submitting
       try {
         const checkRes = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/admin/users`);
         const users = await checkRes.json();
@@ -50,7 +45,6 @@ function UserRegister() {
           return;
         }
       } catch (err) {
-        // If check fails, allow backend to handle duplicate error
       }
     try {
       const res = await fetch("https://dailyvotionbackend-91wt.onrender.com/api/register", {
@@ -66,13 +60,11 @@ function UserRegister() {
       });
       const data = await res.json();
       if (res.ok) {
-        // Save userId to localStorage if returned
         if (data.id) {
           localStorage.setItem('userId', data.id);
         }
         setShowAgreementModal(false);
         setShowSuccessModal(true);
-        // clear form
         setForm({
           fullName: "",
           username: "",
@@ -82,7 +74,6 @@ function UserRegister() {
           confirmPassword: ""
         });
         setAgreed(false);
-        // Show success popup for 2 seconds, then redirect
         setTimeout(() => {
           setShowSuccessModal(false);
           window.location.href = "/login";
@@ -150,7 +141,6 @@ function UserRegister() {
                 value={form.mobile}
                 onChange={handleChange}
               />
-              {/* Password field */}
               <div className="userregister-password-row">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -180,7 +170,6 @@ function UserRegister() {
                 </span>
               </div>
 
-              {/* Confirm Password field */}
               <div className="userregister-password-row">
                 <input
                   type={showConfirm ? "text" : "password"}
@@ -234,7 +223,6 @@ function UserRegister() {
         </div>
       </div>
 
-      {/* Agreement Modal */}
       {showAgreementModal && (
         <div className="agreement-overlay">
           <div className="agreement-modal">
@@ -274,7 +262,6 @@ function UserRegister() {
         </div>
       )}
 
-      {/* Success Popup */}
       {showSuccessModal && (
         <div className="agreement-overlay">
           <div className="agreement-modal" style={{textAlign: 'center', padding: '2rem 1.4rem'}}>

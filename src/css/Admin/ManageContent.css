@@ -1,12 +1,10 @@
-/* Scoped styles for ManageContent component (unique prefixes to avoid global overrides) */
-
 .managecontent-fresh-container {
   min-height: 100vh;
   font-family: 'Segoe UI', Arial, sans-serif;
   padding: 0;
   box-sizing: border-box;
   color: #123;
-  background-color: rgba(247,249,252,0.85); /* fallback if bg-image fails */
+  background-color: rgba(247,249,252,0.85);
 }
 
 .managecontent-fresh-main {
@@ -33,7 +31,7 @@
   display: flex;
   gap: 1.25rem;
   justify-content: center !important;
-  align-items: flex-start; /* important: top-align boxes */
+  align-items: flex-start;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -41,17 +39,14 @@
   box-sizing: border-box;
 }
 
-/* Ensure sections start below the title with a little breathing room */
 .managecontent-fresh-sections {
   margin-top: 0.5rem !important;
 }
 
-/* small gutter so delivery box never visually connects to the title */
 .managecontent-fresh-delivery {
   margin-top: 0.5rem !important;
 }
 
-/* Restore visible box panels if other rules hid or collapsed them */
 .managecontent-fresh-sections .box {
   display: flex !important;
   flex-direction: column !important;
@@ -68,27 +63,22 @@
   z-index: 2 !important;
 }
 
-/* debug outline — remove after verifying layout */
 .managecontent-fresh-sections .box {
   outline: 1px solid rgba(255,255,255,0.06) !important;
 }
 
-/* Ensure box headings and lists are visible */
 .managecontent-fresh-sections .box h2,
 .managecontent-fresh-sections .box ul {
   display: block !important;
   color: inherit !important;
 }
 
-/* small safety for collapsing containers */
 .managecontent-fresh-main,
 .managecontent-fresh-sections {
   height: auto;
   box-sizing: border-box;
 }
 
-/* Specific column sizes */
-/* left reflections slightly narrower to free space for the right column */
 .managecontent-fresh-reflections {
   flex: 0 0 28%;
   min-width: 220px;
@@ -98,7 +88,6 @@
   padding-right: 0.5rem;
 }
 
-/* center delivery reduced a bit so right column can grow */
 .managecontent-fresh-delivery {
   flex: 0 1 34%;
   min-width: 300px;
@@ -107,18 +96,16 @@
   box-sizing: border-box;
 }
 
-/* right users extended to the right -- larger flex basis and max-width */
 .managecontent-fresh-users {
   flex: 0 0 34%;
   min-width: 260px;
-  max-width: 520px; /* increased to allow wider account list */
-  max-height: calc(100vh - 120px); /* make it taller */
-  overflow-y: auto !important;     /* ensure scrolling isn't overridden */
-  padding-left: 0.5rem; /* small padding to separate from middle column */
+  max-width: 520px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto !important;
+  padding-left: 0.5rem;
   box-sizing: border-box;
 }
 
-/* If any global rules hide list elements, make the lists visible */
 .managecontent-fresh-reflections ul,
 .managecontent-fresh-delivery ul,
 .managecontent-fresh-users ul {
@@ -128,7 +115,6 @@
   display: block;
 }
 
-/* make sure headings are visible */
 .managecontent-fresh-reflections h2,
 .managecontent-fresh-delivery h2,
 .managecontent-fresh-users h2 {
@@ -137,20 +123,18 @@
   font-size: 1.05rem;
 }
 
-/* improve visual separation for User Accounts list */
 .managecontent-fresh-users ul {
   display: flex;
   flex-direction: column;
-  gap: 10px;           /* space between items instead of them running together */
+  gap: 10px;
   margin: 0;
   padding: 0;
 }
 
-/* card-like user item with subtle border + left accent */
 .managecontent-fresh-user-item {
-  background: rgba(255,255,255,0.85);           /* transparent white */
-  border: 2px solid #008b8b;                    /* teal border for visibility */
-  border-left: 4px solid #008b8b;               /* accent line for visual separation */
+  background: rgba(255,255,255,0.85);
+  border: 2px solid #008b8b;
+  border-left: 4px solid #008b8b;
   padding: 0.75rem 0.9rem;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(44,62,80,0.10);
@@ -161,20 +145,17 @@
   margin-bottom: 0.85rem;
 }
 
-/* On hover, lift and highlight */
 .managecontent-fresh-user-item:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(0,139,139,0.18);
   border-color: #006d6d;
 }
 
-/* slight lift on hover to indicate interactivity */
 .managecontent-fresh-user-item:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 18px rgba(6, 68, 68, 0.08);
 }
 
-/* Update user item label to row layout for checkbox beside name */
 .managecontent-fresh-user-item label {
   display: flex !important;
   flex-direction: row !important;
@@ -185,14 +166,12 @@
   margin: 0;
 }
 
-/* Optional: make name/email stack vertically after checkbox */
 .managecontent-fresh-user-name,
 .managecontent-fresh-user-email {
   margin-left: 0 !important;
   display: block;
 }
 
-/* Make sure label contents stack neatly and do not overflow */
 .managecontent-fresh-user-item label {
   display: flex;
   flex-direction: column;
@@ -203,7 +182,7 @@
   margin: 0;
 }
 
-/* Put email below the name in user account box */
+
 .managecontent-fresh-user-item label {
   display: flex;
   flex-direction: row;
@@ -236,19 +215,19 @@
   line-height: 1.1;
 }
 
-/* If a checkbox is present, keep it left-aligned and tidy */
+
 .managecontent-fresh-user-item input[type="checkbox"] {
   flex: 0 0 auto;
   margin-right: 8px;
   transform: scale(1.04);
 }
 
-/* ensure last item does not have extra bottom spacing when container limits */
+
 .managecontent-fresh-users ul li:last-child {
   margin-bottom: 0;
 }
 
-/* ensure responsive stacking still works */
+
 @media (max-width: 980px) {
   .managecontent-fresh-main {
     padding-bottom: 1rem;
@@ -264,7 +243,7 @@
   }
 }
 
-/* Inner element styles */
+
 .managecontent-fresh-reflection-item {
   margin-bottom: 1rem;
   padding: 0.9rem;
@@ -278,7 +257,7 @@
   gap: 0.45rem;
 }
 
-/* header layout */
+
 .managecontent-fresh-reflection-header {
   display: flex;
   justify-content: space-between;
@@ -289,29 +268,29 @@
   font-size: 0.98rem;
 }
 
-/* content block beneath header */
+
 .managecontent-fresh-reflection-content {
   color: #07484a;
   font-size: 0.96rem;
   line-height: 1.35;
-  white-space: pre-wrap; /* preserve line breaks */
+  white-space: pre-wrap;
   word-break: break-word;
 }
 
-/* keep date style smaller and muted if needed */
+
 .managecontent-fresh-reflection-date {
   color: #666;
   font-size: 0.85rem;
   font-weight: 500;
 }
 
-/* Delivery form */
+
 .managecontent-fresh-form {
   display: flex;
   flex-direction: column;
 }
 
-/* ensure textarea respects its container and doesn't overflow */
+
 .managecontent-fresh-textarea {
   width: 100%;
   max-width: 100%;
@@ -348,7 +327,7 @@
   font-weight: bold;
 }
 
-/* Users list */
+
 .managecontent-fresh-selectall {
   margin-bottom: 0.75rem;
   color: #008b8b;
@@ -366,7 +345,7 @@
   align-items: center;
 }
 
-/* Users list: force name/email to stack to avoid horizontal overflow */
+
 .managecontent-fresh-user-item label {
   display: flex;
   flex-direction: column;
@@ -389,7 +368,7 @@
   opacity: 0.95;
 }
 
-/* Hamburger dropdown button styles */
+
 .managecontent-link-btn {
   background: none;
   border: none;
@@ -437,7 +416,7 @@ body {
   overflow-y: auto;
   transition: box-shadow 0.3s, border-color 0.3s;
 }
-/* Sides glow effect only, no zoom */
+
 .managecontent-users:hover {
   box-shadow:
     0 0 16px 2px rgba(60,60,60,0.18),
@@ -586,17 +565,17 @@ body {
   outline: none;
 }
 
-/* Visible themed scrollbar for reflections and user accounts (WebKit + Firefox) */
+
 .managecontent-fresh-reflections,
 .managecontent-fresh-users {
-  /* ensure space for scrollbar so content doesn't hide behind it */
+ 
   padding-right: 0.75rem;
   box-sizing: border-box;
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: rgba(0,139,139,0.45) rgba(0,0,0,0.03); /* Firefox thumb + track */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,139,139,0.45) rgba(0,0,0,0.03);
 }
 
-/* WebKit browsers (Chrome, Edge, Safari) */
+
 .managecontent-fresh-reflections::-webkit-scrollbar,
 .managecontent-fresh-users::-webkit-scrollbar {
   width: 10px;
@@ -616,42 +595,42 @@ body {
   border: 2px solid rgba(255,255,255,0.65);
 }
 
-/* slightly darker thumb on hover for affordance */
+
 .managecontent-fresh-reflections::-webkit-scrollbar-thumb:hover,
 .managecontent-fresh-users::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, rgba(0,139,139,0.75), rgba(0,139,139,0.5));
 }
 
-/* Force visible scroll area and reserve space for scrollbar */
+
 .managecontent-fresh-reflections,
 .managecontent-fresh-users {
-  overflow-y: auto !important;                     /* ensure scrolling */
-  max-height: calc(100vh - 180px) !important;      /* constrain height so scrollbar appears */
-  scrollbar-gutter: stable both-edges;             /* reserve space so layout doesn't shift */
+  overflow-y: auto !important;                    
+  max-height: calc(100vh - 180px) !important;     
+  scrollbar-gutter: stable both-edges;            
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
 }
 
-/* Make track more visible (higher contrast) */
+
 .managecontent-fresh-reflections::-webkit-scrollbar-track,
 .managecontent-fresh-users::-webkit-scrollbar-track {
-  background: rgba(200,200,200,0.12); /* slightly darker track */
+  background: rgba(200,200,200,0.12);
   border-radius: 10px;
 }
 
-/* Slightly thicker thumb so it's easy to see on Windows */
+
 .managecontent-fresh-reflections::-webkit-scrollbar,
 .managecontent-fresh-users::-webkit-scrollbar {
   width: 12px;
 }
 
-/* fallback for Firefox: use a more visible color */
+
 .managecontent-fresh-reflections,
 .managecontent-fresh-users {
   scrollbar-color: rgba(0,139,139,0.6) rgba(200,200,200,0.12);
 }
 
-/* Add at the end of your CSS file: c:\Users\nikko\Desktop\Capstone\dailyvotion\src\css\Admin\ManageContent.css */
+
 .managecontent-popup-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -677,7 +656,7 @@ body {
   overflow-y: auto;
 }
 
-/* Additional specific adjustments */
+
 .managecontent-fresh-delivery .managecontent-fresh-form {
   position: relative;
 }
@@ -690,7 +669,7 @@ body {
   margin-bottom: 0.5rem;
 }
 
-/* Make the user accounts box wider and more visible */
+
 .managecontent-fresh-users.box {
   background: rgba(255,255,255,0.85);
   border: 2px solid #008b8b;
@@ -702,7 +681,7 @@ body {
   width: 100%;
 }
 
-/* Make each user item card-like and visible */
+
 .managecontent-fresh-user-item {
   background: rgba(255,255,255,0.85);
   border: 2px solid #008b8b;
@@ -714,14 +693,14 @@ body {
   transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
 }
 
-/* On hover, lift and highlight */
+
 .managecontent-fresh-user-item:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(0,139,139,0.18);
   border-color: #006d6d;
 }
 
-/* Checkbox beside name/email stack */
+
 .managecontent-fresh-user-item label {
   display: flex !important;
   flex-direction: row !important;
@@ -732,7 +711,7 @@ body {
   margin: 0;
 }
 
-/* Name/email stack vertically */
+
 .managecontent-fresh-user-label-details {
   display: flex;
   flex-direction: column;

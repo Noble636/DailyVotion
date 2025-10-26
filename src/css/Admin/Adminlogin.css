@@ -1,29 +1,24 @@
-/* --- Admin Login (adapted to UserLogin look & feel) --- */
-
 .adminlogin-container {
   min-height: 100vh;
-  background: #08a3ad; /* same as user login teal */
+  background: #08a3ad;
   display: flex;
   flex-direction: column;
 }
 
-/* topbar color to blend with the page (keeps existing structure) */
 .adminlogin-topbar {
-  background-color: #008b8b; /* slightly darker teal */
+  background-color: #008b8b;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* logo */
 .adminlogin-logo {
   color: white;
   font-weight: bold;
   font-size: 18px;
 }
 
-/* paper/card centered */
 .adminlogin-main {
   flex: 1;
   display: flex;
@@ -46,7 +41,6 @@
   align-items: center;
 }
 
-/* headings */
 .adminlogin-title {
   color: #008b8b;
   font-size: 1.7rem;
@@ -55,7 +49,6 @@
   text-align: center;
 }
 
-/* form inputs */
 .adminlogin-paper form {
   width: 100%;
   display: flex;
@@ -76,7 +69,6 @@
   margin-bottom: 0.1rem;
 }
 
-/* password field layout (keeps eye button) */
 .adminlogin-password-field {
   position: relative;
   width: 100%;
@@ -95,7 +87,6 @@
   padding: 0.7rem;
 }
 
-/* use same placement as .userlogin-eye */
 .adminlogin-eye {
   position: absolute;
   right: 12px;
@@ -108,7 +99,6 @@
   padding: 0;
 }
 
-/* options row */
 .adminlogin-options {
   display: flex;
   justify-content: space-between;
@@ -131,7 +121,6 @@
   text-decoration: underline;
 }
 
-/* primary login button uses teal */
 .adminlogin-loginbtn {
   background: #008b8b;
   color: #fff;
@@ -148,7 +137,6 @@
   background: #006d6d;
 }
 
-/* create button style */
 .adminlogin-createbtn {
   background: #fff;
   color: #008b8b;
@@ -166,7 +154,6 @@
   color: #fff;
 }
 
-/* divider and register text */
 .adminlogin-divider {
   width: 100%;
   height: 1px;
@@ -186,7 +173,6 @@
   margin-bottom: 0.5rem;
 }
 
-/* dropdown/menu icon */
 .adminlogin-menu-btn {
   background: none;
   border: none;
@@ -219,7 +205,6 @@
 .adminlogin-menu-icon::before { top: -10px; }
 .adminlogin-menu-icon::after { top: 10px; }
 
-/* dropdown menu colors */
 .adminlogin-dropdown-menu {
   position: absolute;
   top: 50px;
@@ -238,7 +223,6 @@
 }
 .adminlogin-dropdown-menu li:hover { background: #006d6d; }
 
-/* small screens */
 @media (max-width: 600px) {
   .adminlogin-paper { padding: 1.5rem; max-width: 92%; }
 }

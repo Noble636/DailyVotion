@@ -41,7 +41,6 @@ function About() {
   return (
     <div className="aboutpage-container">
       <TopBar />
-      {/* Animated soda bubbles background */}
       <div className="aboutpage-bubbles">
         {[...Array(12)].map((_, i) => (
           <div
@@ -58,7 +57,6 @@ function About() {
       </div>
       <div className="aboutpage-gallery" style={{ display: "flex", flexDirection: "row", width: "100vw", maxWidth: "1100px", height: "calc(100vh - 80px)", margin: "0 auto", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
         <div className="aboutpage-collage" style={{ position: "relative", width: 480, height: "calc(100vh - 120px)", minHeight: 400, maxHeight: "calc(100vh - 120px)", marginRight: 32, overflow: "hidden" }}>
-          {/* Overlapping, scattered, rotated collage for lively pile effect */}
           <img src={imageBase + "1.jpg"} alt="About 1" className="aboutpage-img-float about-float-animate" style={{ position: "absolute", top: 40, left: 40, maxWidth: 220, maxHeight: 140, zIndex: 5, borderRadius: "18px", boxShadow: "0 8px 32px rgba(0,139,139,0.18)", objectFit: "cover", transform: "rotate(-7deg)" }} />
           <img src={imageBase + "2.jpg"} alt="About 2" className="aboutpage-img-float about-float-animate" style={{ position: "absolute", top: 0, left: 180, maxWidth: 180, maxHeight: 120, zIndex: 6, borderRadius: "16px", boxShadow: "0 6px 24px rgba(0,139,139,0.15)", objectFit: "cover", transform: "rotate(8deg)" }} />
           <img src={imageBase + "3.jpg"} alt="About 3" className="aboutpage-img-float about-float-animate" style={{ position: "absolute", top: 120, left: 120, maxWidth: 200, maxHeight: 140, zIndex: 7, borderRadius: "20px", boxShadow: "0 6px 24px rgba(0,139,139,0.15)", objectFit: "cover", transform: "rotate(-12deg)" }} />

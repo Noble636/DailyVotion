@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Cropper from 'react-easy-crop';
-import getCroppedImg from './getCroppedImg'; // helper for cropping
+import getCroppedImg from './getCroppedImg';
 import "../../css/User/UserEditProfile.css";
 
 function UserEditProfile() {
-  // ...existing state...
   const [showImagePopup, setShowImagePopup] = useState(false);
   const [showInfoPopup, setShowInfoPopup] = useState(false);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -24,7 +23,6 @@ function UserEditProfile() {
   const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
-    // Replace with actual user ID (from login, context, etc.)
     const userId = localStorage.getItem('userId');
     if (userId) {
       fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}`)
@@ -130,7 +128,6 @@ function UserEditProfile() {
             />
 
             <label>Change Password:</label>
-            {/* Password field */}
             <div className="editprofile-password-field">
               <input
                 type={showPassword ? "text" : "password"}
@@ -144,14 +141,12 @@ function UserEditProfile() {
                 title="Show/Hide Password"
               >
                 {showPassword ? (
-                  // Eye-slash SVG
                   <svg width="20" height="20" viewBox="0 0 20 20">
                     <path d="M2 2l16 16" stroke="#888" strokeWidth="2"/>
                     <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6 2.1 0 4.06-.61 5.62-1.62" stroke="#888" strokeWidth="2" fill="none"/>
                     <circle cx="10" cy="10" r="4" stroke="#888" strokeWidth="2" fill="none"/>
                   </svg>
                 ) : (
-                  // Eye SVG
                   <svg width="20" height="20" viewBox="0 0 20 20">
                     <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6s8.27-4.11 9-6c-.73-1.89-4-6-9-6zm0 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" fill="#888"/>
                   </svg>
@@ -160,7 +155,6 @@ function UserEditProfile() {
             </div>
 
             <label>Confirm New Password:</label>
-            {/* Confirm Password field */}
             <div className="editprofile-password-field">
               <input
                 type={showConfirm ? "text" : "password"}
@@ -174,14 +168,12 @@ function UserEditProfile() {
                 title="Show/Hide Password"
               >
                 {showConfirm ? (
-                  // Eye-slash SVG
                   <svg width="20" height="20" viewBox="0 0 20 20">
                     <path d="M2 2l16 16" stroke="#888" strokeWidth="2"/>
                     <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6 2.1 0 4.06-.61 5.62-1.62" stroke="#888" strokeWidth="2" fill="none"/>
                     <circle cx="10" cy="10" r="4" stroke="#888" strokeWidth="2" fill="none"/>
                   </svg>
                 ) : (
-                  // Eye SVG
                   <svg width="20" height="20" viewBox="0 0 20 20">
                     <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6s8.27-4.11 9-6c-.73-1.89-4-6-9-6zm0 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" fill="#888"/>
                   </svg>

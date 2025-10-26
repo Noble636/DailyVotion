@@ -1,30 +1,26 @@
 .admindash-container {
   position: relative;
   min-height: 100vh;
-  background-color: #e0f7fa; /* fallback color */
-  /* background-image removed from CSS to let JS import handle it (avoids loader resolution errors) */
+  background-color: #e0f7fa;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  height: 100vh;           /* Ensure full viewport height */
-  /* overflow: hidden;  Removed to allow universal scrolling */
-  box-sizing: border-box;  /* ensure padding counted in height if added later */
-  padding-top: 64px; /* Adjust to match your topbar height */
+  height: 100vh;
+  box-sizing: border-box;
+  padding-top: 64px;
 }
 
-/* subtle overlay removed so background image shows through */
 .admindash-container::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: transparent; /* was rgba(224,247,250,0.72) */
+  background: transparent;
   pointer-events: none;
   z-index: 0;
 }
 
-/* place dashboard content above the overlay */
 .admindash-container > * {
   position: relative;
   z-index: 1;
@@ -73,19 +69,19 @@
 
 .admindash-main {
   flex: 1;
-  padding: 0.8rem 0;       /* reduced top/bottom padding to fit one page */
+  padding: 0.8rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: hidden;      /* disable internal scrolling so page stays one-screen */
+  overflow-y: hidden;
   width: 100%;
-  height: 100%;            /* Fill available space */
-  scrollbar-width: none;   /* Firefox */
+  height: 100%;
+  scrollbar-width: none;
   box-sizing: border-box;
 }
 
 .admindash-main::-webkit-scrollbar {
-  display: none;                /* Chrome, Safari, Edge */
+  display: none;
 }
 
 .admindash-title {
@@ -100,26 +96,25 @@
 
 .admindash-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* force 2 columns */
-  grid-auto-rows: 1fr;                    /* make rows equal height */
-  gap: 1.25rem;                           /* reduced gap between cards */
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 1.25rem;
   width: 92%;
-  max-width: 1000px;                      /* slightly narrower so content fits */
+  max-width: 1000px;
   margin: 0 auto;
 }
 
-/* ensure each card stretches to fill its grid cell and content is spaced */
 .admindash-card {
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 4px 16px rgba(0,139,139,0.10);
-  padding: 1rem 0.9rem;                   /* slightly reduced padding */
+  padding: 1rem 0.9rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* space title/desc and button */
+  justify-content: space-between;
   align-items: flex-start;
-  min-height: 160px;                     /* reduced card height */
-  height: 100%;                  /* fill the grid row height */
+  min-height: 160px;
+  height: 100%;
   position: relative;
   box-sizing: border-box;
 }
@@ -128,7 +123,7 @@
   color: #008b8b;
   font-size: 1.2rem;
   margin-bottom: 0.7rem;
-  text-shadow: none; /* removed glow */
+  text-shadow: none;
 }
 
 .admindash-card p {
@@ -147,7 +142,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s;
-  align-self: center; /* changed from flex-start to center */
+  align-self: center;
   margin-top: auto;
   min-width: 160px;
 }
@@ -242,21 +237,18 @@
   padding: 0;
 }
 
-/* center action buttons inside each card */
 .admindash-card .admindash-btn {
-  align-self: center; /* changed from flex-start to center */
+  align-self: center;
   margin-top: auto;
 }
 
-/* Scoped placeholder styling: only applies inside the Admin Dashboard container */
 .admindash-container input::placeholder,
 .admindash-container textarea::placeholder,
 .admindash-container .admindash-input::placeholder {
-  color: #6b9fa0;       /* unique placeholder color for dashboard */
+  color: #6b9fa0;
   opacity: 1;
 }
 
-/* vendor prefixes for wider browser support */
 .admindash-container input::-webkit-input-placeholder,
 .admindash-container textarea::-webkit-input-placeholder,
 .admindash-container .admindash-input::-webkit-input-placeholder {
@@ -273,7 +265,6 @@
   color: #6b9fa0;
 }
 
-/* responsive: stack to single column on narrow viewports and keep compact spacing */
 @media (max-width: 700px) {
   .admindash-grid {
     grid-template-columns: 1fr;

@@ -37,7 +37,6 @@ function Gallery() {
 
   return (
     <div className="gallery-container">
-      {/* Bubble animation background */}
       <div className="gallery-bubbles">
         {[...Array(12)].map((_, i) => (
           <div

@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import "../../css/Admin/Manageprayer.css";
 import AdminTopBar from "./AdminTopBar";
 
-
-// Popup component
 function PrayerHistoryPopup({ onClose, history }) {
     return (
         <div className="manageprayer-popup-overlay">
@@ -68,7 +66,6 @@ function ManagePrayer() {
     const [showHistory, setShowHistory] = useState(false);
     const navigate = useNavigate();
 
-    // Fetch all prayer requests on mount
     useEffect(() => {
         fetch('https://dailyvotionbackend-91wt.onrender.com/api/admin/prayer')
             .then(res => res.json())

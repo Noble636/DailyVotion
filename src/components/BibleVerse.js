@@ -685,14 +685,10 @@
 { ref: "Revelation 22:17", text: "The Spirit and the bride say, ‘Come.’ Whoever is thirsty, let them come and freely receive the water of life." },
 ];
 
-
-
-// Fisher-Yates shuffle with seed
 function seededShuffle(array, seed) {
   let result = array.slice();
   let m = result.length, t, i;
   function random() {
-    // Simple LCG for deterministic pseudo-random
     seed = (seed * 9301 + 49297) % 233280;
     return seed / 233280;
   }
@@ -711,9 +707,7 @@ export function getVerseOfTheDay() {
   const startDate = new Date(year + '-01-01T00:00:00Z');
   const endDate = new Date(year + '-12-31T23:59:59Z');
   const diffDays = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
-  // Use year as seed for shuffle
   const shuffled = seededShuffle(bibleVerses, year);
-  // If more days than verses, wrap around
   const verseIndex = diffDays % shuffled.length;
   return shuffled[verseIndex];
 }
