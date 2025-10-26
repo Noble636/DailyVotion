@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TopBar from "../TopBar";
 import "../../css/User/UserProfile.css";
+import { getVerseOfTheDay } from "../BibleVerse";
 
 function UserProfile() {
   const [showInfoPopup, setShowInfoPopup] = useState(false);
@@ -119,9 +120,10 @@ function UserProfile() {
 
   const openModal = (type) => {
     if (type === "verse") {
+      const verse = getVerseOfTheDay();
       setModalData({
-        title: "Verse of the Week",
-        content: `"The Lord is my shepherd; I shall not want." – Psalm 23:1`
+        title: "Verse of the Day",
+        content: `"${verse.text}" – ${verse.ref}`
       });
     } else if (type === "soap") {
       setModalData(getLatestSOAP());
@@ -216,8 +218,11 @@ function UserProfile() {
             role="button"
             tabIndex={0}
           >
-            <h3>Verse of the Week</h3>
-            <p>"The Lord is my shepherd; I shall not want." – Psalm 23:1</p>
+            <h3>Verse of the Day</h3>
+              {(() => {
+                const verse = getVerseOfTheDay();
+                return <p style={{margin: "0.5rem 0 0 0"}}>{`"${verse.text}" – ${verse.ref}`}</p>;
+              })()}
           </div>
         </div>
 

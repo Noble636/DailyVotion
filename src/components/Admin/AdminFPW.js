@@ -17,6 +17,8 @@ function AdminFPW() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+  // API base - prefer environment override, fall back to deployed Render URL
+  const API_BASE = process.env.REACT_APP_API_BASE || 'https://dailyvotionbackend-91wt.onrender.com';
 
   const handleAuthSubmit = (e) => {
     e.preventDefault();
@@ -37,7 +39,7 @@ function AdminFPW() {
     }
     setError("");
     try {
-      const resp = await fetch('/api/admin/forgot-password/verify-email', {
+  const resp = await fetch(`${API_BASE}/api/admin/forgot-password/verify-email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
@@ -63,7 +65,7 @@ function AdminFPW() {
     }
     setError("");
     try {
-      const resp = await fetch('/api/admin/forgot-password/verify-otp', {
+  const resp = await fetch(`${API_BASE}/api/admin/forgot-password/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp })
@@ -93,7 +95,7 @@ function AdminFPW() {
     }
     setError("");
     try {
-      const resp = await fetch('/api/admin/forgot-password/reset-password', {
+  const resp = await fetch(`${API_BASE}/api/admin/forgot-password/reset-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, newPassword })

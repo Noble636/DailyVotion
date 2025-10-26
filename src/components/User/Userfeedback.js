@@ -6,12 +6,14 @@ import "../../css/User/Userfeedback.css";
 function Userfeedback() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [feedback, setFeedback] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
 
   const handleSave = async () => {
     const userId = localStorage.getItem('userId');
     if (!feedback.trim() || !userId) {
-      alert("Please enter feedback.");
+      setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 1800);
       return;
     }
     try {
@@ -22,14 +24,19 @@ function Userfeedback() {
       });
       const data = await res.json();
       if (res.ok) {
-        alert("Feedback saved! Thank you.");
+        setShowPopup(true);
         setFeedback("");
-        navigate(-1);
+        setTimeout(() => {
+          setShowPopup(false);
+          navigate(-1);
+        }, 1800);
       } else {
-        alert(data.error || "Failed to save feedback.");
+        setShowPopup(true);
+        setTimeout(() => setShowPopup(false), 1800);
       }
     } catch (err) {
-      alert("Server error. Please try again later.");
+      setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 1800);
     }
   };
 
@@ -37,7 +44,6 @@ function Userfeedback() {
     setFeedback("");
     navigate(-1);
   };
-
   return (
     <div className="userfeedback-container">
       {/* shared TopBar */}
@@ -49,7 +55,6 @@ function Userfeedback() {
           { label: "Logout", link: "/" }
         ]}
       />
-
       <div className="userfeedback-main">
         <div className="userfeedback-title">App Feedback & Report</div>
         <div className="userfeedback-explanation">
@@ -60,11 +65,31 @@ function Userfeedback() {
           value={feedback}
           onChange={e => setFeedback(e.target.value)}
           placeholder="Type your feedback or report here..."
+          style={{ marginLeft: '0.5rem', marginRight: '0.5rem', width: 'calc(100% - 1rem)' }}
         />
         <div className="userfeedback-btns">
           <button className="userfeedback-btn" onClick={handleSave}>Save</button>
           <button className="userfeedback-btn" onClick={handleCancel}>Cancel</button>
         </div>
+        {showPopup && (
+          <div style={{
+            position: 'fixed',
+            top: '25%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            background: '#e0f7fa',
+            color: '#008b8b',
+            padding: '1.2rem 2.2rem',
+            borderRadius: '14px',
+            fontWeight: 600,
+            fontSize: '1.15rem',
+            boxShadow: '0 4px 16px rgba(8,163,173,0.18)',
+            zIndex: 9999,
+            textAlign: 'center'
+          }}>
+            Your feedback has been recorded successfully!
+          </div>
+        )}
       </div>
     </div>
   );

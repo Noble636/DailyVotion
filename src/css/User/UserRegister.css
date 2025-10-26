@@ -7,19 +7,43 @@ body {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
 }
+
+/* Animated color wave effect for User Register background */
+.userregister-outer {
+    background: linear-gradient(120deg, #08a3ad 0%, #43e9f6 25%, #00c6b2 50%, #008b8b 75%, #005e5e 100%);
+    background-size: 200% 200%;
+    animation: userregister-colorwave 12s ease-in-out infinite;
+    position: relative;
+}
+
+@keyframes userregister-colorwave {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* Optional: add a sparkles effect overlay (for future use, currently background only) */
+.userregister-outer::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: none;
+}
 /* --- USERREGISTER SPLIT LAYOUT --- */
 .userregister-outer {
-    /* Height is intentionally NOT set to 100vh here, so it grows with content. 
-       min-height: 100vh ensures it fills the viewport if content is small. */
-    min-height: 100vh; 
-    overflow-y: auto; /* Allows scrolling when content exceeds min-height */
-    overflow-x: hidden;
-    background: #08a3ad;
+    min-height: 100vh;
+    overflow: hidden !important;
+    background: linear-gradient(120deg, #08a3ad 0%, #43e9f6 25%, #00c6b2 50%, #008b8b 75%, #005e5e 100%);
+    background-size: 200% 200%;
+    animation: userregister-colorwave 12s ease-in-out infinite;
     display: flex;
     flex-direction: column;
     padding-top: 0px;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
+    position: relative;
 }
 /* Hide scrollbar for User Register only, but keep scrollable */
 .userregister-outer::-webkit-scrollbar {
@@ -44,9 +68,7 @@ body {
     background: radial-gradient(circle at 20% 20%, rgba(220,220,220,0.85) 0%, rgba(220,220,220,0.75) 60%, rgba(200,200,200,0.6) 100%);
     border-radius: 22px;
     box-shadow: 12px 18px 40px 0 rgba(0,0,0,0.32), 4px 8px 16px 0 rgba(0,139,139,0.18);
-    /* Increased top/bottom padding from 1.0rem to 1.5rem */
     padding: 1.5rem 2rem; 
-    /* Increased bottom margin from 2.0rem to 3.0rem */
     margin-bottom: 1.5rem; 
     min-width: 340px;
     max-width: 370px;
@@ -57,6 +79,7 @@ body {
     z-index: 2;
     margin-right: 0.5rem;
     backdrop-filter: blur(14px) saturate(120%);
+    position: relative;
 }
 
 .userregister-form-content {
@@ -141,7 +164,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
-    z-index: 1;
+    z-index: 2;
 }
 .userregister-img-holder {
     position: absolute;

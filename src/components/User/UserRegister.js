@@ -82,6 +82,11 @@ function UserRegister() {
           confirmPassword: ""
         });
         setAgreed(false);
+        // Show success popup for 2 seconds, then redirect
+        setTimeout(() => {
+          setShowSuccessModal(false);
+          window.location.href = "/login";
+        }, 2000);
       } else {
         alert(data.error || "Registration failed");
       }
@@ -234,14 +239,16 @@ function UserRegister() {
         <div className="agreement-overlay">
           <div className="agreement-modal">
             <h3>Terms & Agreement</h3>
-            <p>
-              Before creating an account you must agree to the following:
-            </p>
-            <ul>
-              <li>Your account will be created locally (no backend) and is for demo purposes.</li>
-              <li>Do not share your password with anyone — not with other users, and not with admins.</li>
-              <li>Keep personal contact details out of public prayer requests.</li>
-            </ul>
+              <p>
+                Before creating an account, you must agree to the following:
+              </p>
+              <ul>
+                <li>Your account and personal information will be securely stored on our servers.</li>
+                <li>Protect your password and never share it with anyone, including other users or administrators.</li>
+                <li>Respect the privacy of others and do not post personal contact details or sensitive information in public areas, such as prayer requests.</li>
+                <li>Use this platform responsibly and refrain from any abusive, offensive, or inappropriate behavior.</li>
+                <li>By registering, you agree to our Terms of Service and Privacy Policy.</li>
+              </ul>
 
             <label className="agreement-row">
               <input
@@ -267,16 +274,11 @@ function UserRegister() {
         </div>
       )}
 
-      {/* Success Modal */}
+      {/* Success Popup */}
       {showSuccessModal && (
-        <div className="agreement-overlay" onClick={handleCloseSuccess}>
-          <div className="agreement-modal" onClick={(e) => e.stopPropagation()}>
-            <h3>Sign Up Complete</h3>
-            <p>Your account has been created locally for demo purposes. Keep your credentials safe.</p>
-            <p className="warning-strong">Important: Never share your password with anyone — including admins. We will never ask for your password.</p>
-            <div className="agreement-actions">
-              <button className="userregister-signup-btn" onClick={handleCloseSuccess}>Done</button>
-            </div>
+        <div className="agreement-overlay">
+          <div className="agreement-modal" style={{textAlign: 'center', padding: '2rem 1.4rem'}}>
+            <h3 style={{marginBottom: '0.5rem'}}>Sign up successful</h3>
           </div>
         </div>
       )}

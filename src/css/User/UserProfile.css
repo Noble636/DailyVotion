@@ -1,3 +1,14 @@
+.userprofile-content.no-journal {
+  background: linear-gradient(90deg, #e0f7fa 0%, #b2ebf2 100%);
+  border: 1.5px solid #08a3ad;
+  border-radius: 8px;
+  color: #008b8b;
+  font-weight: 600;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(8,163,173,0.10);
+}
 /* Add padding to the main profile container */
 .userprofile-outer {
   padding: 120px 0 32px 0; /* Increased top padding to clear the top bar */
@@ -133,12 +144,25 @@
 
 
 .userprofile-verse {
-  margin-top: -2.0rem;
-  width: 100% !important;         /* Stretch nearly full width */
-  padding-left: 10rem;            /* Increase left padding */
-  padding-right: 10rem;           /* Increase right padding */
+  margin-top: -2.5rem;
+  width: 100% !important;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  padding: 1.2rem 2rem;
   box-sizing: border-box;
   text-align: center;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-line;
+}
+.userprofile-box.userprofile-verse {
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* --- Right Side --- */
@@ -160,7 +184,7 @@
 }
 
 .userprofile-box {
-  background: #fff;
+  background: linear-gradient(120deg, #e0f7fa 0%, #b2ebf2 60%, #f7f8fa 100%);
   border: 1px solid #e0e0e0;
   box-shadow: 0 8px 32px rgba(0,139,139,0.12);
   border-radius: 18px;
@@ -173,9 +197,9 @@
 }
 
 .userprofile-post {
-  background: #f1f1f1;
-  padding: 10px;
-  border-radius: 6px;
+  background: none;
+  padding: 0;
+  border-radius: 0;
   margin-top: 0.5rem;
 }
 
@@ -194,7 +218,13 @@
 
 /* clickable box helper */
 .userprofile-box.clickable { cursor: pointer; }
-.userprofile-box.clickable:hover { transform: translateY(-4px); transition: transform .12s ease; }
+.userprofile-box.clickable:hover {
+  transform: translateY(-7px) scale(1.025);
+  box-shadow: 0 16px 48px rgba(8,163,173,0.22), 0 4px 16px rgba(0,139,139,0.16);
+  border-color: #43e9f6;
+  background: linear-gradient(120deg, #e0f7fa 0%, #f7f8fa 100%);
+  transition: box-shadow 0.2s, transform 0.18s, border 0.18s;
+}
 
 /* Modal styles for profile popups */
 .profile-modal-overlay {
