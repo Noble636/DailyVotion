@@ -228,6 +228,7 @@
   margin-bottom: 0;
 }
 
+
 .adminregister-eye {
   position: absolute;
   right: 12px;
@@ -238,13 +239,26 @@
   background: transparent;
   border: none;
   padding: 0;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
 }
 
-.adminregister-eye svg { display: block; width: 20px; height: 20px; }
+.adminregister-eye:hover {
+  color: #008b8b;
+}
+
+.adminregister-eye svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
 .adminregister-eye svg path,
 .adminregister-eye svg circle {
-  fill: currentColor;
-  stroke: none;
+  stroke: #888;
+  fill: none;
 }
 
 .adminregister-forgot {

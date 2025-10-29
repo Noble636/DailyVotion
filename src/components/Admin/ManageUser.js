@@ -9,7 +9,6 @@ function Popup({ message, onOk, onCancel, okText = "OK", cancelText = "Cancel" }
       <div className="manageuser-popup-box">
         <div style={{ marginBottom: "1rem" }}>{message}</div>
         <div style={{ display: "flex", gap: "1rem", justifyContent: "flex-end" }}>
-          <button onClick={onCancel}>{cancelText}</button>
           <button onClick={onOk}>{okText}</button>
         </div>
       </div>
