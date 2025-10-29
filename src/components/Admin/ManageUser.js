@@ -58,6 +58,9 @@ function ManageUser() {
     }).catch(() => setLoading(false));
   }, []);
 
+  const [showUserDetails, setShowUserDetails] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
+
   const handleDeleteConfirmed = async () => {
     if (!deleteId || !deleteType) return;
     let url = "";
@@ -155,7 +158,8 @@ function ManageUser() {
             <ul>
               {users.map((user) => (
                 <li key={user.id} className="manageuser-user-item-fresh">
-                  <div className="manageuser-user-label-details">
+                  <div className="manageuser-user-label-details" style={{ cursor: "pointer" }}
+                    onClick={() => { setUserDetails(user); setShowUserDetails(true); }}>
                     <span className="manageuser-user-name">{user.name}</span>
                     <span className="manageuser-user-email">{user.email}</span>
                   </div>
@@ -170,6 +174,21 @@ function ManageUser() {
         </div>
       </div>
 
+      {showUserDetails && userDetails && (
+        <Popup
+          message={
+            <div>
+              <div><strong>Username:</strong> {userDetails.username || userDetails.name}</div>
+              <div><strong>Email:</strong> {userDetails.email}</div>
+              <div><strong>Contact No.:</strong> {userDetails.mobile || "N/A"}</div>
+            </div>
+          }
+          onOk={() => setShowUserDetails(false)}
+          onCancel={() => setShowUserDetails(false)}
+          okText="Close"
+          cancelText=""
+        />
+      )}
       {showFirstWarning && (
         <Popup
           message={
