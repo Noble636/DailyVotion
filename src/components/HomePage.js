@@ -6,6 +6,10 @@ const logoPath = '/JTVCF/home page/logo v3.png';
 const DailyVotion = () => {
   const navigate = useNavigate();
   const seekBarRef = useRef();
+
+  // Helper to check login status
+  const isUserLoggedIn = !!localStorage.getItem('userId');
+  const isAdminLoggedIn = !!localStorage.getItem('adminId') || !!sessionStorage.getItem('adminUser');
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -67,7 +71,15 @@ const DailyVotion = () => {
             </p>
             <button 
               className="getStartedButton"
-              onClick={() => navigate("/login")}
+              onClick={() => {
+                if (isAdminLoggedIn) {
+                  navigate("/admindashboard");
+                } else if (isUserLoggedIn) {
+                  navigate("/profile");
+                } else {
+                  navigate("/login");
+                }
+              }}
             >
               Get Started!
             </button>

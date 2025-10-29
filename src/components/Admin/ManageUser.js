@@ -41,7 +41,7 @@ function ManageUser() {
     setLoading(true);
     Promise.all([
       fetch('https://dailyvotionbackend-91wt.onrender.com/api/admin/users').then(res => res.json()),
-      fetch('https://dailyvotionbackend.onrender.com/api/admin/admins').then(res => res.json())
+      fetch('https://dailyvotionbackend-91wt.onrender.com/api/admin/admins').then(res => res.json())
     ]).then(([usersData, adminsData]) => {
       setUsers(usersData.map(u => ({
         ...u,
