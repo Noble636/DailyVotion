@@ -1,13 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/TopBar.css";
 
-function TopBar({ menuItems }) {
+const TopBar = ({ menuItems }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const items = menuItems ?? [
+  const navigate = useNavigate();
+  // Remove Logout from items, will add manually below About
+  const items = (menuItems ?? [
     { label: "Home", link: "/" },
-    { label: "About", link: "/about" },
-    { label: "Logout", link: "/" }
-  ];
+    { label: "About", link: "/about" }
+  ]).filter(item => item.label !== "Logout");
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    navigate("/");
+  };
 
   return (
     <header className="topbar-container">
@@ -31,6 +38,10 @@ function TopBar({ menuItems }) {
             {items.map((item, idx) => (
               <li key={idx}><a href={item.link}>{item.label}</a></li>
             ))}
+            {/* Logout button below About */}
+            <li>
+              <button style={{background: "none", border: "none", color: "#d32f2f", fontWeight: 500, cursor: "pointer", marginTop: "0.5rem"}} onClick={handleLogout}>Logout</button>
+            </li>
           </ul>
         </div>
       )}

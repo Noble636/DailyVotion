@@ -13,11 +13,12 @@ function TopBar({ menuItems }) {
     navigate("/");
   };
 
-  const items = menuItems ?? [
-    { label: "Home", link: "/" },
-    { label: "Logout", link: "#logout" },
-    { label: "About", link: "/about" }
-  ];
+  const items = menuItems
+    ? menuItems.filter(item => item.label !== "User Login")
+    : [
+        { label: "Home", link: "/" },
+        { label: "About", link: "/about" }
+      ];
 
   return (
     <header className="topbar-container">
@@ -41,23 +42,18 @@ function TopBar({ menuItems }) {
         <span className="topbar-menu-icon"></span>
       </button>
 
-      {/* Logout button on top bar */}
-      <button
-        className="topbar-logout-btn"
-        style={{ marginLeft: "1rem", background: "#d32f2f", color: "#fff", border: "none", borderRadius: "6px", padding: "0.5rem 1rem", fontWeight: 500, cursor: "pointer" }}
-        onClick={handleLogout}
-      >
-        Logout
-      </button>
+      {/* Remove top bar logout button, only show in dropdown */}
 
       {menuOpen && (
         <div className="topbar-dropdown-menu">
           <ul>
             {items.map((item, idx) => (
-              item.label === "Logout"
-                ? <li key={idx}><button style={{background: "none", border: "none", color: "#d32f2f", fontWeight: 500, cursor: "pointer"}} onClick={handleLogout}>Logout</button></li>
-                : <li key={idx}><a href={item.link}>{item.label}</a></li>
+              <li key={idx}><a href={item.link}>{item.label}</a></li>
             ))}
+            {/* Logout button below About */}
+            <li>
+              <button style={{background: "none", border: "none", color: "#d32f2f", fontWeight: 500, cursor: "pointer", marginTop: "0.5rem"}} onClick={handleLogout}>Logout</button>
+            </li>
           </ul>
         </div>
       )}
