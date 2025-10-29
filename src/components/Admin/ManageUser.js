@@ -106,9 +106,9 @@ function ManageUser() {
             <h2>Admin Accounts</h2>
             <ul>
               {admins.map((admin) => (
-                <li key={admin.id} className="manageuser-user-item-fresh">
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem", cursor: "pointer" }}
-                    onClick={() => { setAdminDetails(admin); setShowAdminDetails(true); }}>
+                <li key={admin.id} className="manageuser-user-item-fresh" style={{ cursor: "pointer" }}
+                  onClick={() => { setAdminDetails(admin); setShowAdminDetails(true); }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
                     <span className="manageuser-user-label-details">
                       <span className="manageuser-user-name">{admin.name}</span>
                       <span className="manageuser-user-email">{admin.email}</span>
@@ -119,10 +119,10 @@ function ManageUser() {
                     <div style={{ display: "flex", gap: "0.4rem", marginBottom: "0.4rem" }}>
                       {codeId === admin.id ? (
                         <>
-                          <button onClick={() => { setCodeId(null); setAdminCodeInput(""); }}>Cancel</button>
+                          <button onClick={(e) => { e.stopPropagation(); setCodeId(null); setAdminCodeInput(""); }}>Cancel</button>
                         </>
                       ) : (
-                        <button onClick={() => { setCodeId(admin.id); setAdminCodeInput(""); }}>Choose Admin Code</button>
+                        <button onClick={(e) => { e.stopPropagation(); setCodeId(admin.id); setAdminCodeInput(""); }}>Choose Admin Code</button>
                       )}
                     </div>
                     {codeId === admin.id && (
@@ -137,14 +137,14 @@ function ManageUser() {
                           placeholder="Enter Admin Code"
                           style={{ marginRight: "0.3rem", marginBottom: "0.4rem" }}
                         />
-                        <button onClick={() => handleSaveAdminCode(admin.id)}>Save</button>
+                        <button onClick={(e) => { e.stopPropagation(); handleSaveAdminCode(admin.id); }}>Save</button>
                       </div>
                     )}
                     {admin.id !== loggedInAdminId && (
                       <button
                         className="manageuser-delete-btn"
                         style={{ background: "#d32f2f", marginTop: "0.4rem" }}
-                        onClick={() => { setDeleteId(admin.id); setDeleteType("admin"); setShowFirstWarning(true); }}
+                        onClick={(e) => { e.stopPropagation(); setDeleteId(admin.id); setDeleteType("admin"); setShowFirstWarning(true); }}
                       >
                         Delete Admin Account
                       </button>
@@ -159,15 +159,15 @@ function ManageUser() {
             <h2>User Accounts</h2>
             <ul>
               {users.map((user) => (
-                <li key={user.id} className="manageuser-user-item-fresh">
-                  <div className="manageuser-user-label-details" style={{ cursor: "pointer" }}
-                    onClick={() => { setUserDetails(user); setShowUserDetails(true); }}>
+                <li key={user.id} className="manageuser-user-item-fresh" style={{ cursor: "pointer" }}
+                  onClick={() => { setUserDetails(user); setShowUserDetails(true); }}>
+                  <div className="manageuser-user-label-details">
                     <span className="manageuser-user-name">{user.name}</span>
                     <span className="manageuser-user-email">{user.email}</span>
                   </div>
                   <div>Role: {user.role}</div>
                   <div className="manageuser-actions-fresh" style={{ flexDirection: "row", gap: "0.4rem" }}>
-                    <button className="manageuser-delete-btn" style={{ marginRight: "0.5rem", marginBottom: "0.5rem" }} onClick={() => { setDeleteId(user.id); setDeleteType("user"); setShowFirstWarning(true); }}>Delete Account</button>
+                    <button className="manageuser-delete-btn" style={{ marginRight: "0.5rem", marginBottom: "0.5rem" }} onClick={(e) => { e.stopPropagation(); setDeleteId(user.id); setDeleteType("user"); setShowFirstWarning(true); }}>Delete Account</button>
                   </div>
                 </li>
               ))}
