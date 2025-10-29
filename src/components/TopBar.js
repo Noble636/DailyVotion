@@ -54,7 +54,9 @@ const TopBar = ({ menuItems }) => {
                     fontSize: "inherit",
                     cursor: "pointer",
                     width: "100%",
-                    textAlign: "left"
+                    textAlign: "left",
+                    padding: 0,
+                    margin: 0
                   }}
                   onClick={handleLogout}
                 >Logout</button>
