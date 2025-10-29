@@ -50,9 +50,21 @@ function TopBar({ menuItems }) {
             {items.map((item, idx) => (
               <li key={idx}><a href={item.link}>{item.label}</a></li>
             ))}
-            {/* Logout button below About */}
+            {/* Logout button below About, styled like other items */}
             <li>
-              <button style={{background: "none", border: "none", color: "#d32f2f", fontWeight: 500, cursor: "pointer", marginTop: "0.5rem"}} onClick={handleLogout}>Logout</button>
+              <button
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "#fff",
+                  fontWeight: "normal",
+                  fontSize: "inherit",
+                  cursor: "pointer",
+                  width: "100%",
+                  textAlign: "left"
+                }}
+                onClick={handleLogout}
+              >Logout</button>
             </li>
           </ul>
         </div>
