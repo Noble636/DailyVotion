@@ -159,7 +159,7 @@ function ManageUser() {
             <h2>User Accounts</h2>
             <ul>
               {users.map((user) => (
-                <li key={user.id} className="manageuser-user-item-fresh" style={{ cursor: "pointer" }}
+                <li key={user.id} className="manageuser-user-item-fresh manageuser-user-box-clickable" style={{ cursor: "pointer" }}
                   onClick={() => { setUserDetails(user); setShowUserDetails(true); }}>
                   <div className="manageuser-user-label-details">
                     <span className="manageuser-user-name">{user.name}</span>
