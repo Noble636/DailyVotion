@@ -56,6 +56,15 @@ function AdminLogin() {
     }
   }, []);
 
+  // Remove remembered credentials immediately when unchecked
+  React.useEffect(() => {
+    if (!rememberMe) {
+      localStorage.removeItem('adminRememberMe');
+      localStorage.removeItem('adminRememberedUser');
+      localStorage.removeItem('adminRememberedPass');
+    }
+  }, [rememberMe]);
+
   return (
     <div className="adminlogin-container">
       <AdminTopBar />

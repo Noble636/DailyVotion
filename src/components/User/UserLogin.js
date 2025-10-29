@@ -63,6 +63,15 @@ function Login() {
     }
   }, []);
 
+  // Remove remembered credentials immediately when unchecked
+  React.useEffect(() => {
+    if (!rememberMe) {
+      localStorage.removeItem('rememberMe');
+      localStorage.removeItem('rememberedUser');
+      localStorage.removeItem('rememberedPass');
+    }
+  }, [rememberMe]);
+
   return (
     <div className="userlogin-outer">
       <TopBar
