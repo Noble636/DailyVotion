@@ -59,6 +59,8 @@ function ManageUser() {
 
   const [showUserDetails, setShowUserDetails] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const [showAdminDetails, setShowAdminDetails] = useState(false);
+  const [adminDetails, setAdminDetails] = useState(null);
 
   const handleDeleteConfirmed = async () => {
     if (!deleteId || !deleteType) return;
@@ -105,7 +107,8 @@ function ManageUser() {
             <ul>
               {admins.map((admin) => (
                 <li key={admin.id} className="manageuser-user-item-fresh">
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem", cursor: "pointer" }}
+                    onClick={() => { setAdminDetails(admin); setShowAdminDetails(true); }}>
                     <span className="manageuser-user-label-details">
                       <span className="manageuser-user-name">{admin.name}</span>
                       <span className="manageuser-user-email">{admin.email}</span>
@@ -173,6 +176,21 @@ function ManageUser() {
         </div>
       </div>
 
+      {showAdminDetails && adminDetails && (
+        <Popup
+          message={
+            <div>
+              <div><strong>Username:</strong> {adminDetails.username || adminDetails.name}</div>
+              <div><strong>Email:</strong> {adminDetails.email}</div>
+              <div><strong>Contact No.:</strong> {adminDetails.mobile || "N/A"}</div>
+            </div>
+          }
+          onOk={() => setShowAdminDetails(false)}
+          onCancel={() => setShowAdminDetails(false)}
+          okText="Close"
+          cancelText=""
+        />
+      )}
       {showUserDetails && userDetails && (
         <Popup
           message={
