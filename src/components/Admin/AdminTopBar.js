@@ -1,12 +1,21 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../css/Admin/AdminTopBar.css";
 
 function TopBar({ menuItems }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  // Logout handler
+  const handleLogout = () => {
+    localStorage.removeItem("adminId");
+    sessionStorage.removeItem("adminUser");
+    navigate("/");
+  };
 
   const items = menuItems ?? [
     { label: "Home", link: "/" },
-    { label: "User Login", link: "/login" },
+    { label: "Logout", link: "#logout" },
     { label: "About", link: "/about" }
   ];
 
@@ -32,11 +41,22 @@ function TopBar({ menuItems }) {
         <span className="topbar-menu-icon"></span>
       </button>
 
+      {/* Logout button on top bar */}
+      <button
+        className="topbar-logout-btn"
+        style={{ marginLeft: "1rem", background: "#d32f2f", color: "#fff", border: "none", borderRadius: "6px", padding: "0.5rem 1rem", fontWeight: 500, cursor: "pointer" }}
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
+
       {menuOpen && (
         <div className="topbar-dropdown-menu">
           <ul>
             {items.map((item, idx) => (
-              <li key={idx}><a href={item.link}>{item.label}</a></li>
+              item.label === "Logout"
+                ? <li key={idx}><button style={{background: "none", border: "none", color: "#d32f2f", fontWeight: 500, cursor: "pointer"}} onClick={handleLogout}>Logout</button></li>
+                : <li key={idx}><a href={item.link}>{item.label}</a></li>
             ))}
           </ul>
         </div>
