@@ -13,8 +13,9 @@ function TopBar({ menuItems }) {
     navigate("/");
   };
 
+  // Remove any Logout from menuItems, will add manually below About
   const items = menuItems
-    ? menuItems.filter(item => item.label !== "User Login")
+    ? menuItems.filter(item => item.label !== "User Login" && item.label !== "Logout")
     : [
         { label: "Home", link: "/" },
         { label: "About", link: "/about" }
