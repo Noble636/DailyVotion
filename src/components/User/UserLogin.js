@@ -29,6 +29,16 @@ function Login() {
       if (res.ok) {
         if (data.id) {
           localStorage.setItem('userId', data.id);
+          // Fetch user info (including profilePic) and store in localStorage
+          try {
+            const userRes = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${data.id}`);
+            if (userRes.ok) {
+              const userInfo = await userRes.json();
+              localStorage.setItem('userInfo', JSON.stringify(userInfo));
+            }
+          } catch (err) {
+            // Ignore fetch error, fallback to profile fetch on profile page
+          }
         }
         // Remember Me logic
         if (rememberMe) {
