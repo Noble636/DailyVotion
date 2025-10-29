@@ -6,10 +6,10 @@ import "../../css/Admin/ManageUser.css";
 function Popup({ message, onOk, onCancel, okText = "OK", cancelText = "Cancel" }) {
   return (
     <div className="manageuser-popup-overlay">
-      <div className="manageuser-popup-box">
-        <div style={{ marginBottom: "1rem" }}>{message}</div>
+      <div className="manageuser-popup-box" style={{ minWidth: 280, maxWidth: 340 }}>
+        <div style={{ marginBottom: "1rem", fontSize: "1.08rem", color: "#222" }}>{message}</div>
         <div style={{ display: "flex", gap: "1rem", justifyContent: "flex-end" }}>
-          <button onClick={onOk}>{okText}</button>
+          <button onClick={onOk} style={{ background: '#08a3ad', color: '#fff', border: 'none', borderRadius: 6, padding: '0.5rem 1.2rem', fontWeight: 500, fontSize: '1rem', cursor: 'pointer' }}>{okText}</button>
         </div>
       </div>
     </div>

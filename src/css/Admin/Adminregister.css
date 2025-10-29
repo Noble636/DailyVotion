@@ -257,8 +257,8 @@
 }
 .adminregister-eye svg path,
 .adminregister-eye svg circle {
-  stroke: #888;
-  fill: none;
+  fill: #888;
+  stroke: none;
 }
 
 .adminregister-forgot {
