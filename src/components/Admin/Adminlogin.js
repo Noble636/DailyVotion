@@ -8,6 +8,7 @@ function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
   const [warning, setWarning] = useState("");
@@ -26,6 +27,16 @@ function AdminLogin() {
         if (data.id) {
           localStorage.setItem("adminId", data.id);
         }
+        // Remember Me logic
+        if (rememberMe) {
+          localStorage.setItem('adminRememberMe', 'true');
+          localStorage.setItem('adminRememberedUser', email);
+          localStorage.setItem('adminRememberedPass', password);
+        } else {
+          localStorage.removeItem('adminRememberMe');
+          localStorage.removeItem('adminRememberedUser');
+          localStorage.removeItem('adminRememberedPass');
+        }
         navigate("/admindashboard");
       } else {
         setWarning(data.error || "Login failed");
@@ -34,6 +45,16 @@ function AdminLogin() {
       setWarning("Server error. Please try again later.");
     }
   };
+
+  // Autofill remembered credentials on mount
+  React.useEffect(() => {
+    const remembered = localStorage.getItem('adminRememberMe') === 'true';
+    if (remembered) {
+      setRememberMe(true);
+      setEmail(localStorage.getItem('adminRememberedUser') || "");
+      setPassword(localStorage.getItem('adminRememberedPass') || "");
+    }
+  }, []);
 
   return (
     <div className="adminlogin-container">
@@ -85,7 +106,11 @@ function AdminLogin() {
 
             <div className="adminlogin-options">
               <label>
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={e => setRememberMe(e.target.checked)}
+                />
                 Remember me
               </label>
               <button type="button" className="adminlogin-forgot" onClick={() => navigate("/adminfpw")}>Forgot password?</button>

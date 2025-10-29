@@ -9,6 +9,7 @@ function Login() {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const [warning, setWarning] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -29,6 +30,16 @@ function Login() {
         if (data.id) {
           localStorage.setItem('userId', data.id);
         }
+        // Remember Me logic
+        if (rememberMe) {
+          localStorage.setItem('rememberMe', 'true');
+          localStorage.setItem('rememberedUser', emailOrUsername);
+          localStorage.setItem('rememberedPass', password);
+        } else {
+          localStorage.removeItem('rememberMe');
+          localStorage.removeItem('rememberedUser');
+          localStorage.removeItem('rememberedPass');
+        }
         navigate("/profile");
       } else {
         setWarning(data.error || "Login failed");
@@ -41,6 +52,16 @@ function Login() {
   const handleChange = (e) => {
     setPassword(e.target.value);
   };
+
+  // Autofill remembered credentials on mount
+  React.useEffect(() => {
+    const remembered = localStorage.getItem('rememberMe') === 'true';
+    if (remembered) {
+      setRememberMe(true);
+      setEmailOrUsername(localStorage.getItem('rememberedUser') || "");
+      setPassword(localStorage.getItem('rememberedPass') || "");
+    }
+  }, []);
 
   return (
     <div className="userlogin-outer">
@@ -101,7 +122,11 @@ function Login() {
               </div>
               <div className="userlogin-options-row">
                 <label className="userlogin-remember">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={e => setRememberMe(e.target.checked)}
+                  />
                   Remember Me
                 </label>
                 <button
