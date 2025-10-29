@@ -106,8 +106,12 @@ function ManageUser() {
             <h2>Admin Accounts</h2>
             <ul>
               {admins.map((admin) => (
-                <li key={admin.id} className="manageuser-user-item-fresh" style={{ cursor: "pointer" }}
-                  onClick={() => { setAdminDetails(admin); setShowAdminDetails(true); }}>
+                <li key={admin.id} className="manageuser-user-item-fresh manageuser-user-box-clickable" style={{ cursor: "pointer" }}
+                  onClick={(e) => {
+                    // Only open popup if not clicking a button or input
+                    if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
+                    setAdminDetails(admin); setShowAdminDetails(true);
+                  }}>
                   <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
                     <span className="manageuser-user-label-details">
                       <span className="manageuser-user-name">{admin.name}</span>
@@ -160,7 +164,10 @@ function ManageUser() {
             <ul>
               {users.map((user) => (
                 <li key={user.id} className="manageuser-user-item-fresh manageuser-user-box-clickable" style={{ cursor: "pointer" }}
-                  onClick={() => { setUserDetails(user); setShowUserDetails(true); }}>
+                  onClick={(e) => {
+                    if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
+                    setUserDetails(user); setShowUserDetails(true);
+                  }}>
                   <div className="manageuser-user-label-details">
                     <span className="manageuser-user-name">{user.name}</span>
                     <span className="manageuser-user-email">{user.email}</span>

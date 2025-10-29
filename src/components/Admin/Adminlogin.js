@@ -68,11 +68,11 @@ function AdminLogin() {
                 tabIndex={0}
               >
                 {showPassword ? (
-                  // Eye-off icon (same as UserRegister/Adminregister)
+                  // Eye-off icon (crossed, same as UserRegister/Adminregister)
                   <svg width="20" height="20" viewBox="0 0 20 20">
                     <path d="M2 2l16 16" stroke="#888" strokeWidth="2"/>
-                    <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6 2.1 0 4.06-.61 5.62-1.62" stroke="#888" strokeWidth="2" fill="none"/>
-                    <circle cx="10" cy="10" r="4" stroke="#888" strokeWidth="2" fill="none"/>
+                    <path d="M10 4C5 4 1.73 8.11 1 10c.73 1.89 4 6 9 6 2.1 0 4.06-.61 5.62-1.62" stroke="#888" strokeWidth="2" fill="#888"/>
+                    <circle cx="10" cy="10" r="4" stroke="#888" strokeWidth="2" fill="#888"/>
                   </svg>
                 ) : (
                   // Eye icon (filled, same as UserRegister/Adminregister)
