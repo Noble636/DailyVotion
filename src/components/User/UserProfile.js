@@ -13,8 +13,8 @@ function UserProfile() {
   const [user, setUser] = useState({
     fullName: '',
     username: '',
-    profilePic: '',
   });
+  const [profilePicBase64, setProfilePicBase64] = useState('');
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
@@ -25,8 +25,16 @@ function UserProfile() {
           setUser({
             fullName: data.fullName,
             username: data.username,
-            profilePic: data.profilePic || '',
           });
+        });
+      fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/profile-pic`)
+        .then(res => res.ok ? res.json() : Promise.resolve({}))
+        .then(data => {
+          if (data.base64) {
+            setProfilePicBase64(data.base64);
+          } else {
+            setProfilePicBase64('');
+          }
         });
     }
   }, []);
@@ -40,10 +48,18 @@ function UserProfile() {
             setUser({
               fullName: data.fullName,
               username: data.username,
-              profilePic: data.profilePic || '',
             });
             setShowInfoPopup(true);
             setTimeout(() => setShowInfoPopup(false), 1200);
+          });
+        fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/profile-pic`)
+          .then(res => res.ok ? res.json() : Promise.resolve({}))
+          .then(data => {
+            if (data.base64) {
+              setProfilePicBase64(data.base64);
+            } else {
+              setProfilePicBase64('');
+            }
           });
       }
     };
@@ -188,8 +204,8 @@ function UserProfile() {
         <div className="userprofile-left">
           <div className="userprofile-avatar-section">
             <img
-              src={user.profilePic
-                ? `https://dailyvotionbackend-91wt.onrender.com${user.profilePic}`
+              src={profilePicBase64
+                ? profilePicBase64
                 : `https://ui-avatars.com/api/?name=${encodeURIComponent(user.fullName || user.username || 'Me')}&background=008b8b&color=fff&size=128`}
               alt="User"
               className="userprofile-avatar"
