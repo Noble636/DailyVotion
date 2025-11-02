@@ -397,7 +397,13 @@ function AdminAddPictures() {
                       <span style={{ fontWeight: 500, fontSize: '1rem', color: '#008b8b', marginRight: 8 }}>{img.image_name || img.filename || 'Bible Guide'}</span>
                     )}
                     <button className="adminaddpics-btn" style={{ background: '#1976d2', marginLeft: 8 }} onClick={() => startEditImageName(img.id, img.image_name)}>Rename</button>
-                    <button className="adminaddpics-btn" style={{ background: '#d32f2f', marginLeft: 8 }} onClick={() => handleDeleteBrgImage(img.id)}>Delete</button>
+                    <button
+                      className="adminaddpics-btn"
+                      style={{ background: '#d32f2f', marginLeft: 8 }}
+                      onClick={() => setConfirmDelete({ type: 'brg', id: img.id })}
+                    >
+                      Delete
+                    </button>
                   </div>
                 ))}
               </div>
@@ -457,15 +463,15 @@ function AdminAddPictures() {
                   {deletingAlbumId === selectedAlbumId ? 'Deleting...' : 'Delete Album'}
                 </button>
               </div>
-              {/* Show images in selected album */}
+              {/* Show images in selected album visually */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
                 {(albumImages[selectedAlbumId] && albumImages[selectedAlbumId].length > 0) ? (
                   albumImages[selectedAlbumId].map(img => (
-                    <div key={img.id} style={{ position: 'relative', background: '#fff', borderRadius: 8, boxShadow: '0 1px 4px rgba(0,0,0,0.08)', padding: 6, width: 90, height: 90, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div key={img.id} className="adminaddpics-preview-imgbox" style={{ position: 'relative', marginBottom: 8 }}>
                       <img
                         src={img.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${img.filename}` : (img.base64 ? img.base64 : '')}
                         alt={img.image_name || 'Photo'}
-                        style={{ maxWidth: 80, maxHeight: 80, borderRadius: 6, objectFit: 'cover' }}
+                        className="adminaddpics-preview-img"
                         onError={e => { e.target.onerror = null; e.target.src = '/broken-image.png'; }}
                       />
                       <div style={{ position: 'absolute', bottom: 4, left: 4, right: 4, textAlign: 'center', fontSize: '0.95rem', color: '#008b8b', background: 'rgba(255,255,255,0.85)', borderRadius: 4, padding: '2px 0', fontWeight: 500 }}>{img.image_name || img.filename || 'Photo'}</div>
@@ -503,6 +509,14 @@ function AdminAddPictures() {
         show={confirmDelete.type === 'photo' && confirmDelete.id}
         type="photo"
         onConfirm={() => { setConfirmDelete({ type: null, id: null }); handleDeletePhoto(confirmDelete.albumId, confirmDelete.id); }}
+        onCancel={() => setConfirmDelete({ type: null, id: null })}
+      />
+
+      {/* Confirm delete modal for Bible Guide image */}
+      <ConfirmDeleteModal
+        show={confirmDelete.type === 'brg' && confirmDelete.id}
+        type="Bible Guide"
+        onConfirm={() => { setConfirmDelete({ type: null, id: null }); handleDeleteBrgImage(confirmDelete.id); }}
         onCancel={() => setConfirmDelete({ type: null, id: null })}
       />
     </div>
