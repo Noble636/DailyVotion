@@ -397,7 +397,7 @@ function AdminAddPictures() {
                 {brgImages.map(img => (
                   <div key={img.id} style={{ display: 'flex', alignItems: 'center', gap: 16, background: '#f7f8fa', borderRadius: 8, padding: 8 }}>
                     <img
-                      src={img.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${img.filename}` : (img.base64 ? img.base64 : '')}
+                      src={img.base64 ? img.base64 : '/broken-image.png'}
                       alt={img.image_name || 'Bible Guide'}
                       style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 6, border: '1px solid #e0e0e0' }}
                       onError={e => { e.target.onerror = null; e.target.src = '/broken-image.png'; }}
