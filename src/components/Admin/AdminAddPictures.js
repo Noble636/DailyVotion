@@ -41,24 +41,26 @@ function AdminAddPictures() {
       });
   }, []);
 
+  // Helper to fetch gallery images with base64 for an album
+  const fetchGalleryImagesWithBase64 = async (albumId) => {
+    const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/album/${albumId}/images`);
+    const imgs = await res.json();
+    const withBase64 = await Promise.all(imgs.map(async img => {
+      try {
+        const res2 = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/image/${img.id}`);
+        const data2 = await res2.json();
+        return { ...img, base64: data2.base64 };
+      } catch {
+        return img;
+      }
+    }));
+    setAlbumImages(prev => ({ ...prev, [albumId]: withBase64 }));
+  };
+
   // Fetch images for selected album whenever selectedAlbumId changes
   useEffect(() => {
     if (!selectedAlbumId) return;
-    fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/album/${selectedAlbumId}/images`)
-      .then(res => res.json())
-      .then(async imgs => {
-        // For each image, fetch base64
-        const withBase64 = await Promise.all(imgs.map(async img => {
-          try {
-            const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/image/${img.id}`);
-            const data = await res.json();
-            return { ...img, base64: data.base64 };
-          } catch {
-            return img;
-          }
-        }));
-        setAlbumImages(prev => ({ ...prev, [selectedAlbumId]: withBase64 }));
-      });
+    fetchGalleryImagesWithBase64(selectedAlbumId);
   }, [selectedAlbumId]);
 
   // Delete album handler
@@ -111,9 +113,7 @@ function AdminAddPictures() {
         setNotification("Photo deleted.");
         setShowNotification(true);
         setTimeout(() => setShowNotification(false), 1500);
-        fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/album/${albumId}/images`)
-          .then(res => res.json())
-          .then(imgs => setAlbumImages(prev => ({ ...prev, [albumId]: imgs })));
+        await fetchGalleryImagesWithBase64(albumId);
         setGalleryStatus("");
       } else {
         setNotification("Failed to delete photo.");
@@ -169,10 +169,20 @@ function AdminAddPictures() {
   };
 
   // Fetch Bible Guide images
-  const fetchBrgImages = () => {
-    fetch("https://dailyvotionbackend-91wt.onrender.com/api/bible-guide/images")
-      .then(res => res.json())
-      .then(data => setBrgImages(data));
+  const fetchBrgImages = async () => {
+    const res = await fetch("https://dailyvotionbackend-91wt.onrender.com/api/bible-guide/images");
+    const data = await res.json();
+    // For each image, fetch base64
+    const withBase64 = await Promise.all(data.map(async img => {
+      try {
+        const res2 = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/bible-guide/image/${img.id}`);
+        const data2 = await res2.json();
+        return { ...img, base64: data2.base64 };
+      } catch {
+        return img;
+      }
+    }));
+    setBrgImages(withBase64);
   };
 
   useEffect(() => {
@@ -336,9 +346,7 @@ function AdminAddPictures() {
     setGalleryImagePreviews([]);
     // Refetch images for album after upload
     if (selectedAlbumId) {
-      fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/album/${selectedAlbumId}/images`)
-        .then(res => res.json())
-        .then(imgs => setAlbumImages(prev => ({ ...prev, [selectedAlbumId]: imgs })));
+      await fetchGalleryImagesWithBase64(selectedAlbumId);
     }
   };
   // Handle image selection and preview
