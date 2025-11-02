@@ -46,7 +46,19 @@ function AdminAddPictures() {
     if (!selectedAlbumId) return;
     fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/album/${selectedAlbumId}/images`)
       .then(res => res.json())
-      .then(imgs => setAlbumImages(prev => ({ ...prev, [selectedAlbumId]: imgs })));
+      .then(async imgs => {
+        // For each image, fetch base64
+        const withBase64 = await Promise.all(imgs.map(async img => {
+          try {
+            const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/image/${img.id}`);
+            const data = await res.json();
+            return { ...img, base64: data.base64 };
+          } catch {
+            return img;
+          }
+        }));
+        setAlbumImages(prev => ({ ...prev, [selectedAlbumId]: withBase64 }));
+      });
   }, [selectedAlbumId]);
 
   // Delete album handler
@@ -469,7 +481,7 @@ function AdminAddPictures() {
                   albumImages[selectedAlbumId].map(img => (
                     <div key={img.id} className="adminaddpics-preview-imgbox" style={{ position: 'relative', marginBottom: 8 }}>
                       <img
-                        src={img.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${img.filename}` : (img.base64 ? img.base64 : '')}
+                        src={img.base64 ? img.base64 : (img.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${img.filename}` : '')}
                         alt={img.image_name || 'Photo'}
                         className="adminaddpics-preview-img"
                         onError={e => { e.target.onerror = null; e.target.src = '/broken-image.png'; }}

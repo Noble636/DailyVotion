@@ -54,7 +54,17 @@ function UserJournal() {
     try {
       const res = await fetch("https://dailyvotionbackend-91wt.onrender.com/api/bible-guide/images");
       const data = await res.json();
-      setBibleGuideImages(Array.isArray(data) ? data : []);
+      // For each image, fetch base64
+      const withBase64 = await Promise.all(data.map(async img => {
+        try {
+          const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/bible-guide/image/${img.id}`);
+          const d = await res.json();
+          return { ...img, base64: d.base64 };
+        } catch {
+          return img;
+        }
+      }));
+      setBibleGuideImages(Array.isArray(withBase64) ? withBase64 : []);
     } catch {
       setBibleGuideImages([]);
     }
@@ -276,7 +286,7 @@ function UserJournal() {
                       onClick={() => setZoomImage(img)}
                     >
                       <img
-                        src={img.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${img.filename}` : (img.base64 ? img.base64 : '')}
+                        src={img.base64 ? img.base64 : (img.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${img.filename}` : '')}
                         alt={img.image_name || 'Bible Guide'}
                         style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 6, border: '1px solid #e0e0e0' }}
                         onError={e => { e.target.onerror = null; e.target.src = '/broken-image.png'; }}
