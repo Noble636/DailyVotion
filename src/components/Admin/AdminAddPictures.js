@@ -60,10 +60,11 @@ function AdminAddPictures() {
         // If deleted album is selected, clear selection
         if (selectedAlbumId === albumId) setSelectedAlbumId("");
       } else {
-        setGalleryStatus("Failed to delete album.");
+        const error = await res.json();
+        setGalleryStatus(error?.error ? error.error : "Failed to delete album.");
       }
-    } catch {
-      setGalleryStatus("Server error.");
+    } catch (err) {
+      setGalleryStatus("Server error: " + (err?.message || ""));
     }
     setDeletingAlbumId(null);
   };
