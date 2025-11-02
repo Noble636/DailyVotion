@@ -28,14 +28,15 @@ function UserProfile() {
           });
         });
       fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/profile-pic`)
-        .then(res => res.ok ? res.json() : Promise.resolve({}))
-        .then(data => {
-          if (data.base64) {
-            setProfilePicBase64(data.base64);
-          } else {
-            setProfilePicBase64('');
-          }
-        });
+          .then(res => res.ok ? res.json() : Promise.resolve({}))
+          .then(data => {
+            console.log('Profile pic fetch result:', data);
+            if (data.base64) {
+              setProfilePicBase64(data.base64);
+            } else {
+              setProfilePicBase64('');
+            }
+          });
     }
   }, []);
     useEffect(() => {
@@ -53,14 +54,15 @@ function UserProfile() {
               setTimeout(() => setShowInfoPopup(false), 1200);
             });
           fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/profile-pic?${Date.now()}`)
-            .then(res => res.ok ? res.json() : Promise.resolve({}))
-            .then(data => {
-              if (data.base64) {
-                setProfilePicBase64(data.base64);
-              } else {
-                setProfilePicBase64('');
-              }
-            });
+              .then(res => res.ok ? res.json() : Promise.resolve({}))
+              .then(data => {
+                console.log('Profile pic fetch result (event):', data);
+                if (data.base64) {
+                  setProfilePicBase64(data.base64);
+                } else {
+                  setProfilePicBase64('');
+                }
+              });
         }
       };
       window.addEventListener('profileUpdated', handleStorage);
