@@ -241,7 +241,7 @@ function AdminAddPictures() {
             </select>
           </div>
 
-          {/* Show selected album actions and images */}
+          {/* Show selected album actions and images only */}
           {selectedAlbumId && (
             <div style={{ marginBottom: '2rem', border: '1px solid #e0e0e0', borderRadius: 10, padding: '1rem', background: '#f7f8fa' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
@@ -261,6 +261,7 @@ function AdminAddPictures() {
                   albumImages[selectedAlbumId].map(img => (
                     <div key={img.id} style={{ position: 'relative', background: '#fff', borderRadius: 8, boxShadow: '0 1px 4px rgba(0,0,0,0.08)', padding: 6, width: 90, height: 90, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <img src={img.url || `data:image/jpeg;base64,${img.base64 || img.image_base64}`} alt={img.image_name || 'Photo'} style={{ maxWidth: 80, maxHeight: 80, borderRadius: 6, objectFit: 'cover' }} />
+                      <div style={{ position: 'absolute', bottom: 4, left: 4, right: 4, textAlign: 'center', fontSize: '0.95rem', color: '#008b8b', background: 'rgba(255,255,255,0.85)', borderRadius: 4, padding: '2px 0', fontWeight: 500 }}>{img.image_name || 'Photo'}</div>
                       <button
                         className="adminaddpics-btn"
                         style={{ position: 'absolute', top: 4, right: 4, background: '#d32f2f', color: '#fff', fontSize: '0.85rem', padding: '2px 8px', borderRadius: 6, zIndex: 2 }}
@@ -275,22 +276,6 @@ function AdminAddPictures() {
                   <span style={{ color: '#888', fontSize: '0.98rem' }}>No photos in this album.</span>
                 )}
               </div>
-              {/* Upload images to selected album */}
-              <form onSubmit={handleGalleryUpload} className="adminaddpics-form" style={{ marginTop: '1.5rem' }}>
-                <label className="adminaddpics-label">Upload Images:</label>
-                <input className="adminaddpics-input" type="file" accept="image/*" multiple onChange={handleGalleryImageChange} required />
-                {/* Preview selected images */}
-                {galleryImagePreviews.length > 0 && (
-                  <div className="adminaddpics-preview-wrap">
-                    {galleryImagePreviews.map((src, idx) => (
-                      <div key={idx} className="adminaddpics-preview-imgbox">
-                        <img src={src} alt={`Preview ${idx + 1}`} className="adminaddpics-preview-img" />
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <button className="adminaddpics-btn" type="submit">Upload to Album</button>
-              </form>
             </div>
           )}
           <form onSubmit={handleGalleryUpload} className="adminaddpics-form">
