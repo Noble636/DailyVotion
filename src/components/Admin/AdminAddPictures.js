@@ -1,11 +1,11 @@
-  // Notification popup state
-  const [notification, setNotification] = useState("");
-  const [showNotification, setShowNotification] = useState(false);
+
 import React, { useState, useEffect } from "react";
 import AdminTopBar from "./AdminTopBar";
 import "../../css/Admin/AdminAddPictures.css";
 
 function AdminAddPictures() {
+  // Notification popup state
+  // (already declared at the top of the function)
   // Gallery images per album
   const [albumImages, setAlbumImages] = useState({});
   // Track loading state for delete actions
@@ -23,6 +23,9 @@ function AdminAddPictures() {
   const [brgImages, setBrgImages] = useState([]);
   const [editingImageId, setEditingImageId] = useState(null);
   const [editingImageName, setEditingImageName] = useState("");
+  // Notification popup state
+  const [notification, setNotification] = useState("");
+  const [showNotification, setShowNotification] = useState(false);
 
   // Gallery state
   const [albumName, setAlbumName] = useState("");
