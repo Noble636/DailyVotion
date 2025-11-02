@@ -74,6 +74,13 @@ function Userprayerrequest() {
 
             <div className="userprayerrequest-btns">
               <button className="userprayerrequest-btn" onClick={handleSubmit}>Submit</button>
+              <button
+                className="userprayerrequest-cancel-btn"
+                style={{ marginLeft: '1rem', background: '#d32f2f', color: '#fff', border: 'none', borderRadius: '6px', padding: '0.4rem 1rem', fontWeight: '500', cursor: 'pointer' }}
+                onClick={() => navigate('/profile')}
+              >
+                Cancel
+              </button>
             </div>
 
             {sentNotice && <div className="sent-notice">Sent to admin — thank you.</div>}

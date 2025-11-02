@@ -123,9 +123,17 @@ function UserReflection() {
               className="userreflection-textarea"
               rows={6}
             />
-            <div className="userreflection-form-actions">
+            <div className="userreflection-form-actions" style={{ display: 'flex', gap: '1rem' }}>
               <button type="submit" className="userreflection-btn">
                 Submit Reflection
+              </button>
+              <button
+                type="button"
+                className="userreflection-cancel-btn"
+                style={{ background: '#d32f2f', color: '#fff', border: 'none', borderRadius: '6px', padding: '0.4rem 1rem', fontWeight: '500', cursor: 'pointer' }}
+                onClick={() => window.location.href = '/profile'}
+              >
+                Cancel
               </button>
             </div>
             {sentNotice && <div className="userreflection-sent">Reflection submitted — thank you.</div>}

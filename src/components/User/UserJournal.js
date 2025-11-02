@@ -260,7 +260,13 @@ function UserJournal() {
 
           <div className="journalpage-bottom-actions">
             <button className="journalpage-save-btn" onClick={handleSaveAll}>Save</button>
-
+            <button
+              className="journalpage-cancel-btn"
+              style={{ marginLeft: '1rem', background: '#d32f2f', color: '#fff', border: 'none', borderRadius: '6px', padding: '0.4rem 1rem', fontWeight: '500', cursor: 'pointer' }}
+              onClick={() => window.location.href = '/profile'}
+            >
+              Cancel
+            </button>
             <div className="journalpage-music-tooltip">
               <button
                 className="journalpage-bible-btn"
