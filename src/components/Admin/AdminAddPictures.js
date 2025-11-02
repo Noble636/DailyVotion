@@ -35,6 +35,8 @@ function AdminAddPictures() {
             .then(imgs => setAlbumImages(prev => ({ ...prev, [album.id]: imgs })));
         });
       });
+  }, []);
+
   // Delete album handler
   const handleDeleteAlbum = async (albumId) => {
     if (!window.confirm("Are you sure you want to delete this album and all its photos?")) return;
@@ -86,7 +88,6 @@ function AdminAddPictures() {
     }
     setDeletingPhotoId(null);
   };
-  }, []);
 
   // Assume adminId is stored in localStorage
   const adminId = localStorage.getItem('adminId');
