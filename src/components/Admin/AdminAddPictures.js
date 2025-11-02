@@ -230,7 +230,7 @@ function AdminAddPictures() {
             </div>
           </form>
 
-          {/* Album selection dropdown */}
+          {/* Only one album select and upload form */}
           <div className="adminaddpics-form" style={{ marginBottom: '1.5rem' }}>
             <label className="adminaddpics-label">Select Album:</label>
             <select className="adminaddpics-select" value={selectedAlbumId} onChange={e => setSelectedAlbumId(e.target.value)} required>
@@ -239,6 +239,24 @@ function AdminAddPictures() {
                 <option key={album.id} value={album.id}>{album.name}</option>
               ))}
             </select>
+            {/* Upload images to selected album */}
+            {selectedAlbumId && (
+              <form onSubmit={handleGalleryUpload} className="adminaddpics-form" style={{ marginTop: '1.5rem' }}>
+                <label className="adminaddpics-label">Upload Images:</label>
+                <input className="adminaddpics-input" type="file" accept="image/*" multiple onChange={handleGalleryImageChange} required />
+                {/* Preview selected images */}
+                {galleryImagePreviews.length > 0 && (
+                  <div className="adminaddpics-preview-wrap">
+                    {galleryImagePreviews.map((src, idx) => (
+                      <div key={idx} className="adminaddpics-preview-imgbox">
+                        <img src={src} alt={`Preview ${idx + 1}`} className="adminaddpics-preview-img" />
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <button className="adminaddpics-btn" type="submit">Upload to Album</button>
+              </form>
+            )}
           </div>
 
           {/* Show selected album actions and images only */}
