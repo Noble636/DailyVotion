@@ -14,10 +14,12 @@ function AdminAddPictures() {
   const [galleryImages, setGalleryImages] = useState([]); // multiple images
   const [galleryImagePreviews, setGalleryImagePreviews] = useState([]);
   // Bible Reading Guide state
-  const [brgMonth, setBrgMonth] = useState("");
   const [brgImage, setBrgImage] = useState(null);
   const [brgImageName, setBrgImageName] = useState("");
   const [brgStatus, setBrgStatus] = useState("");
+  const [brgImages, setBrgImages] = useState([]);
+  const [editingImageId, setEditingImageId] = useState(null);
+  const [editingImageName, setEditingImageName] = useState("");
 
   // Gallery state
   const [albumName, setAlbumName] = useState("");
@@ -103,12 +105,11 @@ function AdminAddPictures() {
   // Bible Reading Guide upload handler
   const handleBrgUpload = async (e) => {
     e.preventDefault();
-    if (!brgMonth || !brgImage || !adminId) {
-      setBrgStatus("Please select month and image.");
+    if (!brgImage || !adminId) {
+      setBrgStatus("Please select an image.");
       return;
     }
     const formData = new FormData();
-    formData.append("month", brgMonth);
     formData.append("image", brgImage);
     formData.append("imageName", brgImageName);
     formData.append("adminId", adminId);
@@ -121,8 +122,65 @@ function AdminAddPictures() {
         setBrgStatus("Image uploaded successfully!");
         setBrgImage(null);
         setBrgImageName("");
+        fetchBrgImages();
       } else {
         setBrgStatus("Upload failed.");
+      }
+    } catch {
+      setBrgStatus("Server error.");
+    }
+  };
+
+  // Fetch Bible Guide images
+  const fetchBrgImages = () => {
+    fetch("https://dailyvotionbackend-91wt.onrender.com/api/bible-guide/images")
+      .then(res => res.json())
+      .then(data => setBrgImages(data));
+  };
+
+  useEffect(() => {
+    fetchBrgImages();
+  }, []);
+
+  // Delete Bible Guide image
+  const handleDeleteBrgImage = async (imageId) => {
+    if (!window.confirm("Delete this Bible Guide image?")) return;
+    try {
+      const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/admin/bible-guide/image/${imageId}`, {
+        method: "DELETE"
+      });
+      if (res.ok) {
+        fetchBrgImages();
+        setBrgStatus("Image deleted.");
+      } else {
+        setBrgStatus("Failed to delete image.");
+      }
+    } catch {
+      setBrgStatus("Server error.");
+    }
+  };
+
+  // Start editing image name
+  const startEditImageName = (imageId, currentName) => {
+    setEditingImageId(imageId);
+    setEditingImageName(currentName);
+  };
+
+  // Save new image name
+  const handleSaveImageName = async (imageId) => {
+    try {
+      const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/admin/bible-guide/image/${imageId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageName: editingImageName })
+      });
+      if (res.ok) {
+        fetchBrgImages();
+        setEditingImageId(null);
+        setEditingImageName("");
+        setBrgStatus("Image name updated.");
+      } else {
+        setBrgStatus("Failed to update image name.");
       }
     } catch {
       setBrgStatus("Server error.");
@@ -219,13 +277,6 @@ function AdminAddPictures() {
         <div className="adminaddpics-card adminaddpics-left">
           <h2 className="adminaddpics-title">Bible Reading Guide</h2>
           <form onSubmit={handleBrgUpload} className="adminaddpics-form">
-            <label className="adminaddpics-label">Month:</label>
-            <select className="adminaddpics-select" value={brgMonth} onChange={e => setBrgMonth(e.target.value)} required>
-              <option value="">Select Month</option>
-              {['January','February','March','April','May','June','July','August','September','October','November','December'].map(m => (
-                <option key={m} value={m}>{m}</option>
-              ))}
-            </select>
             <label className="adminaddpics-label">Image Name (optional):</label>
             <input className="adminaddpics-input" type="text" value={brgImageName} onChange={e => setBrgImageName(e.target.value)} />
             <label className="adminaddpics-label">Upload Image:</label>
@@ -233,6 +284,43 @@ function AdminAddPictures() {
             <button className="adminaddpics-btn" type="submit">Upload</button>
             {brgStatus && <div className="adminaddpics-status">{brgStatus}</div>}
           </form>
+
+          {/* Bible Guide images list */}
+          <div style={{ marginTop: '2rem' }}>
+            <h3 style={{ fontWeight: 600, fontSize: '1.08rem', color: '#008b8b' }}>Bible Guide Images</h3>
+            {brgImages.length === 0 ? (
+              <div style={{ color: '#888', fontSize: '0.98rem' }}>No Bible Guide images uploaded.</div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                {brgImages.map(img => (
+                  <div key={img.id} style={{ display: 'flex', alignItems: 'center', gap: 16, background: '#f7f8fa', borderRadius: 8, padding: 8 }}>
+                    <img
+                      src={img.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${img.filename}` : (img.base64 ? img.base64 : '')}
+                      alt={img.image_name || 'Bible Guide'}
+                      style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 6, border: '1px solid #e0e0e0' }}
+                      onError={e => { e.target.onerror = null; e.target.src = '/broken-image.png'; }}
+                    />
+                    {editingImageId === img.id ? (
+                      <>
+                        <input
+                          type="text"
+                          value={editingImageName}
+                          onChange={e => setEditingImageName(e.target.value)}
+                          style={{ fontSize: '1rem', padding: '2px 8px', borderRadius: 4, border: '1px solid #ccc' }}
+                        />
+                        <button className="adminaddpics-btn" style={{ marginLeft: 8 }} onClick={() => handleSaveImageName(img.id)}>Save</button>
+                        <button className="adminaddpics-btn" style={{ marginLeft: 4, background: '#888' }} onClick={() => setEditingImageId(null)}>Cancel</button>
+                      </>
+                    ) : (
+                      <span style={{ fontWeight: 500, fontSize: '1rem', color: '#008b8b', marginRight: 8 }}>{img.image_name || img.filename || 'Bible Guide'}</span>
+                    )}
+                    <button className="adminaddpics-btn" style={{ background: '#1976d2', marginLeft: 8 }} onClick={() => startEditImageName(img.id, img.image_name)}>Rename</button>
+                    <button className="adminaddpics-btn" style={{ background: '#d32f2f', marginLeft: 8 }} onClick={() => handleDeleteBrgImage(img.id)}>Delete</button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
         <div className="adminaddpics-card adminaddpics-right">
           <h2 className="adminaddpics-title">Gallery Albums</h2>

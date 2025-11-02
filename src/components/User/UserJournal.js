@@ -10,6 +10,28 @@ const soapSections = [
 ];
 
 function UserJournal() {
+  // Bible Guide popup state
+  const [showBibleGuide, setShowBibleGuide] = useState(false);
+  const [bibleGuideImages, setBibleGuideImages] = useState([]);
+  const [loadingBibleGuide, setLoadingBibleGuide] = useState(false);
+
+  // Fetch Bible Guide images
+  const fetchBibleGuideImages = async () => {
+    setLoadingBibleGuide(true);
+    try {
+      const res = await fetch("https://dailyvotionbackend-91wt.onrender.com/api/bible-guide/images");
+      const data = await res.json();
+      setBibleGuideImages(Array.isArray(data) ? data : []);
+    } catch {
+      setBibleGuideImages([]);
+    }
+    setLoadingBibleGuide(false);
+  };
+  // Open Bible Guide popup
+  const handleShowBibleGuide = () => {
+    setShowBibleGuide(true);
+    fetchBibleGuideImages();
+  };
   const [inputErrors, setInputErrors] = useState({});
   const [showValidation, setShowValidation] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
@@ -176,6 +198,49 @@ function UserJournal() {
           >
             Journal History
           </button>
+          <button
+            className="journal-bibleguide-btn"
+            type="button"
+            onClick={handleShowBibleGuide}
+            style={{ marginLeft: '1rem', background: '#1976d2', color: '#fff', border: 'none', borderRadius: '6px', padding: '0.4rem 1rem', fontWeight: '500', cursor: 'pointer' }}
+          >
+            Bible Guide
+          </button>
+      {showBibleGuide && (
+        <div className="journal-bibleguide-overlay">
+          <div className="journal-bibleguide-popup">
+            <button
+              className="journal-bibleguide-close"
+              type="button"
+              onClick={() => setShowBibleGuide(false)}
+              aria-label="Close Bible Guide"
+              style={{ position: 'absolute', top: 12, right: 18, fontSize: '1.8rem', background: 'none', border: 'none', color: '#d32f2f', cursor: 'pointer' }}
+            >
+              &times;
+            </button>
+            <h2 className="journal-bibleguide-title">Bible Reading Guide</h2>
+            {loadingBibleGuide ? (
+              <div>Loading...</div>
+            ) : bibleGuideImages.length === 0 ? (
+              <div className="journal-bibleguide-empty">No Bible Guide images found.</div>
+            ) : (
+              <div className="journal-bibleguide-list">
+                {bibleGuideImages.map(img => (
+                  <div key={img.id} className="journal-bibleguide-listitem" style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 18, background: '#f7f8fa', borderRadius: 8, padding: 8 }}>
+                    <img
+                      src={img.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${img.filename}` : (img.base64 ? img.base64 : '')}
+                      alt={img.image_name || 'Bible Guide'}
+                      style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 6, border: '1px solid #e0e0e0' }}
+                      onError={e => { e.target.onerror = null; e.target.src = '/broken-image.png'; }}
+                    />
+                    <span style={{ fontWeight: 500, fontSize: '1rem', color: '#008b8b' }}>{img.image_name || img.filename || 'Bible Guide'}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
         </div>
       {showHistory && (
         <div className="journal-history-overlay">
