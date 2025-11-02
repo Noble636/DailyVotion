@@ -68,7 +68,13 @@ function Userfeedback() {
         />
         <div className="userfeedback-btns">
           <button className="userfeedback-btn" onClick={handleSave}>Save</button>
-          <button className="userfeedback-btn" onClick={handleCancel}>Cancel</button>
+          <button
+            className="userfeedback-btn"
+            style={{ background: '#d32f2f', color: '#fff', border: 'none', borderRadius: '6px', padding: '0.4rem 1rem', fontWeight: '500', cursor: 'pointer', marginLeft: '1rem' }}
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
         </div>
         {showPopup && (
           <div style={{

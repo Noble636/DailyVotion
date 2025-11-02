@@ -259,21 +259,28 @@ function UserJournal() {
           </div>
 
           <div className="journalpage-bottom-actions">
-            <button className="journalpage-save-btn" onClick={handleSaveAll}>Save</button>
-            <button
-              className="journalpage-cancel-btn"
-              style={{ marginLeft: '1rem', background: '#d32f2f', color: '#fff', border: 'none', borderRadius: '6px', padding: '0.4rem 1rem', fontWeight: '500', cursor: 'pointer' }}
-              onClick={() => window.location.href = '/profile'}
-            >
-              Cancel
-            </button>
-            <div className="journalpage-music-tooltip">
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '1.2rem' }}>
+              <button
+                className="journalpage-save-btn"
+                style={{ minWidth: '120px', padding: '0.6rem 0', fontSize: '1rem', borderRadius: '8px', fontWeight: '500' }}
+                onClick={handleSaveAll}
+              >
+                Save
+              </button>
               <button
                 className="journalpage-bible-btn"
+                style={{ minWidth: '120px', padding: '0.6rem 0', fontSize: '1rem', borderRadius: '8px', fontWeight: '500', background: '#008b8b', color: '#fff', border: 'none' }}
                 title="Open Bible"
                 onClick={() => setShowBible(prev => !prev)}
               >
                 {showBible ? "Close Bible" : "Bible"}
+              </button>
+              <button
+                className="journalpage-cancel-btn"
+                style={{ minWidth: '120px', padding: '0.6rem 0', fontSize: '1rem', borderRadius: '8px', fontWeight: '500', background: '#d32f2f', color: '#fff', border: 'none' }}
+                onClick={() => window.location.href = '/profile'}
+              >
+                Cancel
               </button>
             </div>
           </div>
