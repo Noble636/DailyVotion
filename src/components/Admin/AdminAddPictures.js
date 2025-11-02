@@ -28,14 +28,16 @@ function AdminAddPictures() {
       .then(res => res.json())
       .then(data => {
         setAlbums(data);
-        // Fetch images for each album
-        data.forEach(album => {
-          fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/album/${album.id}/images`)
-            .then(res => res.json())
-            .then(imgs => setAlbumImages(prev => ({ ...prev, [album.id]: imgs })));
-        });
       });
   }, []);
+
+  // Fetch images for selected album whenever selectedAlbumId changes
+  useEffect(() => {
+    if (!selectedAlbumId) return;
+    fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/album/${selectedAlbumId}/images`)
+      .then(res => res.json())
+      .then(imgs => setAlbumImages(prev => ({ ...prev, [selectedAlbumId]: imgs })));
+  }, [selectedAlbumId]);
 
   // Delete album handler
   const handleDeleteAlbum = async (albumId) => {
@@ -55,6 +57,8 @@ function AdminAddPictures() {
           delete copy[albumId];
           return copy;
         });
+        // If deleted album is selected, clear selection
+        if (selectedAlbumId === albumId) setSelectedAlbumId("");
       } else {
         setGalleryStatus("Failed to delete album.");
       }
@@ -75,10 +79,10 @@ function AdminAddPictures() {
         body: JSON.stringify({ adminId })
       });
       if (res.ok) {
-        setAlbumImages(prev => ({
-          ...prev,
-          [albumId]: prev[albumId].filter(img => img.id !== photoId)
-        }));
+        // Refetch images for album
+        fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/album/${albumId}/images`)
+          .then(res => res.json())
+          .then(imgs => setAlbumImages(prev => ({ ...prev, [albumId]: imgs })));
         setGalleryStatus("Photo deleted.");
       } else {
         setGalleryStatus("Failed to delete photo.");
@@ -175,6 +179,12 @@ function AdminAddPictures() {
     setGalleryStatus(successCount === galleryImages.length ? "All images uploaded!" : `Uploaded ${successCount}/${galleryImages.length} images.`);
     setGalleryImages([]);
     setGalleryImagePreviews([]);
+    // Refetch images for album after upload
+    if (selectedAlbumId) {
+      fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/album/${selectedAlbumId}/images`)
+        .then(res => res.json())
+        .then(imgs => setAlbumImages(prev => ({ ...prev, [selectedAlbumId]: imgs })));
+    }
   };
   // Handle image selection and preview
   const handleGalleryImageChange = (e) => {
