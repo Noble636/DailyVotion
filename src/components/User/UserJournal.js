@@ -310,7 +310,7 @@ function UserJournal() {
             <button onClick={() => setZoomImage(null)} style={{ background: '#008b8b', color: '#fff', border: 'none', borderRadius: 6, fontSize: 22, padding: '6px 16px', cursor: 'pointer', zIndex: 1000001, pointerEvents: 'auto' }}>×</button>
           </div>
           <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-            <img src={zoomImage.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${zoomImage.filename}` : (zoomImage.base64 ? zoomImage.base64 : '')} alt="Bible Guide" style={{ maxWidth: '90vw', maxHeight: '80vh', transform: `scale(${zoomLevel})`, transition: 'transform 0.2s', borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.18)', display: 'block', margin: '0 auto' }} />
+            <img src={zoomImage.base64 ? zoomImage.base64 : (zoomImage.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${zoomImage.filename}` : '')} alt="Bible Guide" style={{ maxWidth: '90vw', maxHeight: '80vh', transform: `scale(${zoomLevel})`, transition: 'transform 0.2s', borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.18)', display: 'block', margin: '0 auto' }} />
             <div style={{
               position: 'absolute', bottom: '6%', right: '7%', display: 'flex', flexDirection: 'row', gap: 10, background: 'rgba(0,139,139,0.18)', borderRadius: 8, padding: '8px 12px', alignItems: 'center', zIndex: 999999, pointerEvents: 'auto'
             }}>
