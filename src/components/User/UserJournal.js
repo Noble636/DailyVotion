@@ -317,7 +317,7 @@ function UserJournal() {
           </div>
 
           {showBibleInfo && (
-            <div id="bible-info-card" className="bible-info-card" role="dialog" aria-modal="false">
+            <div id="bible-info-card" className="bible-info-card" role="dialog" aria-modal="false" style={{ background: '#fff', borderRadius: '12px', boxShadow: '0 4px 16px rgba(0,0,0,0.10)', padding: '1.2rem 2rem', color: '#222', fontWeight: 500 }}>
               <div className="bible-info-text">
                 <p>Scripture quotations taken from The Holy Bible, New International Version®, NIV®.</p>
                 <p>Copyright © 1973, 1978, 1984 by Biblica, Inc..</p>
