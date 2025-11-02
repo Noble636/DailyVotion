@@ -288,8 +288,13 @@ function AdminAddPictures() {
                 {(albumImages[selectedAlbumId] && albumImages[selectedAlbumId].length > 0) ? (
                   albumImages[selectedAlbumId].map(img => (
                     <div key={img.id} style={{ position: 'relative', background: '#fff', borderRadius: 8, boxShadow: '0 1px 4px rgba(0,0,0,0.08)', padding: 6, width: 90, height: 90, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <img src={img.url || `data:image/jpeg;base64,${img.base64 || img.image_base64}`} alt={img.image_name || 'Photo'} style={{ maxWidth: 80, maxHeight: 80, borderRadius: 6, objectFit: 'cover' }} />
-                      <div style={{ position: 'absolute', bottom: 4, left: 4, right: 4, textAlign: 'center', fontSize: '0.95rem', color: '#008b8b', background: 'rgba(255,255,255,0.85)', borderRadius: 4, padding: '2px 0', fontWeight: 500 }}>{img.image_name || 'Photo'}</div>
+                      <img
+                        src={img.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${img.filename}` : (img.url || `data:image/jpeg;base64,${img.base64 || img.image_base64}`)}
+                        alt={img.image_name || 'Photo'}
+                        style={{ maxWidth: 80, maxHeight: 80, borderRadius: 6, objectFit: 'cover' }}
+                        onError={e => { e.target.onerror = null; e.target.src = '/broken-image.png'; }}
+                      />
+                      <div style={{ position: 'absolute', bottom: 4, left: 4, right: 4, textAlign: 'center', fontSize: '0.95rem', color: '#008b8b', background: 'rgba(255,255,255,0.85)', borderRadius: 4, padding: '2px 0', fontWeight: 500 }}>{img.image_name || img.filename || 'Photo'}</div>
                       <button
                         className="adminaddpics-btn"
                         style={{ position: 'absolute', top: 4, right: 4, background: '#d32f2f', color: '#fff', fontSize: '0.85rem', padding: '2px 8px', borderRadius: 6, zIndex: 2 }}
