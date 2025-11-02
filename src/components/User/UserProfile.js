@@ -72,7 +72,7 @@ function UserProfile() {
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      fetch(`hhttps://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/prayer`)
+      fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/prayer`)
         .then(res => res.json())
         .then(data => {
           if (Array.isArray(data) && data.length > 0) {
