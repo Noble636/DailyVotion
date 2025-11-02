@@ -102,7 +102,15 @@ function AdminAddPictures() {
   };
 
   return (
-    <div className="adminaddpics-container">
+    <div
+      className="adminaddpics-container"
+      style={{
+        minHeight: '100vh',
+        background: "url('/JTVCF/for background picture/AdminDashboard.png') center center / cover no-repeat",
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <AdminTopBar
         menuItems={[
           { label: "Dashboard", link: "/admindashboard" },
@@ -110,46 +118,41 @@ function AdminAddPictures() {
         ]}
       />
       <div className="adminaddpics-main">
-        <div className="adminaddpics-left">
-          <h2>Bible Reading Guide</h2>
-          <form onSubmit={handleBrgUpload} style={{ marginBottom: '1.5rem' }}>
-            <label>Month:</label>
-            <select value={brgMonth} onChange={e => setBrgMonth(e.target.value)} required>
+        <div className="adminaddpics-card adminaddpics-left">
+          <h2 className="adminaddpics-title">Bible Reading Guide</h2>
+          <form onSubmit={handleBrgUpload} className="adminaddpics-form">
+            <label className="adminaddpics-label">Month:</label>
+            <select className="adminaddpics-select" value={brgMonth} onChange={e => setBrgMonth(e.target.value)} required>
               <option value="">Select Month</option>
               {['January','February','March','April','May','June','July','August','September','October','November','December'].map(m => (
                 <option key={m} value={m}>{m}</option>
               ))}
             </select>
-            <br />
-            <label>Image Name (optional):</label>
-            <input type="text" value={brgImageName} onChange={e => setBrgImageName(e.target.value)} />
-            <br />
-            <label>Upload Image:</label>
-            <input type="file" accept="image/*" onChange={e => setBrgImage(e.target.files[0])} required />
-            <br />
-            <button type="submit">Upload</button>
-            {brgStatus && <div style={{ marginTop: '0.7rem', color: '#008b8b' }}>{brgStatus}</div>}
+            <label className="adminaddpics-label">Image Name (optional):</label>
+            <input className="adminaddpics-input" type="text" value={brgImageName} onChange={e => setBrgImageName(e.target.value)} />
+            <label className="adminaddpics-label">Upload Image:</label>
+            <input className="adminaddpics-input" type="file" accept="image/*" onChange={e => setBrgImage(e.target.files[0])} required />
+            <button className="adminaddpics-btn" type="submit">Upload</button>
+            {brgStatus && <div className="adminaddpics-status">{brgStatus}</div>}
           </form>
         </div>
-        <div className="adminaddpics-right">
-          <h2>Gallery Albums</h2>
-          <form onSubmit={handleCreateAlbum} style={{ marginBottom: '1.5rem' }}>
-            <label>Album Name:</label>
-            <input type="text" value={albumName} onChange={e => setAlbumName(e.target.value)} required />
-            <button type="submit" style={{ marginLeft: '1rem' }}>Create Album</button>
+        <div className="adminaddpics-card adminaddpics-right">
+          <h2 className="adminaddpics-title">Gallery Albums</h2>
+          <form onSubmit={handleCreateAlbum} className="adminaddpics-form">
+            <label className="adminaddpics-label">Album Name:</label>
+            <input className="adminaddpics-input" type="text" value={albumName} onChange={e => setAlbumName(e.target.value)} required />
+            <button className="adminaddpics-btn" type="submit">Create Album</button>
           </form>
           {createdAlbumId && (
-            <form onSubmit={handleGalleryUpload}>
-              <label>Image Name (optional):</label>
-              <input type="text" value={galleryImageName} onChange={e => setGalleryImageName(e.target.value)} />
-              <br />
-              <label>Upload Image:</label>
-              <input type="file" accept="image/*" onChange={e => setGalleryImage(e.target.files[0])} required />
-              <br />
-              <button type="submit">Upload to Album</button>
+            <form onSubmit={handleGalleryUpload} className="adminaddpics-form">
+              <label className="adminaddpics-label">Image Name (optional):</label>
+              <input className="adminaddpics-input" type="text" value={galleryImageName} onChange={e => setGalleryImageName(e.target.value)} />
+              <label className="adminaddpics-label">Upload Image:</label>
+              <input className="adminaddpics-input" type="file" accept="image/*" onChange={e => setGalleryImage(e.target.files[0])} required />
+              <button className="adminaddpics-btn" type="submit">Upload to Album</button>
             </form>
           )}
-          {galleryStatus && <div style={{ marginTop: '0.7rem', color: '#008b8b' }}>{galleryStatus}</div>}
+          {galleryStatus && <div className="adminaddpics-status">{galleryStatus}</div>}
         </div>
       </div>
     </div>
