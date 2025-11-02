@@ -39,7 +39,7 @@ function Gallery() {
   const [fullscreenImgName, setFullscreenImgName] = useState("");
 
   useEffect(() => {
-    fetch("/api/gallery/albums")
+    fetch("https://dailyvotionbackend-91wt.onrender.com/api/gallery/albums")
       .then(res => res.json())
       .then(data => setAlbums(data));
   }, []);
@@ -48,7 +48,7 @@ function Gallery() {
     if (selectedAlbum !== null) {
       const albumId = albums[selectedAlbum]?.id;
       if (albumId) {
-        fetch(`/api/gallery/album/${albumId}/images`)
+        fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/album/${albumId}/images`)
           .then(res => res.json())
           .then(data => setImages(data));
       }
@@ -58,7 +58,7 @@ function Gallery() {
   }, [selectedAlbum, albums]);
 
   const getImageBase64 = async (imageId) => {
-    const res = await fetch(`/api/gallery/image/${imageId}`);
+    const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/image/${imageId}`);
     const data = await res.json();
     return data.base64;
   };
@@ -123,7 +123,7 @@ function Gallery() {
 function GalleryImageThumb({ img, onClick }) {
   const [src, setSrc] = useState("");
   useEffect(() => {
-    fetch(`/api/gallery/image/${img.id}`)
+    fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/image/${img.id}`)
       .then(res => res.json())
       .then(data => setSrc(data.base64));
   }, [img.id]);
