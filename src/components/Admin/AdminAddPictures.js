@@ -32,7 +32,7 @@ function AdminAddPictures() {
     formData.append("imageName", brgImageName);
     formData.append("adminId", adminId);
     try {
-      const res = await fetch("/api/admin/bible-guide/image", {
+      const res = await fetch("https://dailyvotionbackend-91wt.onrender.com/api/admin/bible-guide/image", {
         method: "POST",
         body: formData
       });
@@ -56,7 +56,7 @@ function AdminAddPictures() {
       return;
     }
     try {
-      const res = await fetch("/api/admin/gallery/album", {
+      const res = await fetch("https://dailyvotionbackend-91wt.onrender.com/api/admin/gallery/album", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: albumName, adminId })
@@ -85,7 +85,7 @@ function AdminAddPictures() {
     formData.append("imageName", galleryImageName);
     formData.append("adminId", adminId);
     try {
-      const res = await fetch(`/api/admin/gallery/album/${createdAlbumId}/image`, {
+      const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/admin/gallery/album/${createdAlbumId}/image`, {
         method: "POST",
         body: formData
       });
