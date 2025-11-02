@@ -1,3 +1,6 @@
+  // Notification popup state
+  const [notification, setNotification] = useState("");
+  const [showNotification, setShowNotification] = useState(false);
 import React, { useState, useEffect } from "react";
 import AdminTopBar from "./AdminTopBar";
 import "../../css/Admin/AdminAddPictures.css";
@@ -43,7 +46,6 @@ function AdminAddPictures() {
 
   // Delete album handler
   const handleDeleteAlbum = async (albumId) => {
-    if (!window.confirm("Are you sure you want to delete this album and all its photos?")) return;
     setDeletingAlbumId(albumId);
     try {
       const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/admin/gallery/album/${albumId}`, {
@@ -52,31 +54,35 @@ function AdminAddPictures() {
         body: JSON.stringify({ adminId })
       });
       if (res.ok) {
-        // Refetch albums from backend so dropdown updates
+        setNotification("Album deleted.");
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 1500);
         fetch("https://dailyvotionbackend-91wt.onrender.com/api/gallery/albums")
           .then(res => res.json())
           .then(data => setAlbums(data));
-        setGalleryStatus("Album deleted.");
+        setGalleryStatus("");
         setAlbumImages(prev => {
           const copy = { ...prev };
           delete copy[albumId];
           return copy;
         });
-        // If deleted album is selected, clear selection
         if (selectedAlbumId === albumId) setSelectedAlbumId("");
       } else {
         const error = await res.json();
-        setGalleryStatus(error?.error ? error.error : "Failed to delete album.");
+        setNotification(error?.error ? error.error : "Failed to delete album.");
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 1800);
       }
     } catch (err) {
-      setGalleryStatus("Server error: " + (err?.message || ""));
+      setNotification("Server error: " + (err?.message || ""));
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 1800);
     }
     setDeletingAlbumId(null);
   };
 
   // Delete photo handler
   const handleDeletePhoto = async (albumId, photoId) => {
-    if (!window.confirm("Delete this photo from album?")) return;
     setDeletingPhotoId(photoId);
     try {
       const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/admin/gallery/album/${albumId}/image/${photoId}`, {
@@ -85,16 +91,22 @@ function AdminAddPictures() {
         body: JSON.stringify({ adminId })
       });
       if (res.ok) {
-        // Refetch images for album
+        setNotification("Photo deleted.");
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 1500);
         fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/album/${albumId}/images`)
           .then(res => res.json())
           .then(imgs => setAlbumImages(prev => ({ ...prev, [albumId]: imgs })));
-        setGalleryStatus("Photo deleted.");
+        setGalleryStatus("");
       } else {
-        setGalleryStatus("Failed to delete photo.");
+        setNotification("Failed to delete photo.");
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 1800);
       }
     } catch {
-      setGalleryStatus("Server error.");
+      setNotification("Server error.");
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 1800);
     }
     setDeletingPhotoId(null);
   };
@@ -106,7 +118,9 @@ function AdminAddPictures() {
   const handleBrgUpload = async (e) => {
     e.preventDefault();
     if (!brgImage || !adminId) {
-      setBrgStatus("Please select an image.");
+      setNotification("Please select an image.");
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 1800);
       return;
     }
     const formData = new FormData();
@@ -119,15 +133,21 @@ function AdminAddPictures() {
         body: formData
       });
       if (res.ok) {
-        setBrgStatus("Image uploaded successfully!");
+        setNotification("Image uploaded successfully!");
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 1500);
         setBrgImage(null);
         setBrgImageName("");
         fetchBrgImages();
       } else {
-        setBrgStatus("Upload failed.");
+        setNotification("Upload failed.");
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 1800);
       }
     } catch {
-      setBrgStatus("Server error.");
+      setNotification("Server error.");
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 1800);
     }
   };
 
@@ -144,19 +164,24 @@ function AdminAddPictures() {
 
   // Delete Bible Guide image
   const handleDeleteBrgImage = async (imageId) => {
-    if (!window.confirm("Delete this Bible Guide image?")) return;
     try {
       const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/admin/bible-guide/image/${imageId}`, {
         method: "DELETE"
       });
       if (res.ok) {
+        setNotification("Bible Guide image deleted.");
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 1500);
         fetchBrgImages();
-        setBrgStatus("Image deleted.");
       } else {
-        setBrgStatus("Failed to delete image.");
+        setNotification("Failed to delete Bible Guide image.");
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 1800);
       }
     } catch {
-      setBrgStatus("Server error.");
+      setNotification("Server error.");
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 1800);
     }
   };
 
@@ -175,17 +200,47 @@ function AdminAddPictures() {
         body: JSON.stringify({ imageName: editingImageName })
       });
       if (res.ok) {
+        setNotification("Image name updated.");
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 1500);
         fetchBrgImages();
         setEditingImageId(null);
         setEditingImageName("");
-        setBrgStatus("Image name updated.");
       } else {
-        setBrgStatus("Failed to update image name.");
+        setNotification("Failed to update image name.");
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 1800);
       }
     } catch {
-      setBrgStatus("Server error.");
+      setNotification("Server error.");
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 1800);
     }
   };
+  // Notification popup component
+  const NotificationPopup = ({ message, show }) => (
+    show ? (
+      <div style={{
+        position: 'fixed',
+        top: '32px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        background: '#008b8b',
+        color: '#fff',
+        borderRadius: '10px',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
+        padding: '1rem 2.2rem',
+        fontSize: '1.08rem',
+        fontWeight: 500,
+        zIndex: 99999,
+        textAlign: 'center',
+        minWidth: '220px',
+        maxWidth: '90vw',
+      }}>
+        {message}
+      </div>
+    ) : null
+  );
 
   // Gallery album creation
   const handleCreateAlbum = async (e) => {
@@ -267,6 +322,7 @@ function AdminAddPictures() {
         flexDirection: 'column',
       }}
     >
+      <NotificationPopup message={notification} show={showNotification} />
       <AdminTopBar
         menuItems={[
           { label: "Dashboard", link: "/admindashboard" },

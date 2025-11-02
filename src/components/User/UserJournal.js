@@ -10,6 +10,38 @@ const soapSections = [
 ];
 
 function UserJournal() {
+  // Bible Guide movable popup state
+  const [bibleGuidePopupPos, setBibleGuidePopupPos] = useState({ x: 180, y: 120 });
+  const bibleGuideDragRef = useRef({ dragging: false, offsetX: 0, offsetY: 0 });
+  const bibleGuidePopupRef = useRef(null);
+  // Bible Guide image zoom modal
+  const [zoomImage, setZoomImage] = useState(null);
+  // Bible Guide drag logic
+  useEffect(() => {
+    const handleMove = (e) => {
+      if (!bibleGuideDragRef.current.dragging) return;
+      const nx = e.clientX - bibleGuideDragRef.current.offsetX;
+      const ny = e.clientY - bibleGuideDragRef.current.offsetY;
+      const rect = bibleGuidePopupRef.current ? bibleGuidePopupRef.current.getBoundingClientRect() : { width: 520, height: 420 };
+      const maxX = Math.max(8, window.innerWidth - rect.width - 8);
+      const maxY = Math.max(8, window.innerHeight - rect.height - 8);
+      const clampedX = Math.max(8, Math.min(maxX, nx));
+      const clampedY = Math.max(8, Math.min(maxY, ny));
+      setBibleGuidePopupPos({ x: clampedX, y: clampedY });
+    };
+    const handleUp = () => { bibleGuideDragRef.current.dragging = false; };
+    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("mouseup", handleUp);
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseup", handleUp);
+    };
+  }, []);
+  const startBibleGuideDrag = (e) => {
+    bibleGuideDragRef.current.dragging = true;
+    bibleGuideDragRef.current.offsetX = e.clientX - bibleGuidePopupPos.x;
+    bibleGuideDragRef.current.offsetY = e.clientY - bibleGuidePopupPos.y;
+  };
   // Bible Guide popup state
   const [showBibleGuide, setShowBibleGuide] = useState(false);
   const [bibleGuideImages, setBibleGuideImages] = useState([]);
@@ -208,36 +240,74 @@ function UserJournal() {
           </button>
       {showBibleGuide && (
         <div className="journal-bibleguide-overlay">
-          <div className="journal-bibleguide-popup">
+          <div
+            className="journal-bibleguide-popup-movable"
+            ref={bibleGuidePopupRef}
+            style={{ left: bibleGuidePopupPos.x, top: bibleGuidePopupPos.y, position: 'fixed', zIndex: 99999, width: 520, maxWidth: '98vw', background: '#fff', borderRadius: 10, boxShadow: '0 8px 32px rgba(0,0,0,0.18)', padding: 0, overflow: 'hidden' }}
+            role="dialog"
+            aria-modal="false"
+          >
+            <div
+              className="journal-bibleguide-header"
+              style={{ background: 'linear-gradient(90deg,#0b6b66,#078f8b)', color: '#fff', padding: '10px 16px', cursor: 'grab', userSelect: 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+              onMouseDown={startBibleGuideDrag}
+            >
+              <span style={{ fontWeight: 700, fontSize: '1.08rem' }}>Bible Reading Guide</span>
+              <button
+                className="journal-bibleguide-close"
+                type="button"
+                onClick={() => setShowBibleGuide(false)}
+                aria-label="Close Bible Guide"
+                style={{ fontSize: '1.8rem', background: 'none', border: 'none', color: '#fff', cursor: 'pointer', marginLeft: 12 }}
+              >
+                &times;
+              </button>
+            </div>
+            <div style={{ padding: '1.2rem 1.5rem', maxHeight: '70vh', overflowY: 'auto' }}>
+              {loadingBibleGuide ? (
+                <div>Loading...</div>
+              ) : bibleGuideImages.length === 0 ? (
+                <div className="journal-bibleguide-empty">No Bible Guide images found.</div>
+              ) : (
+                <div className="journal-bibleguide-list">
+                  {bibleGuideImages.map(img => (
+                    <div key={img.id} className="journal-bibleguide-listitem" style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 18, background: '#f7f8fa', borderRadius: 8, padding: 8, cursor: 'pointer' }}
+                      onClick={() => setZoomImage(img)}
+                    >
+                      <img
+                        src={img.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${img.filename}` : (img.base64 ? img.base64 : '')}
+                        alt={img.image_name || 'Bible Guide'}
+                        style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 6, border: '1px solid #e0e0e0' }}
+                        onError={e => { e.target.onerror = null; e.target.src = '/broken-image.png'; }}
+                      />
+                      <span style={{ fontWeight: 500, fontSize: '1rem', color: '#008b8b' }}>{img.image_name || img.filename || 'Bible Guide'}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Bible Guide image zoom modal */}
+      {zoomImage && (
+        <div className="journal-bibleguide-zoom-overlay" style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.65)', zIndex: 999999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ position: 'relative', background: '#fff', borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.18)', padding: '1.2rem 1.5rem', maxWidth: '90vw', maxHeight: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <button
-              className="journal-bibleguide-close"
-              type="button"
-              onClick={() => setShowBibleGuide(false)}
-              aria-label="Close Bible Guide"
-              style={{ position: 'absolute', top: 12, right: 18, fontSize: '1.8rem', background: 'none', border: 'none', color: '#d32f2f', cursor: 'pointer' }}
+              style={{ position: 'absolute', top: 12, right: 18, fontSize: '2rem', background: 'none', border: 'none', color: '#d32f2f', cursor: 'pointer', zIndex: 2 }}
+              onClick={() => setZoomImage(null)}
+              aria-label="Close Zoom"
             >
               &times;
             </button>
-            <h2 className="journal-bibleguide-title">Bible Reading Guide</h2>
-            {loadingBibleGuide ? (
-              <div>Loading...</div>
-            ) : bibleGuideImages.length === 0 ? (
-              <div className="journal-bibleguide-empty">No Bible Guide images found.</div>
-            ) : (
-              <div className="journal-bibleguide-list">
-                {bibleGuideImages.map(img => (
-                  <div key={img.id} className="journal-bibleguide-listitem" style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 18, background: '#f7f8fa', borderRadius: 8, padding: 8 }}>
-                    <img
-                      src={img.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${img.filename}` : (img.base64 ? img.base64 : '')}
-                      alt={img.image_name || 'Bible Guide'}
-                      style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 6, border: '1px solid #e0e0e0' }}
-                      onError={e => { e.target.onerror = null; e.target.src = '/broken-image.png'; }}
-                    />
-                    <span style={{ fontWeight: 500, fontSize: '1rem', color: '#008b8b' }}>{img.image_name || img.filename || 'Bible Guide'}</span>
-                  </div>
-                ))}
-              </div>
-            )}
+            <img
+              src={zoomImage.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${zoomImage.filename}` : (zoomImage.base64 ? zoomImage.base64 : '')}
+              alt={zoomImage.image_name || 'Bible Guide'}
+              style={{ maxWidth: '80vw', maxHeight: '70vh', borderRadius: 10, objectFit: 'contain', marginBottom: 18, boxShadow: '0 2px 12px rgba(0,0,0,0.12)' }}
+              onError={e => { e.target.onerror = null; e.target.src = '/broken-image.png'; }}
+            />
+            <span style={{ fontWeight: 600, fontSize: '1.15rem', color: '#008b8b', textAlign: 'center' }}>{zoomImage.image_name || zoomImage.filename || 'Bible Guide'}</span>
           </div>
         </div>
       )}
