@@ -296,28 +296,7 @@ function AdminAddPictures() {
               </div>
             </div>
           )}
-          <form onSubmit={handleGalleryUpload} className="adminaddpics-form">
-            <label className="adminaddpics-label">Select Album:</label>
-            <select className="adminaddpics-select" value={selectedAlbumId} onChange={e => setSelectedAlbumId(e.target.value)} required>
-              <option value="">Select Album</option>
-              {albums.map(album => (
-                <option key={album.id} value={album.id}>{album.name}</option>
-              ))}
-            </select>
-            <label className="adminaddpics-label">Upload Images:</label>
-            <input className="adminaddpics-input" type="file" accept="image/*" multiple onChange={handleGalleryImageChange} required />
-            {/* Preview selected images */}
-            {galleryImagePreviews.length > 0 && (
-              <div className="adminaddpics-preview-wrap">
-                {galleryImagePreviews.map((src, idx) => (
-                  <div key={idx} className="adminaddpics-preview-imgbox">
-                    <img src={src} alt={`Preview ${idx + 1}`} className="adminaddpics-preview-img" />
-                  </div>
-                ))}
-              </div>
-            )}
-            <button className="adminaddpics-btn" type="submit">Upload to Album</button>
-          </form>
+          {/* galleryStatus message after main upload form */}
           {galleryStatus && <div className="adminaddpics-status">{galleryStatus}</div>}
         </div>
       </div>
