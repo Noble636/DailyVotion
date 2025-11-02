@@ -38,34 +38,34 @@ function UserProfile() {
         });
     }
   }, []);
-  useEffect(() => {
-    const handleStorage = () => {
-      const userId = localStorage.getItem('userId');
-      if (userId) {
-        fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}`)
-          .then(res => res.json())
-          .then(data => {
-            setUser({
-              fullName: data.fullName,
-              username: data.username,
+    useEffect(() => {
+      const handleStorage = () => {
+        const userId = localStorage.getItem('userId');
+        if (userId) {
+          fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}`)
+            .then(res => res.json())
+            .then(data => {
+              setUser({
+                fullName: data.fullName,
+                username: data.username,
+              });
+              setShowInfoPopup(true);
+              setTimeout(() => setShowInfoPopup(false), 1200);
             });
-            setShowInfoPopup(true);
-            setTimeout(() => setShowInfoPopup(false), 1200);
-          });
-        fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/profile-pic`)
-          .then(res => res.ok ? res.json() : Promise.resolve({}))
-          .then(data => {
-            if (data.base64) {
-              setProfilePicBase64(data.base64);
-            } else {
-              setProfilePicBase64('');
-            }
-          });
-      }
-    };
-    window.addEventListener('profileUpdated', handleStorage);
-    return () => window.removeEventListener('profileUpdated', handleStorage);
-  }, []);
+          fetch(`https://dailyvotionbackend-91wt.onrender.com/api/user/${userId}/profile-pic?${Date.now()}`)
+            .then(res => res.ok ? res.json() : Promise.resolve({}))
+            .then(data => {
+              if (data.base64) {
+                setProfilePicBase64(data.base64);
+              } else {
+                setProfilePicBase64('');
+              }
+            });
+        }
+      };
+      window.addEventListener('profileUpdated', handleStorage);
+      return () => window.removeEventListener('profileUpdated', handleStorage);
+    }, []);
 
   const [latestPrayer, setLatestPrayer] = useState(null);
 
