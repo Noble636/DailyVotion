@@ -3,6 +3,11 @@ import AdminTopBar from "./AdminTopBar";
 import "../../css/Admin/AdminAddPictures.css";
 
 function AdminAddPictures() {
+  // Gallery images per album
+  const [albumImages, setAlbumImages] = useState({});
+  // Track loading state for delete actions
+  const [deletingAlbumId, setDeletingAlbumId] = useState(null);
+  const [deletingPhotoId, setDeletingPhotoId] = useState(null);
   // Gallery albums state
   const [albums, setAlbums] = useState([]);
   const [selectedAlbumId, setSelectedAlbumId] = useState("");
@@ -21,7 +26,66 @@ function AdminAddPictures() {
   useEffect(() => {
     fetch("https://dailyvotionbackend-91wt.onrender.com/api/gallery/albums")
       .then(res => res.json())
-      .then(data => setAlbums(data));
+      .then(data => {
+        setAlbums(data);
+        // Fetch images for each album
+        data.forEach(album => {
+          fetch(`https://dailyvotionbackend-91wt.onrender.com/api/gallery/album/${album.id}/images`)
+            .then(res => res.json())
+            .then(imgs => setAlbumImages(prev => ({ ...prev, [album.id]: imgs })));
+        });
+      });
+  // Delete album handler
+  const handleDeleteAlbum = async (albumId) => {
+    if (!window.confirm("Are you sure you want to delete this album and all its photos?")) return;
+    setDeletingAlbumId(albumId);
+    try {
+      const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/admin/gallery/album/${albumId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ adminId })
+      });
+      if (res.ok) {
+        setAlbums(albums.filter(a => a.id !== albumId));
+        setGalleryStatus("Album deleted.");
+        setAlbumImages(prev => {
+          const copy = { ...prev };
+          delete copy[albumId];
+          return copy;
+        });
+      } else {
+        setGalleryStatus("Failed to delete album.");
+      }
+    } catch {
+      setGalleryStatus("Server error.");
+    }
+    setDeletingAlbumId(null);
+  };
+
+  // Delete photo handler
+  const handleDeletePhoto = async (albumId, photoId) => {
+    if (!window.confirm("Delete this photo from album?")) return;
+    setDeletingPhotoId(photoId);
+    try {
+      const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/admin/gallery/album/${albumId}/image/${photoId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ adminId })
+      });
+      if (res.ok) {
+        setAlbumImages(prev => ({
+          ...prev,
+          [albumId]: prev[albumId].filter(img => img.id !== photoId)
+        }));
+        setGalleryStatus("Photo deleted.");
+      } else {
+        setGalleryStatus("Failed to delete photo.");
+      }
+    } catch {
+      setGalleryStatus("Server error.");
+    }
+    setDeletingPhotoId(null);
+  };
   }, []);
 
   // Assume adminId is stored in localStorage
@@ -164,6 +228,49 @@ function AdminAddPictures() {
               <button className="adminaddpics-btn" type="submit">Create Album</button>
             </div>
           </form>
+
+          {/* List albums with delete option and images */}
+          <div className="adminaddpics-album-list" style={{ marginBottom: '2rem' }}>
+            {albums.length === 0 ? (
+              <div style={{ color: '#d32f2f', fontWeight: 500 }}>No albums found.</div>
+            ) : (
+              albums.map(album => (
+                <div key={album.id} style={{ marginBottom: '1.5rem', border: '1px solid #e0e0e0', borderRadius: 10, padding: '1rem', background: '#f7f8fa' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <span style={{ fontWeight: 600, fontSize: '1.08rem', color: '#008b8b' }}>{album.name}</span>
+                    <button
+                      className="adminaddpics-btn"
+                      style={{ background: '#d32f2f', marginLeft: 12, padding: '0.4rem 1rem' }}
+                      disabled={deletingAlbumId === album.id}
+                      onClick={() => handleDeleteAlbum(album.id)}
+                    >
+                      {deletingAlbumId === album.id ? 'Deleting...' : 'Delete Album'}
+                    </button>
+                  </div>
+                  {/* Show images in album */}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+                    {(albumImages[album.id] && albumImages[album.id].length > 0) ? (
+                      albumImages[album.id].map(img => (
+                        <div key={img.id} style={{ position: 'relative', background: '#fff', borderRadius: 8, boxShadow: '0 1px 4px rgba(0,0,0,0.08)', padding: 6, width: 90, height: 90, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <img src={img.url || `data:image/jpeg;base64,${img.base64 || img.image_base64}`} alt={img.image_name || 'Photo'} style={{ maxWidth: 80, maxHeight: 80, borderRadius: 6, objectFit: 'cover' }} />
+                          <button
+                            className="adminaddpics-btn"
+                            style={{ position: 'absolute', top: 4, right: 4, background: '#d32f2f', color: '#fff', fontSize: '0.85rem', padding: '2px 8px', borderRadius: 6, zIndex: 2 }}
+                            disabled={deletingPhotoId === img.id}
+                            onClick={() => handleDeletePhoto(album.id, img.id)}
+                          >
+                            {deletingPhotoId === img.id ? 'Deleting...' : 'Delete'}
+                          </button>
+                        </div>
+                      ))
+                    ) : (
+                      <span style={{ color: '#888', fontSize: '0.98rem' }}>No photos in this album.</span>
+                    )}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
           <form onSubmit={handleGalleryUpload} className="adminaddpics-form">
             <label className="adminaddpics-label">Select Album:</label>
             <select className="adminaddpics-select" value={selectedAlbumId} onChange={e => setSelectedAlbumId(e.target.value)} required>
