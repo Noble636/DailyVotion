@@ -268,9 +268,24 @@ function UserProfile() {
               <div>
                 <p><strong>Date:</strong> {latestPrayer.date ? latestPrayer.date.slice(0, 10) : ""}</p>
                 <p><strong>Your Prayer:</strong> {latestPrayer.text}</p>
-                {latestPrayer.response && (
-                  <p><strong>Admin Response:</strong> {latestPrayer.response}</p>
-                )}
+                <button
+                  style={{
+                    marginTop: '0.5rem',
+                    background: '#008b8b',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '8px',
+                    padding: '0.5rem 1rem',
+                    fontSize: '1rem',
+                    cursor: 'pointer'
+                  }}
+                  onClick={e => {
+                    e.stopPropagation();
+                    openModal('prayer');
+                  }}
+                >
+                  View Admin Response
+                </button>
               </div>
             ) : (
               <p style={{ color: '#888' }}>No Prayer Requests Yet</p>
@@ -346,8 +361,23 @@ function UserProfile() {
                   <>
                     <p><strong>Date:</strong> {modalData.date}</p>
                     <p><strong>Your Prayer:</strong> {modalData.text}</p>
+                    <button
+                      style={{
+                        marginTop: '0.5rem',
+                        background: '#008b8b',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '8px',
+                        padding: '0.5rem 1rem',
+                        fontSize: '1rem',
+                        cursor: 'pointer'
+                      }}
+                      onClick={e => e.stopPropagation()}
+                    >
+                      {modalData.response ? "Hide Admin Response" : "View Admin Response"}
+                    </button>
                     {modalData.response ? (
-                      <p><strong>Admin Response:</strong> {modalData.response}</p>
+                      <p style={{marginTop:'0.7rem'}}><strong>Admin Response:</strong> {modalData.response}</p>
                     ) : (
                       <p style={{ color: '#888' }}>No admin response yet.</p>
                     )}
