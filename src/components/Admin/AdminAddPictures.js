@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import AdminTopBar from "./AdminTopBar";
 import "../../css/Admin/AdminAddPictures.css";
@@ -26,6 +25,9 @@ function AdminAddPictures() {
   // Notification popup state
   const [notification, setNotification] = useState("");
   const [showNotification, setShowNotification] = useState(false);
+
+  // Confirm delete modal state
+  const [confirmDelete, setConfirmDelete] = useState({ type: null, id: null, albumId: null });
 
   // Gallery state
   const [albumName, setAlbumName] = useState("");
@@ -245,6 +247,27 @@ function AdminAddPictures() {
     ) : null
   );
 
+  // Confirm delete modal component
+  const ConfirmDeleteModal = ({ show, type, onConfirm, onCancel }) => (
+    show ? (
+      <div style={{
+        position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.25)', zIndex: 999999,
+        display: 'flex', alignItems: 'center', justifyContent: 'center'
+      }}>
+        <div style={{ background: '#fff', borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.18)', padding: '2rem 2.5rem', minWidth: 280, textAlign: 'center' }}>
+          <div style={{ fontWeight: 600, fontSize: '1.15rem', color: '#d32f2f', marginBottom: 18 }}>
+            Confirm {type === 'album' ? 'album' : 'photo'} deletion?
+          </div>
+          <div style={{ marginBottom: 18, color: '#444' }}>
+            This action cannot be undone.
+          </div>
+          <button className="adminaddpics-btn" style={{ background: '#d32f2f', marginRight: 12 }} onClick={onConfirm}>Delete</button>
+          <button className="adminaddpics-btn" style={{ background: '#888' }} onClick={onCancel}>Cancel</button>
+        </div>
+      </div>
+    ) : null
+  );
+
   // Gallery album creation
   const handleCreateAlbum = async (e) => {
     e.preventDefault();
@@ -429,7 +452,7 @@ function AdminAddPictures() {
                   className="adminaddpics-btn"
                   style={{ background: '#d32f2f', marginLeft: 12, padding: '0.4rem 1rem' }}
                   disabled={deletingAlbumId === selectedAlbumId}
-                  onClick={() => handleDeleteAlbum(selectedAlbumId)}
+                  onClick={() => setConfirmDelete({ type: 'album', id: selectedAlbumId })}
                 >
                   {deletingAlbumId === selectedAlbumId ? 'Deleting...' : 'Delete Album'}
                 </button>
@@ -450,7 +473,7 @@ function AdminAddPictures() {
                         className="adminaddpics-btn"
                         style={{ position: 'absolute', top: 4, right: 4, background: '#d32f2f', color: '#fff', fontSize: '0.85rem', padding: '2px 8px', borderRadius: 6, zIndex: 2 }}
                         disabled={deletingPhotoId === img.id}
-                        onClick={() => handleDeletePhoto(selectedAlbumId, img.id)}
+                        onClick={() => setConfirmDelete({ type: 'photo', id: img.id, albumId: selectedAlbumId })}
                       >
                         {deletingPhotoId === img.id ? 'Deleting...' : 'Delete'}
                       </button>
@@ -466,6 +489,22 @@ function AdminAddPictures() {
           {galleryStatus && <div className="adminaddpics-status">{galleryStatus}</div>}
         </div>
       </div>
+
+      {/* Confirm delete modal for album */}
+      <ConfirmDeleteModal
+        show={confirmDelete.type === 'album' && confirmDelete.id === selectedAlbumId}
+        type="album"
+        onConfirm={() => { setConfirmDelete({ type: null, id: null }); handleDeleteAlbum(selectedAlbumId); }}
+        onCancel={() => setConfirmDelete({ type: null, id: null })}
+      />
+
+      {/* Confirm delete modal for photo */}
+      <ConfirmDeleteModal
+        show={confirmDelete.type === 'photo' && confirmDelete.id}
+        type="photo"
+        onConfirm={() => { setConfirmDelete({ type: null, id: null }); handleDeletePhoto(confirmDelete.albumId, confirmDelete.id); }}
+        onCancel={() => setConfirmDelete({ type: null, id: null })}
+      />
     </div>
   );
 }
