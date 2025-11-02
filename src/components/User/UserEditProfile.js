@@ -88,7 +88,11 @@ function UserEditProfile() {
           setTimeout(() => setShowImagePopup(false), 1000);
         }
         setShowInfoPopup(true);
-        setTimeout(() => setShowInfoPopup(false), 1200);
+        setTimeout(() => {
+          setShowInfoPopup(false);
+          // Redirect to UserProfile.js after popup
+          window.location.href = '/userprofile';
+        }, 1200);
         window.dispatchEvent(new Event('profileUpdated'));
       } else {
         alert(data.error || 'Update failed');

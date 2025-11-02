@@ -30,7 +30,6 @@ function Login() {
         if (data.id) {
           localStorage.setItem('userId', data.id);
         }
-        // Remember Me logic
         if (rememberMe) {
           localStorage.setItem('rememberMe', 'true');
           localStorage.setItem('rememberedUser', emailOrUsername);
@@ -53,7 +52,6 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  // Autofill remembered credentials on mount
   React.useEffect(() => {
     const remembered = localStorage.getItem('rememberMe') === 'true';
     if (remembered) {
@@ -63,7 +61,6 @@ function Login() {
     }
   }, []);
 
-  // Remove remembered credentials immediately when unchecked
   React.useEffect(() => {
     if (!rememberMe) {
       localStorage.removeItem('rememberMe');
