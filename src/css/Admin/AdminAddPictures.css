@@ -1,3 +1,29 @@
+/* Gallery image preview styles */
+.adminaddpics-preview-wrap {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	margin: 0.7rem 0 1.2rem 0;
+}
+.adminaddpics-preview-imgbox {
+	background: #f7f8fa;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+	padding: 6px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 90px;
+	height: 90px;
+	overflow: hidden;
+}
+.adminaddpics-preview-img {
+	max-width: 80px;
+	max-height: 80px;
+	border-radius: 6px;
+	object-fit: cover;
+	display: block;
+}
 /* Unique styles for AdminAddPictures */
 .adminaddpics-container {
 	min-height: 100vh;

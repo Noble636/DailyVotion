@@ -10,29 +10,6 @@ const soapSections = [
 ];
 
 function UserJournal() {
-  // Bible Reading Guide state
-  const [selectedMonth, setSelectedMonth] = useState(1); // 1 = January
-  const [guideImages, setGuideImages] = useState([]);
-  const [loadingGuide, setLoadingGuide] = useState(false);
-  // Fetch Bible Reading Guide images for selected month
-  useEffect(() => {
-    const fetchGuideImages = async () => {
-      setLoadingGuide(true);
-      try {
-        const res = await fetch(`https://dailyvotionbackend-91wt.onrender.com/api/bible-reading-guide-images?month=${selectedMonth}`);
-        const data = await res.json();
-        if (Array.isArray(data)) {
-          setGuideImages(data);
-        } else {
-          setGuideImages([]);
-        }
-      } catch (err) {
-        setGuideImages([]);
-      }
-      setLoadingGuide(false);
-    };
-    fetchGuideImages();
-  }, [selectedMonth]);
   const [inputErrors, setInputErrors] = useState({});
   const [showValidation, setShowValidation] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
@@ -147,12 +124,6 @@ function UserJournal() {
 
   const pdfUrl = "/" + encodeURIComponent("NIVBible.pdf") + "#navpanes=0&toolbar=0&scrollbar=1";
 
-  // Month names for dropdown
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-
   return (
     <div className="journalpage-container">
       <TopBar
@@ -185,41 +156,6 @@ function UserJournal() {
         <p className="journalpage-guide-main">
           Do your devotion using the SOAP method: Scripture, Observation, Application, Prayer.
         </p>
-
-        {/* Bible Reading Guide Section */}
-        <div style={{ width: '100%', maxWidth: 600, margin: '0 auto', marginBottom: 16, background: '#fff8e1', borderRadius: 12, boxShadow: '0 2px 8px rgba(0,0,0,0.07)', padding: 16 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
-            <span style={{ fontWeight: 600, fontSize: '1.1rem', color: '#b8860b' }}>Bible Reading Guide</span>
-            <select
-              value={selectedMonth}
-              onChange={e => setSelectedMonth(Number(e.target.value))}
-              style={{ padding: '4px 12px', borderRadius: 6, border: '1px solid #b8860b', fontWeight: 500 }}
-            >
-              {monthNames.map((name, idx) => (
-                <option key={idx + 1} value={idx + 1}>{name}</option>
-              ))}
-            </select>
-          </div>
-          {loadingGuide ? (
-            <div style={{ color: '#b8860b', fontWeight: 500 }}>Loading guide images...</div>
-          ) : guideImages.length === 0 ? (
-            <div style={{ color: '#b8860b', fontWeight: 500 }}>No guide images for this month.</div>
-          ) : (
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center' }}>
-              {guideImages.map((img, idx) => (
-                <div key={idx} style={{ borderRadius: 8, overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.08)', background: '#fff' }}>
-                  <img
-                    src={`data:image/jpeg;base64,${img.image_base64}`}
-                    alt={img.title || `Guide ${idx + 1}`}
-                    style={{ maxWidth: 180, maxHeight: 180, display: 'block' }}
-                  />
-                  {img.title && <div style={{ textAlign: 'center', fontSize: '0.95rem', color: '#b8860b', padding: '4px 0' }}>{img.title}</div>}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
         <div className="journalpage-date">
           <label>Date:</label>
           <input
