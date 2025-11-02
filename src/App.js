@@ -13,6 +13,7 @@ import Manageuser from "./components/Admin/ManageUser";
 import Managecontent from "./components/Admin/ManageContent";
 import Manageprayer from "./components/Admin/Manageprayer";
 import AdminFPW from "./components/Admin/AdminFPW";
+import AdminAddPictures from "./components/Admin/AdminAddPictures";
 
 // User imports
 import UserLogin from "./components/User/UserLogin";
@@ -41,9 +42,10 @@ function App() {
         <Route path="/manageuser" element={<Manageuser />} />
         <Route path="/managecontent" element={<Managecontent />} />
         <Route path="/manageprayer" element={<Manageprayer />} />
-        <Route path="/managefeedback" element={<Managefeedback />} />
-        <Route path="/forgot-password" element={<UserFPW />} />
-        <Route path="/adminfpw" element={<AdminFPW />} />
+  <Route path="/managefeedback" element={<Managefeedback />} />
+  <Route path="/adminaddpictures" element={<AdminAddPictures />} />
+  <Route path="/forgot-password" element={<UserFPW />} />
+  <Route path="/adminfpw" element={<AdminFPW />} />
 
         {/* User routes */}
         <Route path="/login" element={<UserLogin />} />
