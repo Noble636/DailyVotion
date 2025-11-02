@@ -240,17 +240,17 @@ function UserJournal() {
             Bible Guide
           </button>
       {showBibleGuide && (
-        <div className="journal-bibleguide-overlay">
+        <div className="journal-bibleguide-overlay" style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 99999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div
             className="journal-bibleguide-popup-movable"
             ref={bibleGuidePopupRef}
-            style={{ left: bibleGuidePopupPos.x, top: bibleGuidePopupPos.y, width: 420 }} // reduced width
+            style={{ left: bibleGuidePopupPos.x, top: bibleGuidePopupPos.y, width: 420, position: 'absolute', background: '#fff', borderRadius: 8, boxShadow: '0 18px 48px rgba(0,0,0,0.22)' }}
             role="dialog"
-            aria-modal="false"
+            aria-modal="true"
           >
             <div
               className="journal-bibleguide-header"
-              style={{ background: 'linear-gradient(90deg,#0b6b66,#078f8b)', color: '#fff', padding: '10px 16px', cursor: 'grab', userSelect: 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+              style={{ background: 'linear-gradient(90deg,#0b6b66,#078f8b)', color: '#fff', padding: '10px 16px', cursor: 'grab', userSelect: 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTopLeftRadius: 8, borderTopRightRadius: 8 }}
               onMouseDown={startBibleGuideDrag}
             >
               <span style={{ fontWeight: 700, fontSize: '1.08rem' }}>Bible Reading Guide</span>
@@ -294,14 +294,14 @@ function UserJournal() {
       {/* Bible Guide image zoom modal */}
       {zoomImage && (
         <div style={{
-          position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.7)', zIndex: 99999, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'
+          position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.7)', zIndex: 999999, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'
         }}>
           <div style={{ position: 'absolute', top: 24, right: 32 }}>
             <button onClick={() => setZoomImage(null)} style={{ background: '#008b8b', color: '#fff', border: 'none', borderRadius: 6, fontSize: 22, padding: '6px 16px', cursor: 'pointer' }}>×</button>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
             <button onClick={() => setZoomLevel(z => Math.max(z - 0.2, 0.5))} style={{ background: '#fff', color: '#008b8b', border: 'none', borderRadius: 6, fontSize: 20, padding: '8px 16px', cursor: 'pointer', fontWeight: 'bold' }}>-</button>
-            <img src={zoomImage} alt="Bible Guide" style={{ maxWidth: '90vw', maxHeight: '80vh', transform: `scale(${zoomLevel})`, transition: 'transform 0.2s', borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.18)' }} />
+            <img src={zoomImage.filename ? `https://dailyvotionbackend-91wt.onrender.com/uploads/${zoomImage.filename}` : (zoomImage.base64 ? zoomImage.base64 : '')} alt="Bible Guide" style={{ maxWidth: '90vw', maxHeight: '80vh', transform: `scale(${zoomLevel})`, transition: 'transform 0.2s', borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.18)' }} />
             <button onClick={() => setZoomLevel(z => Math.min(z + 0.2, 3))} style={{ background: '#fff', color: '#008b8b', border: 'none', borderRadius: 6, fontSize: 20, padding: '8px 16px', cursor: 'pointer', fontWeight: 'bold' }}>+</button>
           </div>
           <div style={{ color: '#fff', marginTop: 12, fontSize: '1rem' }}>Zoom: {Math.round(zoomLevel * 100)}%</div>
