@@ -50,7 +50,10 @@ function AdminAddPictures() {
         body: JSON.stringify({ adminId })
       });
       if (res.ok) {
-        setAlbums(albums.filter(a => a.id !== albumId));
+        // Refetch albums from backend so dropdown updates
+        fetch("https://dailyvotionbackend-91wt.onrender.com/api/gallery/albums")
+          .then(res => res.json())
+          .then(data => setAlbums(data));
         setGalleryStatus("Album deleted.");
         setAlbumImages(prev => {
           const copy = { ...prev };
