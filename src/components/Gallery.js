@@ -32,8 +32,42 @@ const albums = [
 ];
 
 function Gallery() {
+  const [albums, setAlbums] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [images, setImages] = useState([]);
   const [fullscreenImg, setFullscreenImg] = useState(null);
+  const [fullscreenImgName, setFullscreenImgName] = useState("");
+
+  useEffect(() => {
+    fetch("/api/gallery/albums")
+      .then(res => res.json())
+      .then(data => setAlbums(data));
+  }, []);
+
+  useEffect(() => {
+    if (selectedAlbum !== null) {
+      const albumId = albums[selectedAlbum]?.id;
+      if (albumId) {
+        fetch(`/api/gallery/album/${albumId}/images`)
+          .then(res => res.json())
+          .then(data => setImages(data));
+      }
+    } else {
+      setImages([]);
+    }
+  }, [selectedAlbum, albums]);
+
+  const getImageBase64 = async (imageId) => {
+    const res = await fetch(`/api/gallery/image/${imageId}`);
+    const data = await res.json();
+    return data.base64;
+  };
+
+  const handleThumbClick = async (img) => {
+    const base64 = await getImageBase64(img.id);
+    setFullscreenImg(base64);
+    setFullscreenImgName(img.image_name);
+  };
 
   return (
     <div className="gallery-container">
@@ -64,7 +98,7 @@ function Gallery() {
       {selectedAlbum === null && (
         <div className="gallery-albums">
           {albums.map((album, idx) => (
-            <div className="gallery-album-card" key={album.name} onClick={() => setSelectedAlbum(idx)}>
+            <div className="gallery-album-card" key={album.id} onClick={() => setSelectedAlbum(idx)}>
               <div className="gallery-album-title">{album.name}</div>
             </div>
           ))}
@@ -72,23 +106,35 @@ function Gallery() {
       )}
       {selectedAlbum !== null && !fullscreenImg && (
         <div className="gallery-images" style={{ marginTop: "120px", position: "absolute", left: 0, right: 0 }}>
-          {albums[selectedAlbum].images.map((img, i) => (
-            <img
-              key={img}
-              src={albums[selectedAlbum].folder + img}
-              alt={img}
-              className="gallery-img-thumb"
-              onClick={() => setFullscreenImg(albums[selectedAlbum].folder + img)}
-            />
+          {images.map((img, i) => (
+            <GalleryImageThumb key={img.id} img={img} onClick={() => handleThumbClick(img)} />
           ))}
         </div>
       )}
       {fullscreenImg && (
         <div className="gallery-fullscreen" onClick={() => setFullscreenImg(null)}>
-          <img src={fullscreenImg} alt="Full" className="gallery-full-img" />
+          <img src={fullscreenImg} alt={fullscreenImgName || "Full"} className="gallery-full-img" />
         </div>
       )}
     </div>
+  );
+}
+
+function GalleryImageThumb({ img, onClick }) {
+  const [src, setSrc] = useState("");
+  useEffect(() => {
+    fetch(`/api/gallery/image/${img.id}`)
+      .then(res => res.json())
+      .then(data => setSrc(data.base64));
+  }, [img.id]);
+  return (
+    <img
+      src={src}
+      alt={img.image_name || "Gallery"}
+      className="gallery-img-thumb"
+      onClick={onClick}
+      style={{ cursor: 'pointer' }}
+    />
   );
 }
 

@@ -63,6 +63,14 @@ function AdminDashboard() {
             </p>
             <button className="admindash-btn" onClick={() => navigate("/managefeedback")}>Manage Feedback</button>
           </div>
+
+          <div className="admindash-card">
+            <h2>Gallery & Bible Guide</h2>
+            <p>
+              Upload pictures for gallery albums and Bible Reading Guide.
+            </p>
+            <button className="admindash-btn" onClick={() => navigate("/adminaddpictures")}>Upload Pictures</button>
+          </div>
         </div>
       </div>
     </div>
