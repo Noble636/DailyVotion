@@ -230,48 +230,69 @@ function AdminAddPictures() {
             </div>
           </form>
 
-          {/* List albums with delete option and images */}
-          <div className="adminaddpics-album-list" style={{ marginBottom: '2rem' }}>
-            {albums.length === 0 ? (
-              <div style={{ color: '#d32f2f', fontWeight: 500 }}>No albums found.</div>
-            ) : (
-              albums.map(album => (
-                <div key={album.id} style={{ marginBottom: '1.5rem', border: '1px solid #e0e0e0', borderRadius: 10, padding: '1rem', background: '#f7f8fa' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                    <span style={{ fontWeight: 600, fontSize: '1.08rem', color: '#008b8b' }}>{album.name}</span>
-                    <button
-                      className="adminaddpics-btn"
-                      style={{ background: '#d32f2f', marginLeft: 12, padding: '0.4rem 1rem' }}
-                      disabled={deletingAlbumId === album.id}
-                      onClick={() => handleDeleteAlbum(album.id)}
-                    >
-                      {deletingAlbumId === album.id ? 'Deleting...' : 'Delete Album'}
-                    </button>
-                  </div>
-                  {/* Show images in album */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-                    {(albumImages[album.id] && albumImages[album.id].length > 0) ? (
-                      albumImages[album.id].map(img => (
-                        <div key={img.id} style={{ position: 'relative', background: '#fff', borderRadius: 8, boxShadow: '0 1px 4px rgba(0,0,0,0.08)', padding: 6, width: 90, height: 90, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <img src={img.url || `data:image/jpeg;base64,${img.base64 || img.image_base64}`} alt={img.image_name || 'Photo'} style={{ maxWidth: 80, maxHeight: 80, borderRadius: 6, objectFit: 'cover' }} />
-                          <button
-                            className="adminaddpics-btn"
-                            style={{ position: 'absolute', top: 4, right: 4, background: '#d32f2f', color: '#fff', fontSize: '0.85rem', padding: '2px 8px', borderRadius: 6, zIndex: 2 }}
-                            disabled={deletingPhotoId === img.id}
-                            onClick={() => handleDeletePhoto(album.id, img.id)}
-                          >
-                            {deletingPhotoId === img.id ? 'Deleting...' : 'Delete'}
-                          </button>
-                        </div>
-                      ))
-                    ) : (
-                      <span style={{ color: '#888', fontSize: '0.98rem' }}>No photos in this album.</span>
-                    )}
-                  </div>
-                </div>
-              ))
-            )}
+          {/* Album selection dropdown */}
+          <div className="adminaddpics-form" style={{ marginBottom: '1.5rem' }}>
+            <label className="adminaddpics-label">Select Album:</label>
+            <select className="adminaddpics-select" value={selectedAlbumId} onChange={e => setSelectedAlbumId(e.target.value)} required>
+              <option value="">Select Album</option>
+              {albums.map(album => (
+                <option key={album.id} value={album.id}>{album.name}</option>
+              ))}
+            </select>
           </div>
+
+          {/* Show selected album actions and images */}
+          {selectedAlbumId && (
+            <div style={{ marginBottom: '2rem', border: '1px solid #e0e0e0', borderRadius: 10, padding: '1rem', background: '#f7f8fa' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                <span style={{ fontWeight: 600, fontSize: '1.08rem', color: '#008b8b' }}>{albums.find(a => a.id === selectedAlbumId)?.name}</span>
+                <button
+                  className="adminaddpics-btn"
+                  style={{ background: '#d32f2f', marginLeft: 12, padding: '0.4rem 1rem' }}
+                  disabled={deletingAlbumId === selectedAlbumId}
+                  onClick={() => handleDeleteAlbum(selectedAlbumId)}
+                >
+                  {deletingAlbumId === selectedAlbumId ? 'Deleting...' : 'Delete Album'}
+                </button>
+              </div>
+              {/* Show images in selected album */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+                {(albumImages[selectedAlbumId] && albumImages[selectedAlbumId].length > 0) ? (
+                  albumImages[selectedAlbumId].map(img => (
+                    <div key={img.id} style={{ position: 'relative', background: '#fff', borderRadius: 8, boxShadow: '0 1px 4px rgba(0,0,0,0.08)', padding: 6, width: 90, height: 90, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <img src={img.url || `data:image/jpeg;base64,${img.base64 || img.image_base64}`} alt={img.image_name || 'Photo'} style={{ maxWidth: 80, maxHeight: 80, borderRadius: 6, objectFit: 'cover' }} />
+                      <button
+                        className="adminaddpics-btn"
+                        style={{ position: 'absolute', top: 4, right: 4, background: '#d32f2f', color: '#fff', fontSize: '0.85rem', padding: '2px 8px', borderRadius: 6, zIndex: 2 }}
+                        disabled={deletingPhotoId === img.id}
+                        onClick={() => handleDeletePhoto(selectedAlbumId, img.id)}
+                      >
+                        {deletingPhotoId === img.id ? 'Deleting...' : 'Delete'}
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <span style={{ color: '#888', fontSize: '0.98rem' }}>No photos in this album.</span>
+                )}
+              </div>
+              {/* Upload images to selected album */}
+              <form onSubmit={handleGalleryUpload} className="adminaddpics-form" style={{ marginTop: '1.5rem' }}>
+                <label className="adminaddpics-label">Upload Images:</label>
+                <input className="adminaddpics-input" type="file" accept="image/*" multiple onChange={handleGalleryImageChange} required />
+                {/* Preview selected images */}
+                {galleryImagePreviews.length > 0 && (
+                  <div className="adminaddpics-preview-wrap">
+                    {galleryImagePreviews.map((src, idx) => (
+                      <div key={idx} className="adminaddpics-preview-imgbox">
+                        <img src={src} alt={`Preview ${idx + 1}`} className="adminaddpics-preview-img" />
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <button className="adminaddpics-btn" type="submit">Upload to Album</button>
+              </form>
+            </div>
+          )}
           <form onSubmit={handleGalleryUpload} className="adminaddpics-form">
             <label className="adminaddpics-label">Select Album:</label>
             <select className="adminaddpics-select" value={selectedAlbumId} onChange={e => setSelectedAlbumId(e.target.value)} required>
