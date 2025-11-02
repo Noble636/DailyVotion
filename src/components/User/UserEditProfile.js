@@ -91,7 +91,7 @@ function UserEditProfile() {
         setTimeout(() => {
           setShowInfoPopup(false);
           // Redirect to UserProfile.js after popup
-          window.location.href = '/userprofile';
+          window.location.href = '/profile';
         }, 1200);
         window.dispatchEvent(new Event('profileUpdated'));
       } else {
