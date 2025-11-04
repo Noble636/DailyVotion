@@ -1,6 +1,8 @@
 .userfeedback-container {
   min-height: 100vh;
-  background: #e0d0f0;
+  background: linear-gradient(120deg, #08a3ad 0%, #43e9f6 25%, #00c6b2 50%, #008b8b 75%, #005e5e 100%);
+  background-size: 200% 200%;
+  animation: userlogin-colorwave 12s ease-in-out infinite;
   font-family: 'Segoe UI', Arial, sans-serif;
   display: flex;
   flex-direction: column;
@@ -9,8 +11,11 @@
   box-sizing: border-box;
   padding-top: 70px;
 }
-
-
+@keyframes userlogin-colorwave {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
 .userfeedback-container > .topbar-container {
   position: fixed;
   top: 0;
@@ -26,11 +31,11 @@
   margin-top: 2.5rem;
   width: 100%;
   max-width: 500px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(60,60,60,0.12), 0 1px 4px rgba(60,60,60,0.10);
-  padding: 2rem 1.5rem;
-  border: 1.5px solid #e0f7fa;
+  background: radial-gradient(circle at 20% 20%, rgba(220,220,220,0.85) 0%, rgba(220,220,220,0.75) 60%, rgba(200,200,200,0.6) 100%);
+  border-radius: 22px;
+  box-shadow: 12px 18px 40px 0 rgba(0,0,0,0.32), 4px 8px 16px 0 rgba(0,139,139,0.18);
+  padding: 2.5rem 2rem;
+  border: 2.5px solid #fff;
 }
 
 .userfeedback-topbar {
@@ -120,9 +125,11 @@
 
 .userfeedback-title {
   color: #008b8b;
-  font-size: 1.3rem;
+  font-size: 1.7rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  text-align: center;
+  text-shadow: 0 0 2px #fff, 0 2px 8px #fff, 0 0 8px #008b8b;
 }
 .userfeedback-explanation {
   color: #333;
@@ -130,10 +137,11 @@
   font-size: 1rem;
 }
 .userfeedback-textarea {
-  width: 98%;
-  margin-bottom: 1rem;
-  margin-left: 1%;
-  margin-right: 1%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  margin-top: 1.2rem;
   padding: 0.7rem;
   border-radius: 6px;
   border: 1px solid #cce4e4;
@@ -144,6 +152,7 @@
 .userfeedback-btns {
   display: flex;
   gap: 1rem;
+  margin-top: 1.2rem;
   justify-content: flex-end;
 }
 .userfeedback-btn {
