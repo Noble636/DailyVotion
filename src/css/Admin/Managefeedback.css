@@ -104,17 +104,19 @@
 
 
 .managefeedback-list {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.55);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 139, 139, 0.13), 0 2px 8px rgba(44, 62, 80, 0.10);
   padding: 2rem 1.5rem;
   min-width: 340px;
   max-width: 440px;
-  border: none;
+  border: 2px solid #fff;
   margin: 0 auto 2rem auto;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 
@@ -162,7 +164,8 @@
   font-size: 2.3rem;
   font-weight: bold;
   text-align: center;
-  text-shadow: 0 2px 8px #008b8b, 0 0 12px #2d3e50;
+  text-shadow: 0 2px 8px #008b8b, 0 0 12px #2d3e50, 0 0 2px #fff;
   margin: 2rem 0 1rem 0;
   letter-spacing: 1px;
+  -webkit-text-stroke: 1px #fff;
 }

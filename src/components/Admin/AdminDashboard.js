@@ -64,7 +64,7 @@ function AdminDashboard() {
             <button className="admindash-btn" onClick={() => navigate("/managefeedback")}>Manage Feedback</button>
           </div>
 
-          <div className="admindash-card">
+          <div className="admindash-card" style={{ gridColumn: "1 / span 2", justifySelf: "center" }}>
             <h2>Gallery & Bible Guide</h2>
             <p>
               Upload pictures for gallery albums and Bible Reading Guide.

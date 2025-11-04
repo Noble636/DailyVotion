@@ -154,10 +154,7 @@ function ManageContent() {
                   type="button"
                   style={{ background: "#d32f2f" }}
                   onClick={() => {
-                    setContentText("");
-                    setDeliveryStatus("");
-                    setSelectedUsers([]);
-                    setSelectAll(false);
+                    navigate("/admindashboard");
                   }}
                 >
                   Cancel

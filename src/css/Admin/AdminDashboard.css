@@ -105,10 +105,11 @@
 }
 
 .admindash-card {
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 4px 16px rgba(0,139,139,0.10);
-  padding: 1rem 0.9rem;
+  background: rgba(255,255,255,0.82);
+  border-radius: 18px;
+  box-shadow: 12px 18px 40px 0 rgba(0,0,0,0.18), 4px 8px 16px 0 rgba(0,139,139,0.10);
+  border: 2.5px solid #fff;
+  padding: 1.5rem 1.2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -117,13 +118,14 @@
   height: 100%;
   position: relative;
   box-sizing: border-box;
+  backdrop-filter: blur(8px) saturate(120%);
 }
 
 .admindash-card h2 {
   color: #008b8b;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   margin-bottom: 0.7rem;
-  text-shadow: none;
+  text-shadow: 0 0 2px #fff, 0 2px 8px #fff, 0 0 8px #008b8b;
 }
 
 .admindash-card p {
@@ -285,4 +287,10 @@
 .admindash-main {
   position: relative;
   z-index: 1;
+}
+
+.admindash-gallery-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
