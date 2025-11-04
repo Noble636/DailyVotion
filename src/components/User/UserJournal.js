@@ -113,6 +113,7 @@ function UserJournal() {
   const [popupPos, setPopupPos] = useState({ x: 160, y: 120 });
   const dragRef = useRef({ dragging: false, offsetX: 0, offsetY: 0 });
   const popupRef = useRef(null);
+  const [biblePopupSize, setBiblePopupSize] = useState({ width: 610, height: window.innerHeight * 0.8 });
 
   useEffect(() => {
     const handleMove = (e) => {
@@ -360,7 +361,7 @@ function UserJournal() {
         <div className="journalpage-main">
           <div className="journalpage-soap-row">
             {soapSections.map((section) => (
-              <div className="journalpage-soap-col" key={section.key}>
+              <div className={`journalpage-soap-col${!visibleSections[section.key] ? " closed" : ""}`} key={section.key}>
                 <button
                   className={`journalpage-soap-btn${visibleSections[section.key] ? " active" : ""}`}
                   title={section.label}
@@ -369,19 +370,19 @@ function UserJournal() {
                   {section.label}
                 </button>
                 <div
-                  className="journalpage-guide-text"
+                  className={`journalpage-guide-text${!visibleSections[section.key] ? " closed" : ""}`}
                   style={{
-                    visibility: visibleSections[section.key] ? "visible" : "hidden",
-                    height: "40px",
+                    display: visibleSections[section.key] ? "flex" : "none",
+                    height: visibleSections[section.key] ? "40px" : "0",
                   }}
                 >
                   {section.description}
                 </div>
                 <div
-                  className="journalpage-section-box"
+                  className={`journalpage-section-box${!visibleSections[section.key] ? " closed" : ""}`}
                   style={{
-                    visibility: visibleSections[section.key] ? "visible" : "hidden",
-                    height: "140px",
+                    display: visibleSections[section.key] ? "flex" : "none",
+                    height: visibleSections[section.key] ? "320px" : "0",
                   }}
                 >
                   <label className="journalpage-section-label">{section.label}:</label>
@@ -435,10 +436,17 @@ function UserJournal() {
       {showBible && (
         <div
           className="journalpage-bible-popup"
-          style={{ left: popupPos.x, top: popupPos.y }}
+          style={{ left: popupPos.x, top: popupPos.y, width: biblePopupSize.width, height: biblePopupSize.height }}
           role="dialog"
           aria-modal="false"
           ref={popupRef}
+          onMouseUp={e => {
+            // Save size after manual resize
+            if (popupRef.current) {
+              const rect = popupRef.current.getBoundingClientRect();
+              setBiblePopupSize({ width: rect.width, height: rect.height });
+            }
+          }}
         >
           <div className="bible-header" onMouseDown={startDrag}>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -457,6 +465,24 @@ function UserJournal() {
                 aria-controls="bible-info-card"
               >
                 Bible Info
+              </button>
+              <button
+                type="button"
+                className="bible-close-btn"
+                onClick={() => setShowBible(false)}
+                aria-label="Close Bible"
+                style={{
+                  background: "#d32f2f",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "6px",
+                  fontWeight: 600,
+                  fontSize: "1rem",
+                  padding: "6px 14px",
+                  cursor: "pointer"
+                }}
+              >
+                ×
               </button>
             </div>
           </div>
