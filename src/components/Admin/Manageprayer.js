@@ -125,6 +125,9 @@ function ManagePrayer() {
             <div className="manageprayer-main">
                 <div className="manageprayer-requests">
                     <h2>Prayer Requests</h2>
+                    <div style={{ color: '#888', fontSize: '1rem', marginBottom: '1.2rem', marginTop: '0.2rem', textAlign: 'left' }}>
+                        Prayer requests will be displayed here. If there are no requests, this area will be empty. You can view and respond to requests below.
+                    </div>
                     <ul style={{ padding: 0, margin: 0, listStyle: "none" }}>
                         {prayerRequests.length === 0 ? (
                             <li style={{ color: '#888', padding: '1rem', textAlign: 'center' }}>No Prayer Requests Yet</li>

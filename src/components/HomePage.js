@@ -7,7 +7,6 @@ const DailyVotion = () => {
   const navigate = useNavigate();
   const seekBarRef = useRef();
 
-  // Helper to check login status
   const isUserLoggedIn = !!localStorage.getItem('userId');
   const isAdminLoggedIn = !!localStorage.getItem('adminId') || !!sessionStorage.getItem('adminUser');
   useEffect(() => {
